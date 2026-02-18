@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+- Migrated runtime database access from native `better-sqlite3` bindings to a serverless-safe `node:sqlite` adapter (`SqlDatabase` abstraction in `src/db.ts`).
+- Added FTS5 indexes/triggers for architecture patterns and technical standards and moved domain search onto `MATCH` queries.
+- Added cursor-based pagination and explicit `scope_status` output to `search_domain_knowledge` and `get_healthcare_threats`.
+- Added `detail_level` controls (`summary`/`standard`/`full`) to high-volume tools (`get_healthcare_threats`, `assess_healthcare_applicability`).
+- Added automatic JSON-schema examples to all tool definitions exposed through `tools/list`.
+- Reworked source freshness checks to support optional live authoritative endpoint probing (`SOURCE_LIVE_CHECK` / strict mode).
+- Added release integrity verification script (`npm run verify:release`) and wired publish workflow to enforce strict live upstream regression before publish.
+- Added canonical tool-coverage gate (`npm run test:coverage`) into `test:ci`.
 - Added tag-driven npm publish workflow with provenance attestation (`.github/workflows/publish.yml`).
 - Aligned MCP registry identity metadata (`mcpName` and `server.json.name` now both `eu.ansvar/healthcare-intelligence`).
 - Expanded tool input schemas with complete parameter-level descriptions/defaults to improve agent self-selection and argument construction reliability.

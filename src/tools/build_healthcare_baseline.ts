@@ -1,4 +1,4 @@
-import type Database from 'better-sqlite3';
+import type { SqlDatabase } from '../db.js';
 import type { BuildHealthcareBaselineInput, ToolError } from '../types.js';
 
 type BaselineControl = {
@@ -50,7 +50,7 @@ function buildCoreControls(): BaselineControl[] {
 }
 
 export function buildHealthcareBaseline(
-  db: Database.Database,
+  db: SqlDatabase,
   args: unknown,
 ): Record<string, unknown> | ToolError {
   const input = args as BuildHealthcareBaselineInput & {

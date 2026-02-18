@@ -1,4 +1,4 @@
-import type Database from 'better-sqlite3';
+import type { SqlDatabase } from '../db.js';
 import { parseJsonArray } from '../db.js';
 import {
   countryCodeFromUsJurisdiction,
@@ -395,7 +395,7 @@ function buildSynthesizedCountryObligations(
 }
 
 export function assessHealthcareApplicability(
-  db: Database.Database,
+  db: SqlDatabase,
   args: unknown,
 ): Record<string, unknown> | ToolError {
   const input = args as AssessHealthcareApplicabilityInput & {
@@ -403,6 +403,7 @@ export function assessHealthcareApplicability(
     role?: string;
     system_types?: string[];
     data_types?: string[];
+    detail_level?: 'summary' | 'standard' | 'full';
     additional_context?: {
       has_medical_devices?: boolean;
       uses_ai_for_clinical_decisions?: boolean;
@@ -412,6 +413,7 @@ export function assessHealthcareApplicability(
   };
 
   const countryCodes = parseCountryCodes(input.country, input.additional_context?.country_codes);
+  const detailLevel = input.detail_level ?? 'full';
   const countryJurisdiction = [...new Set(countryCodes.flatMap((countryCode) => countryToJurisdiction(countryCode)))];
 
   const derivedProfile = input.organization_profile ?? {
@@ -633,7 +635,7 @@ export function assessHealthcareApplicability(
     synthesizedCountries.length > 0 ||
     unsupportedCountries.length > 0;
 
-  return {
+  const fullResponse = {
     organization_profile: profile,
     input_profile: {
       country: input.country ?? null,
@@ -641,7 +643,9 @@ export function assessHealthcareApplicability(
       role: input.role ?? null,
       system_types: inputSystemTypes,
       data_types: inputDataTypes,
+      detail_level: detailLevel,
     },
+    scope_status: obligations.length > 0 ? 'in_scope' : outOfScope.length > 0 ? 'out_of_scope' : 'not_indexed',
     domain_flags: domainFlags,
     obligations,
     baseline_priority: baselinePriority,
@@ -672,4 +676,48 @@ export function assessHealthcareApplicability(
       'Call build_healthcare_baseline to materialize control priorities.',
     ],
   };
+
+  if (detailLevel === 'summary') {
+    return {
+      organization_profile: profile,
+      input_profile: fullResponse.input_profile,
+      scope_status: fullResponse.scope_status,
+      baseline_priority: fullResponse.baseline_priority,
+      obligation_count: obligations.length,
+      top_obligations: obligations.slice(0, 5).map((obligation) => ({
+        obligation_id: obligation.obligation_id,
+        name: obligation.name,
+        jurisdiction: obligation.jurisdiction,
+        priority: obligation.priority,
+        source_router: obligation.source_router,
+      })),
+      router_calls_required: fullResponse.router_calls_required,
+      overlay_summary: fullResponse.overlay_summary,
+      decision_quality: fullResponse.decision_quality,
+      next_actions: fullResponse.next_actions,
+    };
+  }
+
+  if (detailLevel === 'standard') {
+    return {
+      ...fullResponse,
+      conflict_resolution: fullResponse.conflict_resolution,
+      contracting_obligations: fullResponse.contracting_obligations,
+      obligations: fullResponse.obligations.map((obligation) => ({
+        obligation_id: obligation.obligation_id,
+        name: obligation.name,
+        jurisdiction: obligation.jurisdiction,
+        priority: obligation.priority,
+        source_router: obligation.source_router,
+        regulation_refs: obligation.regulation_refs,
+        standard_refs: obligation.standard_refs,
+        confidence: obligation.confidence,
+        basis: obligation.basis,
+        overlay: obligation.overlay ?? false,
+        synthesized: obligation.synthesized ?? false,
+      })),
+    };
+  }
+
+  return fullResponse;
 }

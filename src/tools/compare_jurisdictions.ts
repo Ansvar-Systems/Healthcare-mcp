@@ -1,4 +1,4 @@
-import type Database from 'better-sqlite3';
+import type { SqlDatabase } from '../db.js';
 import { jurisdictionFamily, normalizeJurisdictionCode } from '../jurisdictions.js';
 import type { CompareJurisdictionsInput, ToolError } from '../types.js';
 import { resolveAuthoritativeContext } from './resolve_authoritative_context.js';
@@ -9,7 +9,7 @@ function containsAny(value: string, terms: string[]): boolean {
 }
 
 export async function compareJurisdictions(
-  db: Database.Database,
+  db: SqlDatabase,
   args: unknown,
 ): Promise<Record<string, unknown> | ToolError> {
   const input = args as CompareJurisdictionsInput;

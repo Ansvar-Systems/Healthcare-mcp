@@ -21,3 +21,7 @@ jobs:
           cache: npm
       - run: npm ci --ignore-scripts
       - run: npm run check:source-updates
+        env:
+          SOURCE_LIVE_CHECK: "1"
+          SOURCE_LIVE_CHECK_STRICT: "1"
+          SOURCE_STALE_THRESHOLD_DAYS: "45"

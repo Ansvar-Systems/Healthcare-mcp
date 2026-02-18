@@ -68,6 +68,11 @@ For countries/states without an explicit overlay pack, the applicability engine 
 3. Healthcare MCP returns routed references for regulation/control MCP calls.
 4. Agent composes final outputs from authoritative text + healthcare context.
 
+Response optimization additions:
+- `detail_level` (`summary`, `standard`, `full`) on high-volume tools such as `get_healthcare_threats` and `assess_healthcare_applicability`.
+- Cursor pagination (`cursor`, `pagination.next_cursor`) on `search_domain_knowledge` and `get_healthcare_threats`.
+- Explicit `scope_status` (`in_scope`, `not_indexed`, `out_of_scope`) for routing confidence in search/risk-applicability responses.
+
 ## Local Development
 
 ```bash
@@ -79,6 +84,7 @@ npm run test:benchmark
 npm run drift:hashes
 npm run drift:verify
 npm run check:source-updates
+npm run verify:release
 ```
 
 Run stdio server:
@@ -140,9 +146,12 @@ Requires one or more configured upstream endpoint environment variables.
 - Expert benchmark grade gate (`fixtures/expert-benchmark.json`)
 - Transport parity test (`registry` manifest vs live `/mcp` tools list)
 - Drift hash generation and verification in CI
+- Canonical tool-coverage gate for all non-alias tools (`npm run test:coverage`)
 - 6-layer security scan workflow in GitHub Actions
 - Source freshness check workflow
+- Live source endpoint checks via `SOURCE_LIVE_CHECK=1`
 - Scheduled live upstream authoritative regression workflow
+- Tag-publish gating with strict live-upstream regression + release metadata integrity verification
 - Dual transport support (`stdio` and streamable HTTP `/mcp`)
 
 ## Current Status

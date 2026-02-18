@@ -1,4 +1,4 @@
-import type Database from 'better-sqlite3';
+import type { SqlDatabase } from '../db.js';
 import type { Server } from '@modelcontextprotocol/sdk/server/index.js';
 import {
   CallToolRequestSchema,
@@ -36,11 +36,167 @@ interface ToolDefinition {
     type: 'object';
     properties: Record<string, unknown>;
     required?: string[];
+    examples?: Array<Record<string, unknown>>;
   };
-  handler: (db: Database.Database, args: unknown) => unknown | Promise<unknown>;
+  handler: (db: SqlDatabase, args: unknown) => unknown | Promise<unknown>;
 }
 
-function dbMeta(db: Database.Database, key: string): string | null {
+type SchemaNode = {
+  type?: string;
+  enum?: unknown[];
+  default?: unknown;
+  minimum?: number;
+  properties?: Record<string, SchemaNode>;
+  required?: string[];
+  items?: SchemaNode;
+};
+
+const TOOL_EXAMPLES: Record<string, Array<Record<string, unknown>>> = {
+  about: [{}],
+  list_sources: [{ source_type: 'regulation_index' }],
+  list_architecture_patterns: [{ category: 'EHR' }],
+  list_profiles: [{ profile_type: 'jurisdiction_overlays' }],
+  classify_data: [
+    {
+      description: 'Hospital EHR stores diagnoses, lab panels, and genetic reports for US and EU clinics.',
+      jurisdictions: ['US', 'EU'],
+    },
+  ],
+  classify_health_data: [
+    {
+      description: 'Behavioral health platform stores mental-health notes and substance-use treatment history.',
+      jurisdictions: ['US-CA'],
+    },
+  ],
+  classify_medical_device: [
+    {
+      description: 'Cloud-connected infusion pump software adjusts dosage using predictive analytics.',
+      region: 'US_EU',
+      data_types: ['ephi', 'device_telemetry'],
+    },
+  ],
+  get_architecture_pattern: [{ pattern_id: 'hc-ehr' }],
+  get_domain_threats: [{ pattern_id: 'hc-ehr', include_playbooks: true, limit: 5 }],
+  get_healthcare_threats: [{ pattern_id: 'hc-ehr', include_playbooks: true, detail_level: 'standard', limit: 5 }],
+  get_threat_response_playbook: [{ threat_id: 'th_hl7_fhir_token_theft' }],
+  assess_healthcare_applicability: [
+    {
+      country: 'US-CA,DE',
+      role: 'provider',
+      system_types: ['ehr', 'medical_device'],
+      data_types: ['ephi', 'genetic_data'],
+      detail_level: 'standard',
+      additional_context: {
+        has_medical_devices: true,
+        uses_ai_for_clinical_decisions: true,
+      },
+    },
+  ],
+  assess_applicability: [
+    {
+      organization_profile: {
+        jurisdictions: ['US-CA', 'DE'],
+        entity_type: 'provider',
+        data_categories: ['ephi', 'special_category_health_data'],
+        has_medical_devices: true,
+        uses_ai_for_clinical_decisions: true,
+      },
+      detail_level: 'summary',
+    },
+  ],
+  map_to_technical_standards: [{ input_type: 'requirement', input_id: 'FDA_524B' }],
+  map_to_healthcare_standards: [{ input_type: 'threat', input_id: 'th_iomt_ransomware_clinical_ops' }],
+  search_domain_knowledge: [{ query: 'FHIR token theft', content_type: 'threat', limit: 5 }],
+  assess_breach_obligations: [
+    {
+      jurisdictions: ['US', 'EU'],
+      data_categories: ['ephi', 'special_category_health_data'],
+      incident_summary: 'Unauthorized cloud export of patient and genetic records.',
+    },
+  ],
+  build_healthcare_baseline: [
+    {
+      organization_profile: {
+        jurisdictions: ['US-CA'],
+        entity_type: 'provider',
+        data_categories: ['ephi'],
+        architecture_patterns: ['hc-ehr'],
+        has_medical_devices: false,
+      },
+    },
+  ],
+  build_control_baseline: [
+    {
+      org_profile: {
+        jurisdictions: ['DE'],
+        entity_type: 'provider',
+        data_categories: ['special_category_health_data'],
+      },
+    },
+  ],
+  build_evidence_plan: [{ audit_type: 'MDR_IVDR', baseline_control_ids: ['FDA_524B_VULN_MGMT'] }],
+  create_remediation_backlog: [
+    {
+      current_state: { implemented_controls: ['AU-2'], known_gaps: ['Missing device SBOM workflow'] },
+      target_baseline: { controls: [{ control_id: 'AC-6' }] },
+    },
+  ],
+  compare_jurisdictions: [{ topic: 'breach notification', jurisdictions: ['US-CA', 'DE'] }],
+  resolve_authoritative_context: [{ topic: 'HIPAA safeguards and GDPR Article 9', jurisdictions: ['US', 'EU'] }],
+  get_protocol_security: [{ protocol: 'SMART on FHIR' }],
+  assess_clinical_risk: [{ threat_scenario: 'Infusion pump command tampering in ICU', clinical_setting: 'ICU' }],
+  map_hipaa_safeguards: [{ system_description: 'Cloud-hosted patient portal integrated with EHR', data_types: ['ephi'] }],
+};
+
+function buildSchemaExample(node: SchemaNode, keyHint = 'value'): unknown {
+  if (node.default !== undefined) {
+    return node.default;
+  }
+  if (Array.isArray(node.enum) && node.enum.length > 0) {
+    return node.enum[0];
+  }
+  if (node.type === 'string') {
+    return keyHint.includes('id') ? 'example_id' : 'example';
+  }
+  if (node.type === 'number' || node.type === 'integer') {
+    return node.minimum ?? 1;
+  }
+  if (node.type === 'boolean') {
+    return true;
+  }
+  if (node.type === 'array') {
+    const item = node.items ? buildSchemaExample(node.items, keyHint) : 'example';
+    return [item];
+  }
+  if (node.type === 'object') {
+    const required = new Set(node.required ?? []);
+    const properties = node.properties ?? {};
+    const objectExample: Record<string, unknown> = {};
+    for (const [childKey, childNode] of Object.entries(properties)) {
+      if (required.size === 0 || required.has(childKey)) {
+        objectExample[childKey] = buildSchemaExample(childNode, childKey);
+      }
+    }
+    return objectExample;
+  }
+  return 'example';
+}
+
+function schemaWithExamples(toolName: string, schema: ToolDefinition['inputSchema']): ToolDefinition['inputSchema'] {
+  if (Array.isArray(schema.examples) && schema.examples.length > 0) {
+    return schema;
+  }
+  const explicit = TOOL_EXAMPLES[toolName];
+  if (explicit && explicit.length > 0) {
+    return { ...schema, examples: explicit };
+  }
+  return {
+    ...schema,
+    examples: [buildSchemaExample(schema as SchemaNode) as Record<string, unknown>],
+  };
+}
+
+function dbMeta(db: SqlDatabase, key: string): string | null {
   const row = db
     .prepare('SELECT value FROM db_metadata WHERE key = ?')
     .get(key) as { value: string } | undefined;
@@ -282,7 +438,7 @@ function extractOutOfScope(result: unknown): string[] {
 }
 
 function wrapWithMetadata(
-  db: Database.Database,
+  db: SqlDatabase,
   context: AboutContext,
   toolName: string,
   result: unknown,
@@ -538,6 +694,16 @@ export function createToolDefinitions(context: AboutContext): ToolDefinition[] {
             description: 'When true, include operational response playbook actions in each threat record.',
             default: true,
           },
+          detail_level: {
+            type: 'string',
+            enum: ['summary', 'standard', 'full'],
+            description: 'Controls response verbosity. Use summary for token-constrained flows.',
+            default: 'full',
+          },
+          cursor: {
+            type: 'string',
+            description: 'Opaque pagination cursor from a prior get_domain_threats response.',
+          },
           limit: {
             type: 'number',
             minimum: 1,
@@ -573,6 +739,16 @@ export function createToolDefinitions(context: AboutContext): ToolDefinition[] {
             type: 'boolean',
             description:
               'Include threat-specific containment/clinical-safety/forensic/recovery playbook guidance. Default: true.',
+          },
+          detail_level: {
+            type: 'string',
+            enum: ['summary', 'standard', 'full'],
+            description: 'Controls response verbosity. Use summary for token-constrained flows.',
+            default: 'full',
+          },
+          cursor: {
+            type: 'string',
+            description: 'Opaque pagination cursor from a prior get_healthcare_threats response.',
           },
           limit: {
             type: 'number',
@@ -679,6 +855,12 @@ export function createToolDefinitions(context: AboutContext): ToolDefinition[] {
               },
             },
           },
+          detail_level: {
+            type: 'string',
+            enum: ['summary', 'standard', 'full'],
+            description: 'Controls response verbosity. Use summary for orchestration routing steps.',
+            default: 'full',
+          },
         },
       },
       handler: (db, args) => assessHealthcareApplicability(db, args),
@@ -761,6 +943,12 @@ export function createToolDefinitions(context: AboutContext): ToolDefinition[] {
               },
             },
           },
+          detail_level: {
+            type: 'string',
+            enum: ['summary', 'standard', 'full'],
+            description: 'Controls response verbosity. Use summary for orchestration routing steps.',
+            default: 'full',
+          },
         },
       },
       handler: (db, args) => assessHealthcareApplicability(db, args),
@@ -838,6 +1026,10 @@ export function createToolDefinitions(context: AboutContext): ToolDefinition[] {
             minimum: 1,
             maximum: 50,
             description: 'Maximum results. Default: 10.',
+          },
+          cursor: {
+            type: 'string',
+            description: 'Opaque pagination cursor from a prior search_domain_knowledge response.',
           },
         },
         required: ['query'],
@@ -1180,7 +1372,7 @@ export function createToolDefinitions(context: AboutContext): ToolDefinition[] {
 
 export function registerTools(
   server: Server,
-  db: Database.Database,
+  db: SqlDatabase,
   context: AboutContext,
 ): void {
   const tools = createToolDefinitions(context);
@@ -1189,7 +1381,7 @@ export function registerTools(
     tools: tools.map((tool) => ({
       name: tool.name,
       description: tool.description,
-      inputSchema: tool.inputSchema,
+      inputSchema: schemaWithExamples(tool.name, tool.inputSchema),
     })),
   }));
 

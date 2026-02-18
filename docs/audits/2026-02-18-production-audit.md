@@ -5,6 +5,25 @@
 - **Audited standard:** `mcp-production-audit.md` v1.0 (2026-02-17)
 - **Auditor mode:** Code + test + provenance + sampling
 
+## Remediation Update (2026-02-18)
+
+The findings below were remediated after the initial audit pass:
+
+- Runtime DB driver migrated away from native `better-sqlite3` usage in production code to a serverless-safe SQLite adapter (`node:sqlite`) in `/Users/jeffreyvonrotz/Projects/Healthcare-mcp/src/db.ts`.
+- Tool `inputSchema` examples are now injected for all tools via `tools/list`.
+- Added `detail_level` controls and cursor pagination on high-volume tool outputs.
+- Replaced architecture/standards `LIKE` search paths with FTS5 `MATCH`.
+- Source freshness checks now support live authoritative endpoint probing (`SOURCE_LIVE_CHECK`).
+- Publish workflow now gates on strict live upstream regression and release integrity verification.
+- Added canonical tool coverage gate (`npm run test:coverage`) and wired it into `test:ci`.
+
+Current validation status after remediation:
+
+- `npm run test:ci` ✅
+- `npm run check:source-updates` ✅
+- `npm run verify:release` ✅
+- `npm pack --dry-run` ✅
+
 ## 0) Server Profile (Unlisted Template)
 
 | Field | Value |

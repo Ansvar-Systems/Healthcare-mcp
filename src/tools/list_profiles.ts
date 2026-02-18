@@ -1,7 +1,7 @@
-import type Database from 'better-sqlite3';
+import type { SqlDatabase } from '../db.js';
 import { EU_COUNTRY_CODES, US_STATE_CODES } from '../jurisdictions.js';
 
-export function listProfiles(db: Database.Database, args: unknown) {
+export function listProfiles(db: SqlDatabase, args: unknown) {
   const input = (args ?? {}) as {
     profile_type?:
       | 'data_categories'

@@ -19,20 +19,22 @@
   ],
   "scripts": {
     "build": "rm -rf dist && tsc && chmod +x dist/src/index.js dist/src/http-server.js",
-    "build:db": "node --import tsx scripts/build-db.ts",
-    "drift:hashes": "node --import tsx scripts/generate-drift-hashes.ts",
-    "drift:verify": "node --import tsx scripts/verify-drift-hashes.ts",
-    "check:source-updates": "node --import tsx scripts/check-source-updates.ts",
+    "build:db": "node --no-warnings --import tsx scripts/build-db.ts",
+    "drift:hashes": "node --no-warnings --import tsx scripts/generate-drift-hashes.ts",
+    "drift:verify": "node --no-warnings --import tsx scripts/verify-drift-hashes.ts",
+    "check:source-updates": "node --no-warnings --import tsx scripts/check-source-updates.ts",
+    "verify:release": "node --no-warnings --import tsx scripts/verify-release-integrity.ts",
     "dev": "tsx watch src/index.ts",
     "dev:http": "tsx --watch src/http-server.ts",
     "start:http": "node dist/src/http-server.js",
     "test": "npm run build:db && vitest run",
     "test:benchmark": "npm run build:db && vitest run tests/benchmark-grade.test.ts",
+    "test:coverage": "npm run build:db && node --no-warnings --import tsx scripts/check-tool-coverage.ts",
     "test:live": "LIVE_UPSTREAM_TESTS=1 vitest run tests/live-authoritative-regression.test.ts",
     "test:live:strict": "LIVE_UPSTREAM_TESTS=1 LIVE_STRICT=1 vitest run tests/live-authoritative-regression.test.ts",
     "test:watch": "vitest",
     "typecheck": "tsc --noEmit",
-    "test:ci": "npm run build && npm test && npm run drift:verify",
+    "test:ci": "npm run build && npm test && npm run test:coverage && npm run drift:verify",
     "verify:db": "test -f data/healthcare.db && echo '✅ Database exists' || (echo '❌ Database missing' && exit 1)",
     "prepublishOnly": "npm run test:ci && npm run verify:db"
   },
@@ -60,11 +62,9 @@
     "node": ">=20.0.0"
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "1.0.4",
-    "better-sqlite3": "11.8.1"
+    "@modelcontextprotocol/sdk": "1.26.0"
   },
   "devDependencies": {
-    "@types/better-sqlite3": "7.6.13",
     "@types/node": "22.13.1",
     "@vercel/node": "5.6.3",
     "tsx": "4.19.2",

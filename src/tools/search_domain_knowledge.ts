@@ -1,4 +1,4 @@
-import type Database from 'better-sqlite3';
+import type { SqlDatabase } from '../db.js';
 
 interface SearchRow {
   content_type: string;
@@ -12,11 +12,29 @@ function sanitizeQuery(query: string): string {
   return query.replace(/[^a-zA-Z0-9\s]/g, ' ').trim().replace(/\s+/g, ' ');
 }
 
-export function searchDomainKnowledge(db: Database.Database, args: unknown) {
+function parseCursor(cursor: string | undefined): number {
+  if (!cursor) {
+    return 0;
+  }
+  try {
+    const decoded = Buffer.from(cursor, 'base64url').toString('utf-8');
+    const offset = Number.parseInt(decoded, 10);
+    return Number.isFinite(offset) && offset >= 0 ? offset : 0;
+  } catch {
+    return 0;
+  }
+}
+
+function encodeCursor(offset: number): string {
+  return Buffer.from(String(offset), 'utf-8').toString('base64url');
+}
+
+export function searchDomainKnowledge(db: SqlDatabase, args: unknown) {
   const input = (args ?? {}) as {
     query?: string;
     content_type?: 'threat' | 'architecture' | 'standards' | 'all';
     limit?: number;
+    cursor?: string;
   };
 
   if (!input.query || input.query.trim().length < 2) {
@@ -36,13 +54,22 @@ export function searchDomainKnowledge(db: Database.Database, args: unknown) {
 
   const limit = Math.max(1, Math.min(50, input.limit ?? 10));
   const contentType = input.content_type ?? 'all';
+  const offset = parseCursor(input.cursor);
+  const fetchWindow = offset + limit + 1;
 
   if (/(automotive|ecu|vehicle|iso\\s*21434|unece\\s*r155)/i.test(input.query)) {
     return {
       query: input.query,
       content_type: contentType,
       limit,
+      cursor: input.cursor ?? null,
+      scope_status: 'out_of_scope',
       results: [],
+      pagination: {
+        next_cursor: null,
+        offset,
+        returned: 0,
+      },
       out_of_scope: [
         'Query appears to target automotive cybersecurity. Use Automotive MCP for that domain.',
       ],
@@ -66,53 +93,66 @@ export function searchDomainKnowledge(db: Database.Database, args: unknown) {
          ORDER BY relevance_score ASC
          LIMIT ?`,
       )
-      .all(clean, limit) as SearchRow[];
+      .all(clean, fetchWindow) as SearchRow[];
 
     results.push(...threatRows);
   }
 
   if (contentType === 'all' || contentType === 'architecture') {
-    const archRows = db
+    const architectureRows = db
       .prepare(
         `SELECT 'architecture' as content_type,
-                pattern_id as source_id,
-                name as title,
-                description as snippet,
-                0.5 as relevance_score
-         FROM architecture_patterns
-         WHERE lower(name) LIKE lower(?) OR lower(description) LIKE lower(?)
+                a.pattern_id as source_id,
+                a.name as title,
+                snippet(architecture_patterns_fts, 2, '<b>', '</b>', '...', 18) as snippet,
+                bm25(architecture_patterns_fts) as relevance_score
+         FROM architecture_patterns_fts
+         JOIN architecture_patterns a ON a.rowid = architecture_patterns_fts.rowid
+         WHERE architecture_patterns_fts MATCH ?
+         ORDER BY relevance_score ASC
          LIMIT ?`,
       )
-      .all(`%${clean}%`, `%${clean}%`, limit) as SearchRow[];
+      .all(clean, fetchWindow) as SearchRow[];
 
-    results.push(...archRows);
+    results.push(...architectureRows);
   }
 
   if (contentType === 'all' || contentType === 'standards') {
     const standardRows = db
       .prepare(
         `SELECT 'standards' as content_type,
-                standard_id as source_id,
-                name as title,
-                scope as snippet,
-                0.6 as relevance_score
-         FROM technical_standards
-         WHERE lower(name) LIKE lower(?) OR lower(scope) LIKE lower(?)
+                s.standard_id as source_id,
+                s.name as title,
+                snippet(technical_standards_fts, 3, '<b>', '</b>', '...', 18) as snippet,
+                bm25(technical_standards_fts) as relevance_score
+         FROM technical_standards_fts
+         JOIN technical_standards s ON s.rowid = technical_standards_fts.rowid
+         WHERE technical_standards_fts MATCH ?
+         ORDER BY relevance_score ASC
          LIMIT ?`,
       )
-      .all(`%${clean}%`, `%${clean}%`, limit) as SearchRow[];
+      .all(clean, fetchWindow) as SearchRow[];
 
     results.push(...standardRows);
   }
 
-  const sorted = results
-    .sort((a, b) => a.relevance_score - b.relevance_score)
-    .slice(0, limit);
+  const sorted = results.sort((a, b) => a.relevance_score - b.relevance_score);
+  const pagedWindow = sorted.slice(offset, offset + limit + 1);
+  const hasMore = pagedWindow.length > limit;
+  const pagedResults = hasMore ? pagedWindow.slice(0, limit) : pagedWindow;
+  const nextOffset = offset + pagedResults.length;
 
   return {
     query: input.query,
     content_type: contentType,
     limit,
-    results: sorted,
+    cursor: input.cursor ?? null,
+    scope_status: pagedResults.length > 0 ? 'in_scope' : 'not_indexed',
+    results: pagedResults,
+    pagination: {
+      next_cursor: hasMore ? encodeCursor(nextOffset) : null,
+      offset,
+      returned: pagedResults.length,
+    },
   };
 }

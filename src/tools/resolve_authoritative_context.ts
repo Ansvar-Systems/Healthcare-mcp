@@ -1,4 +1,4 @@
-import type Database from 'better-sqlite3';
+import type { SqlDatabase } from '../db.js';
 import type { ResolveAuthoritativeContextInput, ToolError } from '../types.js';
 import {
   mapRouteRefsToKinds,
@@ -8,7 +8,7 @@ import {
 } from '../integrations/upstream_router.js';
 
 function deriveRouteRefs(
-  db: Database.Database,
+  db: SqlDatabase,
   topic: string,
   routeRefs?: string[],
 ): string[] {
@@ -43,7 +43,7 @@ function deriveRouteRefs(
 }
 
 export async function resolveAuthoritativeContext(
-  db: Database.Database,
+  db: SqlDatabase,
   args: unknown,
 ): Promise<Record<string, unknown> | ToolError> {
   const input = args as ResolveAuthoritativeContextInput;

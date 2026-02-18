@@ -1,4 +1,4 @@
-import type Database from 'better-sqlite3';
+import type { SqlDatabase } from '../db.js';
 import type { MapToHealthcareStandardsInput, ToolError } from '../types.js';
 
 type MappingRow = {
@@ -20,7 +20,7 @@ type StandardRow = {
 };
 
 export function mapToHealthcareStandards(
-  db: Database.Database,
+  db: SqlDatabase,
   args: unknown,
 ): Record<string, unknown> | ToolError {
   const raw = args as MapToHealthcareStandardsInput & {

@@ -1,6 +1,6 @@
 #!/usr/bin/env tsx
 
-import Database from 'better-sqlite3';
+import { DatabaseSync } from 'node:sqlite';
 import { existsSync, mkdirSync, readFileSync, unlinkSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -188,7 +188,7 @@ function readJsonFile<T>(filename: string): T {
   return JSON.parse(readFileSync(fullPath, 'utf-8')) as T;
 }
 
-function setMetadata(db: Database.Database): void {
+function setMetadata(db: DatabaseSync): void {
   const put = db.prepare('INSERT OR REPLACE INTO db_metadata (key, value) VALUES (?, ?)');
   const now = new Date().toISOString();
   const entries: Array<[string, string]> = [
@@ -206,7 +206,7 @@ function setMetadata(db: Database.Database): void {
   }
 }
 
-function loadHealthDataCategories(db: Database.Database): void {
+function loadHealthDataCategories(db: DatabaseSync): void {
   const items = readJsonFile<HealthDataCategory[]>('health_data_categories.json');
   const insert = db.prepare(`
     INSERT INTO health_data_categories (
@@ -227,7 +227,7 @@ function loadHealthDataCategories(db: Database.Database): void {
   }
 }
 
-function loadMedicalDeviceRules(db: Database.Database): void {
+function loadMedicalDeviceRules(db: DatabaseSync): void {
   const items = readJsonFile<DeviceRule[]>('medical_device_rules.json');
   const insert = db.prepare(`
     INSERT INTO medical_device_classification_rules (
@@ -247,7 +247,7 @@ function loadMedicalDeviceRules(db: Database.Database): void {
   }
 }
 
-function loadArchitecturePatterns(db: Database.Database): void {
+function loadArchitecturePatterns(db: DatabaseSync): void {
   const items = readJsonFile<ArchitecturePatternSeed[]>('architecture_patterns.json');
   const insertPattern = db.prepare(`
     INSERT INTO architecture_patterns (pattern_id, name, description, primary_system)
@@ -324,7 +324,7 @@ function loadArchitecturePatterns(db: Database.Database): void {
   }
 }
 
-function loadThreats(db: Database.Database): void {
+function loadThreats(db: DatabaseSync): void {
   const threats = readJsonFile<ThreatScenario[]>('threat_scenarios.json');
   const links = readJsonFile<ThreatLinks>('threat_links.json');
   const expertProfiles = readJsonFile<ThreatExpertProfile[]>('threat_expert_profiles.json');
@@ -419,7 +419,7 @@ function loadThreats(db: Database.Database): void {
   }
 }
 
-function loadTechnicalStandards(db: Database.Database): void {
+function loadTechnicalStandards(db: DatabaseSync): void {
   const payload = readJsonFile<TechnicalStandardsSeed>('technical_standards.json');
 
   const insertStandard = db.prepare(`
@@ -455,7 +455,7 @@ function loadTechnicalStandards(db: Database.Database): void {
   }
 }
 
-function loadObligationProfiles(db: Database.Database): void {
+function loadObligationProfiles(db: DatabaseSync): void {
   const profiles = readJsonFile<ObligationProfile[]>('obligation_profiles.json');
   const insert = db.prepare(`
     INSERT INTO obligation_profiles (
@@ -476,7 +476,7 @@ function loadObligationProfiles(db: Database.Database): void {
   }
 }
 
-function loadJurisdictionOverlays(db: Database.Database): void {
+function loadJurisdictionOverlays(db: DatabaseSync): void {
   const overlays = readJsonFile<JurisdictionOverlay[]>('jurisdiction_overlays.json');
   const insert = db.prepare(`
     INSERT INTO jurisdiction_overlays (
@@ -506,7 +506,7 @@ function loadJurisdictionOverlays(db: Database.Database): void {
   }
 }
 
-function loadBreachRules(db: Database.Database): void {
+function loadBreachRules(db: DatabaseSync): void {
   const rules = readJsonFile<BreachRule[]>('breach_rules.json');
   const insert = db.prepare(`
     INSERT INTO breach_rules (
@@ -527,7 +527,7 @@ function loadBreachRules(db: Database.Database): void {
   }
 }
 
-function loadEvidenceTemplates(db: Database.Database): void {
+function loadEvidenceTemplates(db: DatabaseSync): void {
   const templates = readJsonFile<EvidenceTemplate[]>('evidence_templates.json');
   const insert = db.prepare(`
     INSERT INTO evidence_templates (
@@ -555,11 +555,12 @@ function main(): void {
     unlinkSync(DB_PATH);
   }
 
-  const db = new Database(DB_PATH);
+  const db = new DatabaseSync(DB_PATH);
   const schema = readFileSync(SCHEMA_PATH, 'utf-8');
   db.exec(schema);
 
-  const transaction = db.transaction(() => {
+  db.exec('BEGIN TRANSACTION');
+  try {
     setMetadata(db);
     loadHealthDataCategories(db);
     loadMedicalDeviceRules(db);
@@ -570,9 +571,11 @@ function main(): void {
     loadJurisdictionOverlays(db);
     loadBreachRules(db);
     loadEvidenceTemplates(db);
-  });
-
-  transaction();
+    db.exec('COMMIT');
+  } catch (error) {
+    db.exec('ROLLBACK');
+    throw error;
+  }
 
   const counts = {
     categories: db.prepare('SELECT COUNT(*) as count FROM health_data_categories').get() as { count: number },

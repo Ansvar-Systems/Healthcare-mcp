@@ -127,6 +127,13 @@ describe('transport parity', () => {
 
     expect(httpTools).toEqual(expectedTools);
     expect(httpTools.length).toBeGreaterThan(10);
+    expect(
+      listed.tools.every(
+        (tool) =>
+          Array.isArray((tool.inputSchema as { examples?: unknown[] } | undefined)?.examples) &&
+          ((tool.inputSchema as { examples?: unknown[] } | undefined)?.examples?.length ?? 0) > 0,
+      ),
+    ).toBe(true);
   });
 
 });

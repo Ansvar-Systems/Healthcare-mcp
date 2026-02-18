@@ -1,4 +1,4 @@
-import type Database from 'better-sqlite3';
+import type { SqlDatabase } from '../db.js';
 import { parseJsonArray } from '../db.js';
 import { isEuJurisdiction, isUsJurisdiction, normalizeJurisdictionCode } from '../jurisdictions.js';
 import type { ClassifyHealthDataInput, ToolError } from '../types.js';
@@ -35,7 +35,7 @@ function normalizeJurisdiction(input: string): string {
 }
 
 export function classifyHealthData(
-  db: Database.Database,
+  db: SqlDatabase,
   args: unknown,
 ): Record<string, unknown> | ToolError {
   const input = args as ClassifyHealthDataInput & { data_description?: string };

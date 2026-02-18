@@ -1,4 +1,4 @@
-import type Database from 'better-sqlite3';
+import type { SqlDatabase } from '../db.js';
 import { parseJsonArray } from '../db.js';
 import type { ToolError } from '../types.js';
 
@@ -14,7 +14,7 @@ type PlaybookRow = {
 };
 
 export function getThreatResponsePlaybook(
-  db: Database.Database,
+  db: SqlDatabase,
   args: unknown,
 ): Record<string, unknown> | ToolError {
   const input = (args ?? {}) as { threat_id?: string };

@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto';
-import type Database from 'better-sqlite3';
+import type { SqlDatabase } from '../../src/db.js';
 
 export interface HashEntry {
   id: string;
@@ -20,7 +20,7 @@ function stableHash(value: unknown): string {
   return createHash('sha256').update(serialized).digest('hex');
 }
 
-export function buildDriftPayload(db: Database.Database, version = '0.1.0'): DriftPayload {
+export function buildDriftPayload(db: SqlDatabase, version = '0.1.0'): DriftPayload {
   const entries: HashEntry[] = [];
 
   const tableCounts = db

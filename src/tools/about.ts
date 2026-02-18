@@ -1,8 +1,8 @@
-import type Database from 'better-sqlite3';
+import type { SqlDatabase } from '../db.js';
 import { EU_COUNTRY_CODES, US_STATE_CODES } from '../jurisdictions.js';
 import type { AboutContext } from '../types.js';
 
-function safeCount(db: Database.Database, sql: string): number {
+function safeCount(db: SqlDatabase, sql: string): number {
   try {
     const row = db.prepare(sql).get() as { count: number } | undefined;
     return row ? Number(row.count) : 0;
@@ -11,7 +11,7 @@ function safeCount(db: Database.Database, sql: string): number {
   }
 }
 
-export function getAbout(db: Database.Database, context: AboutContext) {
+export function getAbout(db: SqlDatabase, context: AboutContext) {
   const counts = {
     health_data_categories: safeCount(db, 'SELECT COUNT(*) as count FROM health_data_categories'),
     architecture_patterns: safeCount(db, 'SELECT COUNT(*) as count FROM architecture_patterns'),

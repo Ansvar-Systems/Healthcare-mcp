@@ -1,6 +1,6 @@
-import type Database from 'better-sqlite3';
+import type { SqlDatabase } from '../db.js';
 
-export function listArchitecturePatterns(db: Database.Database, args: unknown) {
+export function listArchitecturePatterns(db: SqlDatabase, args: unknown) {
   const input = (args ?? {}) as { category?: string };
 
   const rows = input.category

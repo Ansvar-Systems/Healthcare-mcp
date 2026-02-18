@@ -1,4 +1,4 @@
-import type Database from 'better-sqlite3';
+import type { SqlDatabase } from '../db.js';
 import { parseJsonArray } from '../db.js';
 import type { BuildEvidencePlanInput, ToolError } from '../types.js';
 
@@ -13,7 +13,7 @@ type TemplateRow = {
 };
 
 export function buildEvidencePlan(
-  db: Database.Database,
+  db: SqlDatabase,
   args: unknown,
 ): Record<string, unknown> | ToolError {
   const input = (args ?? {}) as BuildEvidencePlanInput & {

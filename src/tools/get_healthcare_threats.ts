@@ -1,4 +1,4 @@
-import type Database from 'better-sqlite3';
+import type { SqlDatabase } from '../db.js';
 import { parseJsonArray } from '../db.js';
 import type { GetHealthcareThreatsInput, ToolError } from '../types.js';
 
@@ -37,7 +37,24 @@ function sanitizeFtsQuery(query: string): string {
   return query.replace(/[^a-zA-Z0-9\s]/g, ' ').trim().replace(/\s+/g, ' ');
 }
 
-function withLinks(db: Database.Database, threat: ThreatRow) {
+function parseCursor(cursor: string | undefined): number {
+  if (!cursor) {
+    return 0;
+  }
+  try {
+    const decoded = Buffer.from(cursor, 'base64url').toString('utf-8');
+    const offset = Number.parseInt(decoded, 10);
+    return Number.isFinite(offset) && offset >= 0 ? offset : 0;
+  } catch {
+    return 0;
+  }
+}
+
+function encodeCursor(offset: number): string {
+  return Buffer.from(String(offset), 'utf-8').toString('base64url');
+}
+
+function withLinks(db: SqlDatabase, threat: ThreatRow) {
   const regulationLinks = db
     .prepare(
       `SELECT source_mcp, requirement_ref, obligation_summary
@@ -111,18 +128,23 @@ function withLinks(db: Database.Database, threat: ThreatRow) {
 }
 
 export function getHealthcareThreats(
-  db: Database.Database,
+  db: SqlDatabase,
   args: unknown,
 ): Record<string, unknown> | ToolError {
   const input = (args ?? {}) as GetHealthcareThreatsInput & {
     architecture_pattern?: string;
     data_types?: string[];
     deployment_context?: string;
+    detail_level?: 'summary' | 'standard' | 'full';
+    cursor?: string;
   };
   const includePlaybooks = input.include_playbooks ?? true;
+  const detailLevel = input.detail_level ?? 'full';
   const patternId = input.pattern_id ?? input.architecture_pattern;
   const dataTypes = input.data_categories ?? input.data_types ?? [];
   const limit = Math.max(1, Math.min(50, input.limit ?? 10));
+  const offset = parseCursor(input.cursor);
+  const fetchLimit = limit + 1;
 
   let threats: ThreatRow[] = [];
 
@@ -143,9 +165,9 @@ export function getHealthcareThreats(
          JOIN threat_scenarios t ON t.rowid = f.rowid
          WHERE threat_scenarios_fts MATCH ?
          ORDER BY rank
-         LIMIT ?`,
+         LIMIT ? OFFSET ?`,
       )
-      .all(clean, limit) as ThreatRow[];
+      .all(clean, fetchLimit, offset) as ThreatRow[];
   } else if (patternId) {
     threats = db
       .prepare(
@@ -159,9 +181,9 @@ export function getHealthcareThreats(
            WHEN 'moderate' THEN 3
            ELSE 4
          END, threat_id
-         LIMIT ?`,
+         LIMIT ? OFFSET ?`,
       )
-      .all(patternId, limit) as ThreatRow[];
+      .all(patternId, fetchLimit, offset) as ThreatRow[];
   } else {
     threats = db
       .prepare(
@@ -174,12 +196,15 @@ export function getHealthcareThreats(
            WHEN 'moderate' THEN 3
            ELSE 4
          END, threat_id
-         LIMIT ?`,
+         LIMIT ? OFFSET ?`,
       )
-      .all(limit) as ThreatRow[];
+      .all(fetchLimit, offset) as ThreatRow[];
   }
 
-  const enriched = threats.map((threat) => {
+  const hasMoreRows = threats.length > limit;
+  const windowedThreats = hasMoreRows ? threats.slice(0, limit) : threats;
+
+  const enriched = windowedThreats.map((threat) => {
     const full = withLinks(db, threat);
     if (includePlaybooks) {
       return full;
@@ -200,6 +225,40 @@ export function getHealthcareThreats(
           ),
         );
 
+  const nextOffset = offset + filtered.length;
+  const fullThreats =
+    detailLevel === 'summary'
+      ? filtered.map((threat) => ({
+          threat_id: threat.threat_id,
+          name: threat.name,
+          pattern_id: threat.pattern_id,
+          severity: threat.severity,
+          clinical_impact: threat.clinical_impact,
+          business_impact: threat.business_impact,
+          linked_regulatory_routes: threat.linked_regulatory_routes.map((route) => ({
+            source_mcp: route.source_mcp,
+            requirement_ref: route.requirement_ref,
+          })),
+        }))
+      : detailLevel === 'standard'
+        ? filtered.map((threat) => ({
+            threat_id: threat.threat_id,
+            name: threat.name,
+            pattern_id: threat.pattern_id,
+            description: threat.description,
+            clinical_impact: threat.clinical_impact,
+            business_impact: threat.business_impact,
+            severity: threat.severity,
+            mitre_tactics: threat.mitre_tactics,
+            mitre_techniques: threat.mitre_techniques,
+            detection_indicators: threat.detection_indicators,
+            response_playbook: threat.response_playbook,
+            mitigations: threat.mitigations,
+            linked_regulatory_routes: threat.linked_regulatory_routes,
+            linked_control_routes: threat.linked_control_routes,
+          }))
+        : filtered;
+
   return {
     criteria: {
       pattern_id: patternId ?? null,
@@ -208,14 +267,22 @@ export function getHealthcareThreats(
       deployment_context: input.deployment_context ?? null,
       include_playbooks: includePlaybooks,
       limit,
+      cursor: input.cursor ?? null,
+      detail_level: detailLevel,
     },
-    threats: filtered,
+    scope_status: filtered.length > 0 ? 'in_scope' : 'not_indexed',
+    threats: fullThreats,
     mitre_mapping: filtered.map((threat) => ({
       threat_id: threat.threat_id,
       techniques: threat.mitre_tactics,
       attack_techniques: threat.mitre_techniques,
     })),
-    count: filtered.length,
+    count: fullThreats.length,
+    pagination: {
+      offset,
+      returned: fullThreats.length,
+      next_cursor: hasMoreRows ? encodeCursor(nextOffset) : null,
+    },
     note:
       'Threats include healthcare context, ATT&CK tactics/techniques, detection indicators, and response playbooks with regulation/control routing references.',
   };

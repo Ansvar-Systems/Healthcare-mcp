@@ -1,4 +1,4 @@
-import type Database from 'better-sqlite3';
+import type { SqlDatabase } from '../db.js';
 import { parseJsonArray } from '../db.js';
 import type { ClassifyMedicalDeviceInput, ToolError } from '../types.js';
 
@@ -84,7 +84,7 @@ function deriveImdrfCategory(signals: {
 }
 
 export function classifyMedicalDevice(
-  db: Database.Database,
+  db: SqlDatabase,
   args: unknown,
 ): Record<string, unknown> | ToolError {
   const input = args as ClassifyMedicalDeviceInput & {

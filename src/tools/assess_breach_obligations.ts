@@ -1,4 +1,4 @@
-import type Database from 'better-sqlite3';
+import type { SqlDatabase } from '../db.js';
 import { parseJsonArray } from '../db.js';
 import { jurisdictionFamily, normalizeJurisdictionCode } from '../jurisdictions.js';
 import type { AssessBreachObligationsInput, ToolError } from '../types.js';
@@ -88,7 +88,7 @@ function jurisdictionCandidates(jurisdiction: string): string[] {
 }
 
 export function assessBreachObligations(
-  db: Database.Database,
+  db: SqlDatabase,
   args: unknown,
 ): Record<string, unknown> | ToolError {
   const input = args as AssessBreachObligationsInput & {

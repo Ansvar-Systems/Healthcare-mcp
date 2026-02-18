@@ -4,6 +4,8 @@ import { classifyHealthData } from '../src/tools/classify_health_data.js';
 import { getArchitecturePattern } from '../src/tools/get_architecture_pattern.js';
 import { getHealthcareThreats } from '../src/tools/get_healthcare_threats.js';
 import { assessBreachObligations } from '../src/tools/assess_breach_obligations.js';
+import { searchDomainKnowledge } from '../src/tools/search_domain_knowledge.js';
+import { assessHealthcareApplicability } from '../src/tools/assess_healthcare_applicability.js';
 
 describe('healthcare tool scaffold', () => {
   const db = openDatabase(true);
@@ -53,5 +55,73 @@ describe('healthcare tool scaffold', () => {
     }) as { strictest_deadline: { deadline_hours: number } };
 
     expect(output.strictest_deadline.deadline_hours).toBe(24);
+  });
+
+  it('supports detail-level and cursor pagination for threat results', () => {
+    const firstPage = getHealthcareThreats(db, {
+      query: 'ransomware',
+      detail_level: 'summary',
+      limit: 1,
+    }) as {
+      threats: Array<{ threat_id: string; name: string }>;
+      pagination: { next_cursor: string | null };
+      scope_status: string;
+    };
+
+    expect(firstPage.scope_status).toBe('in_scope');
+    expect(firstPage.threats.length).toBe(1);
+
+    if (firstPage.pagination.next_cursor) {
+      const secondPage = getHealthcareThreats(db, {
+        query: 'ransomware',
+        detail_level: 'summary',
+        limit: 1,
+        cursor: firstPage.pagination.next_cursor,
+      }) as {
+        threats: Array<{ threat_id: string }>;
+      };
+
+      expect(secondPage.threats.length).toBeLessThanOrEqual(1);
+    }
+  });
+
+  it('returns scope status and cursor pagination for domain search', () => {
+    const firstPage = searchDomainKnowledge(db, {
+      query: 'FHIR',
+      content_type: 'all',
+      limit: 2,
+    }) as {
+      scope_status: string;
+      results: unknown[];
+      pagination: { next_cursor: string | null };
+    };
+
+    expect(firstPage.scope_status).toBe('in_scope');
+    expect(firstPage.results.length).toBeGreaterThan(0);
+    expect(typeof firstPage.pagination.next_cursor === 'string' || firstPage.pagination.next_cursor === null).toBe(
+      true,
+    );
+  });
+
+  it('supports summary mode for applicability routing', () => {
+    const output = assessHealthcareApplicability(db, {
+      country: 'US-CA,DE',
+      role: 'provider',
+      system_types: ['ehr', 'medical_device'],
+      data_types: ['ephi', 'health_data'],
+      detail_level: 'summary',
+      additional_context: {
+        has_medical_devices: true,
+        uses_ai_for_clinical_decisions: true,
+      },
+    }) as {
+      scope_status: string;
+      obligation_count: number;
+      top_obligations: Array<unknown>;
+    };
+
+    expect(output.scope_status).toBe('in_scope');
+    expect(output.obligation_count).toBeGreaterThan(0);
+    expect(output.top_obligations.length).toBeGreaterThan(0);
   });
 });

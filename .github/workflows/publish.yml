@@ -18,6 +18,12 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    env:
+      HEALTHCARE_UPSTREAM_EU_REGS_URL: ${{ secrets.HEALTHCARE_UPSTREAM_EU_REGS_URL }}
+      HEALTHCARE_UPSTREAM_US_REGS_URL: ${{ secrets.HEALTHCARE_UPSTREAM_US_REGS_URL }}
+      HEALTHCARE_UPSTREAM_SECURITY_CONTROLS_URL: ${{ secrets.HEALTHCARE_UPSTREAM_SECURITY_CONTROLS_URL }}
+      HEALTHCARE_UPSTREAM_US_LAW_URL: ${{ secrets.HEALTHCARE_UPSTREAM_US_LAW_URL }}
+      HEALTHCARE_UPSTREAM_EU_LAW_URL: ${{ secrets.HEALTHCARE_UPSTREAM_EU_LAW_URL }}
     steps:
       - uses: actions/checkout@v4
 
@@ -32,6 +38,25 @@ jobs:
 
       - name: Build and validate
         run: npm run test:ci
+
+      - name: Require configured upstream MCP endpoints for release gating
+        run: |
+          if [ -z "${HEALTHCARE_UPSTREAM_EU_REGS_URL}${HEALTHCARE_UPSTREAM_US_REGS_URL}${HEALTHCARE_UPSTREAM_SECURITY_CONTROLS_URL}${HEALTHCARE_UPSTREAM_US_LAW_URL}${HEALTHCARE_UPSTREAM_EU_LAW_URL}" ]; then
+            echo "Release gating requires configured upstream MCP endpoint secrets."
+            exit 1
+          fi
+
+      - name: Run strict live authoritative regression
+        run: npm run test:live:strict
+        env:
+          LIVE_UPSTREAM_TESTS: "1"
+          LIVE_STRICT: "1"
+
+      - name: Verify release metadata integrity
+        run: npm run verify:release
+        env:
+          RELEASE_CHECK_NPM: "1"
+          RELEASE_CHECK_STRICT: "1"
 
       - name: Verify package contents
         run: npm pack --dry-run

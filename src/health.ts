@@ -1,4 +1,4 @@
-import type Database from 'better-sqlite3';
+import type { SqlDatabase } from './db.js';
 
 export interface HealthPayload {
   status: 'ok' | 'stale' | 'degraded';
@@ -17,14 +17,14 @@ function daysSince(value: string): number | null {
   return Math.floor(diffMs / (1000 * 60 * 60 * 24));
 }
 
-function getMeta(db: Database.Database, key: string): string | null {
+function getMeta(db: SqlDatabase, key: string): string | null {
   const row = db.prepare('SELECT value FROM db_metadata WHERE key = ?').get(key) as
     | { value: string }
     | undefined;
   return row?.value ?? null;
 }
 
-export function getHealthPayload(db: Database.Database, staleThresholdDays: number): HealthPayload {
+export function getHealthPayload(db: SqlDatabase, staleThresholdDays: number): HealthPayload {
   try {
     db.prepare('SELECT 1').get();
   } catch {

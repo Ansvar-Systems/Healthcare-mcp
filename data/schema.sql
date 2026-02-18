@@ -32,6 +32,32 @@ CREATE TABLE IF NOT EXISTS architecture_patterns (
   primary_system TEXT NOT NULL
 );
 
+CREATE VIRTUAL TABLE IF NOT EXISTS architecture_patterns_fts USING fts5(
+  pattern_id,
+  name,
+  description,
+  primary_system,
+  content='architecture_patterns',
+  content_rowid='rowid'
+);
+
+CREATE TRIGGER IF NOT EXISTS architecture_patterns_ai AFTER INSERT ON architecture_patterns BEGIN
+  INSERT INTO architecture_patterns_fts(rowid, pattern_id, name, description, primary_system)
+  VALUES (new.rowid, new.pattern_id, new.name, new.description, new.primary_system);
+END;
+
+CREATE TRIGGER IF NOT EXISTS architecture_patterns_ad AFTER DELETE ON architecture_patterns BEGIN
+  INSERT INTO architecture_patterns_fts(architecture_patterns_fts, rowid, pattern_id, name, description, primary_system)
+  VALUES('delete', old.rowid, old.pattern_id, old.name, old.description, old.primary_system);
+END;
+
+CREATE TRIGGER IF NOT EXISTS architecture_patterns_au AFTER UPDATE ON architecture_patterns BEGIN
+  INSERT INTO architecture_patterns_fts(architecture_patterns_fts, rowid, pattern_id, name, description, primary_system)
+  VALUES('delete', old.rowid, old.pattern_id, old.name, old.description, old.primary_system);
+  INSERT INTO architecture_patterns_fts(rowid, pattern_id, name, description, primary_system)
+  VALUES (new.rowid, new.pattern_id, new.name, new.description, new.primary_system);
+END;
+
 CREATE TABLE IF NOT EXISTS pattern_components (
   component_id TEXT PRIMARY KEY,
   pattern_id TEXT NOT NULL REFERENCES architecture_patterns(pattern_id) ON DELETE CASCADE,
@@ -168,6 +194,34 @@ CREATE TABLE IF NOT EXISTS technical_standards (
   version TEXT,
   status TEXT NOT NULL
 );
+
+CREATE VIRTUAL TABLE IF NOT EXISTS technical_standards_fts USING fts5(
+  standard_id,
+  name,
+  authority,
+  scope,
+  version,
+  status,
+  content='technical_standards',
+  content_rowid='rowid'
+);
+
+CREATE TRIGGER IF NOT EXISTS technical_standards_ai AFTER INSERT ON technical_standards BEGIN
+  INSERT INTO technical_standards_fts(rowid, standard_id, name, authority, scope, version, status)
+  VALUES (new.rowid, new.standard_id, new.name, new.authority, new.scope, new.version, new.status);
+END;
+
+CREATE TRIGGER IF NOT EXISTS technical_standards_ad AFTER DELETE ON technical_standards BEGIN
+  INSERT INTO technical_standards_fts(technical_standards_fts, rowid, standard_id, name, authority, scope, version, status)
+  VALUES('delete', old.rowid, old.standard_id, old.name, old.authority, old.scope, old.version, old.status);
+END;
+
+CREATE TRIGGER IF NOT EXISTS technical_standards_au AFTER UPDATE ON technical_standards BEGIN
+  INSERT INTO technical_standards_fts(technical_standards_fts, rowid, standard_id, name, authority, scope, version, status)
+  VALUES('delete', old.rowid, old.standard_id, old.name, old.authority, old.scope, old.version, old.status);
+  INSERT INTO technical_standards_fts(rowid, standard_id, name, authority, scope, version, status)
+  VALUES (new.rowid, new.standard_id, new.name, new.authority, new.scope, new.version, new.status);
+END;
 
 CREATE TABLE IF NOT EXISTS standard_mappings (
   mapping_id TEXT PRIMARY KEY,

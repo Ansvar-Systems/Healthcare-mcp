@@ -1,4 +1,4 @@
-import type Database from 'better-sqlite3';
+import type { SqlDatabase } from '../db.js';
 import { parseJsonArray } from '../db.js';
 import type { GetArchitecturePatternInput, ToolError } from '../types.js';
 
@@ -42,7 +42,7 @@ type WeakPointRow = {
 };
 
 export function getArchitecturePattern(
-  db: Database.Database,
+  db: SqlDatabase,
   args: unknown,
 ): Record<string, unknown> | ToolError {
   const input = (args ?? {}) as GetArchitecturePatternInput;
