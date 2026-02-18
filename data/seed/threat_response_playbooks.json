@@ -362,6 +362,337 @@
     ]
   },
   {
+    "threat_id": "th_dicomweb_query_scrape",
+    "triage_priority": "P1",
+    "immediate_containment_actions": [
+      "Suspend high-risk DICOMweb query credentials and apply emergency request throttling",
+      "Restrict QIDO/WADO/STOW access to approved clinical network zones and identities"
+    ],
+    "clinical_safety_actions": [
+      "Maintain urgent radiology access through temporary verified channels",
+      "Coordinate with radiology operations to prioritize patient-care-critical retrieval paths"
+    ],
+    "forensic_artifacts": [
+      "DICOMweb API gateway logs with query parameters and response-size metrics",
+      "Study-level authorization decision traces",
+      "Outbound imaging transfer telemetry and destination logs"
+    ],
+    "recovery_validation_checks": [
+      "Confirm per-study authorization and role constraints are enforced",
+      "Validate abnormal query-velocity alerts and export-size guardrails"
+    ],
+    "communication_requirements": [
+      "Privacy/compliance notification with imaging-dataset scope summary",
+      "Radiology and executive operations briefing on service impact and containment posture"
+    ],
+    "escalation_routes": [
+      "EU_Regulations_MCP:GDPR_ART_5",
+      "US_Regulations_MCP:HIPAA_BREACH",
+      "Security_Controls_MCP:data_loss_prevention_controls"
+    ]
+  },
+  {
+    "threat_id": "th_11073_command_injection",
+    "triage_priority": "P1",
+    "immediate_containment_actions": [
+      "Isolate affected orchestration nodes and block untrusted command issuers",
+      "Rotate device trust anchors and disable non-essential remote control functions"
+    ],
+    "clinical_safety_actions": [
+      "Invoke biomedical engineering bedside verification for impacted devices",
+      "Enable manual fallback pathways for safety-critical therapies and alarms"
+    ],
+    "forensic_artifacts": [
+      "Service command invocation logs with issuer identity and role context",
+      "Device event timelines around command-triggered state changes",
+      "Certificate/trust-store change history for orchestration fabric"
+    ],
+    "recovery_validation_checks": [
+      "Validate mutual-authentication trust chains across command participants",
+      "Confirm role-based command authorization and provenance checks are active"
+    ],
+    "communication_requirements": [
+      "Immediate patient-safety command-center update",
+      "Regulatory and manufacturer coordination briefing for networked-device control incident"
+    ],
+    "escalation_routes": [
+      "US_Regulations_MCP:FDA_524B",
+      "EU_Regulations_MCP:NIS2_ART_21",
+      "Security_Controls_MCP:device_command_integrity_controls"
+    ]
+  },
+  {
+    "threat_id": "th_ncpdp_refill_replay",
+    "triage_priority": "P1",
+    "immediate_containment_actions": [
+      "Block suspicious refill transaction streams and require step-up prescriber verification",
+      "Apply replay-protection enforcement and tightened controlled-substance refill thresholds"
+    ],
+    "clinical_safety_actions": [
+      "Coordinate with pharmacy leadership to review potentially affected dispenses",
+      "Safeguard continuity of legitimate medication access through manual verification queue"
+    ],
+    "forensic_artifacts": [
+      "NCPDP transaction logs with message IDs and timestamp validation outcomes",
+      "Prescriber authentication and prescribing-session traces",
+      "Dispense reconciliation records and controlled-substance alert history"
+    ],
+    "recovery_validation_checks": [
+      "Verify nonce/timestamp replay controls are uniformly enforced",
+      "Confirm anomaly-detection rules for high-risk refill cadence are tuned and firing"
+    ],
+    "communication_requirements": [
+      "Compliance/legal briefing for potential prescription-fraud and controlled-substance exposure",
+      "Partner pharmacy notification package with containment and verification evidence"
+    ],
+    "escalation_routes": [
+      "US-law-mcp:US_CONTROLLED_SUBSTANCE_TRACKING",
+      "US_Regulations_MCP:HIPAA_164.312(d)",
+      "Security_Controls_MCP:transaction_integrity_controls"
+    ]
+  },
+  {
+    "threat_id": "th_x12_claims_tampering",
+    "triage_priority": "P2",
+    "immediate_containment_actions": [
+      "Quarantine suspicious X12 transaction batches and isolate affected clearinghouse channels",
+      "Enforce strict sender validation and integrity checks on inbound/outbound EDI flows"
+    ],
+    "clinical_safety_actions": [
+      "Prioritize continuity workflows for authorization-dependent care pathways",
+      "Coordinate revenue-cycle and care operations to prevent patient-treatment delays"
+    ],
+    "forensic_artifacts": [
+      "X12 payload archives before/after transformation stages",
+      "Clearinghouse access logs and integration credential events",
+      "Claim adjudication anomaly reports by payer and transaction family"
+    ],
+    "recovery_validation_checks": [
+      "Validate end-to-end EDI integrity controls and partner trust anchors",
+      "Reconcile claim outputs against source clinical and billing events"
+    ],
+    "communication_requirements": [
+      "Executive finance/compliance update on claim integrity and revenue impact",
+      "Payer and clearinghouse partner incident coordination brief"
+    ],
+    "escalation_routes": [
+      "US_Regulations_MCP:HIPAA_164.312(e)",
+      "EU_Regulations_MCP:NIS2_SUPPLY_CHAIN",
+      "Security_Controls_MCP:third_party_transaction_controls"
+    ]
+  },
+  {
+    "threat_id": "th_remote_monitoring_device_spoofing",
+    "triage_priority": "P1",
+    "immediate_containment_actions": [
+      "Suspend suspicious remote-device identities and enforce re-enrollment attestation",
+      "Apply emergency telemetry source validation and ingestion quarantine rules"
+    ],
+    "clinical_safety_actions": [
+      "Escalate potentially affected patients for manual triage confirmation",
+      "Temporarily increase clinician oversight on algorithm-assisted remote care decisions"
+    ],
+    "forensic_artifacts": [
+      "Device enrollment and attestation logs",
+      "Telemetry ingestion traces with identity, network, and signature metadata",
+      "Clinical alert and intervention history linked to suspect telemetry streams"
+    ],
+    "recovery_validation_checks": [
+      "Validate robust key-binding and attestation checks for enrolled devices",
+      "Confirm anomaly detection for physiologic plausibility and source integrity"
+    ],
+    "communication_requirements": [
+      "Clinical leadership and patient-safety brief on possible false telemetry exposure",
+      "Privacy and regulatory notification readiness packet if reportable impact is confirmed"
+    ],
+    "escalation_routes": [
+      "US_Regulations_MCP:HIPAA_164.312(d)",
+      "EU_Regulations_MCP:GDPR_ART_32",
+      "Security_Controls_MCP:remote_monitoring_identity_controls"
+    ]
+  },
+  {
+    "threat_id": "th_xds_registry_poisoning",
+    "triage_priority": "P1",
+    "immediate_containment_actions": [
+      "Freeze registry metadata updates and isolate suspicious integration identities",
+      "Enable emergency document retrieval allow-lists for critical care pathways"
+    ],
+    "clinical_safety_actions": [
+      "Require clinician verification for high-risk cross-community document pulls",
+      "Escalate potentially impacted patients for chart integrity review"
+    ],
+    "forensic_artifacts": [
+      "XDS registry/repository metadata change history",
+      "Cross-community retrieval logs with identity and patient-correlation context",
+      "Trust-anchor and federation configuration audit trails"
+    ],
+    "recovery_validation_checks": [
+      "Validate registry metadata integrity against known-good snapshots",
+      "Confirm alerting on unauthorized metadata mutation and retrieval anomalies"
+    ],
+    "communication_requirements": [
+      "Cross-organization incident coordination update to HIE partners",
+      "Privacy/compliance report on scope of potential wrong-record exposure"
+    ],
+    "escalation_routes": [
+      "EU_Regulations_MCP:GDPR_ART_32",
+      "EU_Regulations_MCP:NIS2_ART_21",
+      "Security_Controls_MCP:federated_document_exchange_controls"
+    ]
+  },
+  {
+    "threat_id": "th_xcpd_identity_mismatch",
+    "triage_priority": "P1",
+    "immediate_containment_actions": [
+      "Suspend low-confidence auto-match flows and enforce manual identity adjudication",
+      "Block suspect patient-discovery query patterns pending investigation"
+    ],
+    "clinical_safety_actions": [
+      "Trigger urgent wrong-patient risk review for recently matched records",
+      "Instruct care teams on temporary identity-verification escalation procedures"
+    ],
+    "forensic_artifacts": [
+      "Patient discovery query/response logs with match scores",
+      "Identity-correlation override records",
+      "Cross-community document retrieval linked to disputed identities"
+    ],
+    "recovery_validation_checks": [
+      "Rebaseline matching thresholds and governance approvals",
+      "Validate downstream identity provenance checks in consuming systems"
+    ],
+    "communication_requirements": [
+      "Patient-safety command update on wrong-record risk exposure",
+      "Partner governance and compliance notification for identity-matching incident"
+    ],
+    "escalation_routes": [
+      "EU_Regulations_MCP:GDPR_ART_5",
+      "EU_Regulations_MCP:GDPR_ART_32",
+      "Security_Controls_MCP:identity_resolution_controls"
+    ]
+  },
+  {
+    "threat_id": "th_openehr_archetype_tampering",
+    "triage_priority": "P1",
+    "immediate_containment_actions": [
+      "Lock archetype/template publication paths and revoke compromised governance access",
+      "Rollback to last trusted template set for affected clinical domains"
+    ],
+    "clinical_safety_actions": [
+      "Initiate focused review of patient records created under suspect template versions",
+      "Increase clinical decision-support override review until integrity is revalidated"
+    ],
+    "forensic_artifacts": [
+      "Archetype/template version history with approval provenance",
+      "Governance platform access logs and change diffs",
+      "Clinical validation/test results by template version"
+    ],
+    "recovery_validation_checks": [
+      "Run semantic regression and integrity checks across critical archetypes",
+      "Confirm dual-approval and signing controls for future template releases"
+    ],
+    "communication_requirements": [
+      "Clinical informatics and safety-governance incident briefing",
+      "Compliance/legal summary of potential integrity and patient-safety impact"
+    ],
+    "escalation_routes": [
+      "US_Regulations_MCP:HIPAA_164.312(c)",
+      "EU_Regulations_MCP:GDPR_ART_5",
+      "Security_Controls_MCP:configuration_change_integrity_controls"
+    ]
+  },
+  {
+    "threat_id": "th_udap_dynamic_client_abuse",
+    "triage_priority": "P2",
+    "immediate_containment_actions": [
+      "Disable suspicious dynamic client registrations and rotate affected trust material",
+      "Temporarily enforce stricter manual approval for new federation clients"
+    ],
+    "clinical_safety_actions": [
+      "Protect urgent data-sharing workflows through pre-approved emergency client paths",
+      "Assess care-delivery impacts from temporary federation restrictions"
+    ],
+    "forensic_artifacts": [
+      "Client registration/audit logs with certificate chain details",
+      "Token issuance and scope-grant records for newly registered clients",
+      "Trust-anchor lifecycle and revocation events"
+    ],
+    "recovery_validation_checks": [
+      "Validate attested client onboarding policy and registration risk scoring",
+      "Confirm alerting on anomalous post-registration access patterns"
+    ],
+    "communication_requirements": [
+      "Federation partner security notice with remediation requirements",
+      "Executive/compliance summary of trust-boundary exposure"
+    ],
+    "escalation_routes": [
+      "EU_Regulations_MCP:GDPR_ART_32",
+      "US_Regulations_MCP:HIPAA_164.312(d)",
+      "Security_Controls_MCP:federated_client_registration_controls"
+    ]
+  },
+  {
+    "threat_id": "th_ccda_document_injection",
+    "triage_priority": "P1",
+    "immediate_containment_actions": [
+      "Quarantine suspect inbound C-CDA channels and enforce strict signature verification",
+      "Enable enhanced schema/semantic validation gates before document ingestion"
+    ],
+    "clinical_safety_actions": [
+      "Trigger rapid clinician review for records affected by suspect document imports",
+      "Coordinate with care teams to validate critical diagnoses, allergies, and medication sections"
+    ],
+    "forensic_artifacts": [
+      "Inbound C-CDA payload archives and parser validation outputs",
+      "Source-system trust and sender authentication logs",
+      "Record-level change impact reports tied to imported documents"
+    ],
+    "recovery_validation_checks": [
+      "Confirm document-ingestion quarantine and review workflow effectiveness",
+      "Validate remediation of affected chart entries with clinical sign-off"
+    ],
+    "communication_requirements": [
+      "Clinical safety and informatics briefing on document-integrity exposure",
+      "External partner incident communication for compromised sender channels"
+    ],
+    "escalation_routes": [
+      "US_Regulations_MCP:HIPAA_164.312(e)",
+      "EU_Regulations_MCP:GDPR_ART_5",
+      "Security_Controls_MCP:document_integrity_controls"
+    ]
+  },
+  {
+    "threat_id": "th_terminology_service_poisoning",
+    "triage_priority": "P1",
+    "immediate_containment_actions": [
+      "Freeze terminology publication/synchronization jobs and revoke suspect admin credentials",
+      "Rollback to last trusted signed value-set and concept-map baselines",
+      "Enforce emergency dual-approval on any terminology promotion activities"
+    ],
+    "clinical_safety_actions": [
+      "Prioritize clinician review for high-risk coded domains (allergies, medications, diagnoses, abnormal labs)",
+      "Temporarily increase manual validation for CDS outputs influenced by recent terminology updates"
+    ],
+    "forensic_artifacts": [
+      "Terminology service audit logs and publication approvals",
+      "Concept-map/value-set diffs with signer/provenance metadata",
+      "EHR/LIS synchronization and CDS-rule execution traces"
+    ],
+    "recovery_validation_checks": [
+      "Confirm semantic regression tests pass across EHR/LIS/CDS workflows",
+      "Validate no unresolved high-risk coding drift remains in production datasets"
+    ],
+    "communication_requirements": [
+      "Clinical informatics and patient-safety command briefing on semantic integrity risk",
+      "Revenue-cycle and compliance notification regarding coding/remediation impact"
+    ],
+    "escalation_routes": [
+      "US_Regulations_MCP:HIPAA_164.312(c)",
+      "EU_Regulations_MCP:GDPR_ART_5",
+      "Security_Controls_MCP:data_integrity_controls"
+    ]
+  },
+  {
     "threat_id": "th_vendor_supply_chain_compromise",
     "triage_priority": "P1",
     "immediate_containment_actions": [

@@ -68,6 +68,8 @@ export interface BuildHealthcareBaselineInput {
 export interface BuildEvidencePlanInput {
   audit_type?: string;
   baseline_control_ids?: string[];
+  threat_ids?: string[];
+  include_threat_appendix?: boolean;
 }
 
 export interface CompareJurisdictionsInput {

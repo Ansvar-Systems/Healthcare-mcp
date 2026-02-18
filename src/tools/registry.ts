@@ -134,7 +134,13 @@ const TOOL_EXAMPLES: Record<string, Array<Record<string, unknown>>> = {
       },
     },
   ],
-  build_evidence_plan: [{ audit_type: 'MDR_IVDR', baseline_control_ids: ['FDA_524B_VULN_MGMT'] }],
+  build_evidence_plan: [
+    {
+      audit_type: 'MDR_IVDR',
+      baseline_control_ids: ['FDA_524B_VULN_MGMT'],
+      threat_ids: ['th_device_firmware_manipulation'],
+    },
+  ],
   create_remediation_backlog: [
     {
       current_state: { implemented_controls: ['AU-2'], known_gaps: ['Missing device SBOM workflow'] },
@@ -985,7 +991,7 @@ export function createToolDefinitions(context: AboutContext): ToolDefinition[] {
     {
       name: 'map_to_healthcare_standards',
       description:
-        'Map threat, architecture, requirement, or control IDs to healthcare technical standards (IEC 62304, ISO 14971, IEC 80001-1, FHIR, FDA guidance) with rationale.',
+        'Map threat, architecture, requirement, or control IDs to healthcare technical standards (IEC 62304, ISO 14971, IEC 80001-1, IEC 81001-5-1, IEEE 11073, FHIR/IHE, SBOM and vuln exchange) with rationale.',
       inputSchema: {
         type: 'object',
         properties: {
@@ -1166,19 +1172,30 @@ export function createToolDefinitions(context: AboutContext): ToolDefinition[] {
     {
       name: 'build_evidence_plan',
       description:
-        'Return audit-ready evidence artifacts and templates for healthcare audits (HIPAA, NIS2, FDA_524B, MDR/IVDR, AI Act, HITRUST, ISO 27001/27799). Supports integrating baseline controls to track evidence completion.',
+        'Return audit-ready evidence artifacts and templates for healthcare audits (HIPAA, NIS2, FDA_524B, MDR/IVDR, AI Act, HITRUST, ISO 27001/27799, threat-response annexes). Supports integrating baseline controls and threat IDs to build incident-evidence checklists.',
       inputSchema: {
         type: 'object',
         properties: {
           audit_type: {
             type: 'string',
             description:
-              'Optional audit target such as HIPAA, NIS2, FDA_524B, MDR_IVDR, ISO27001_ISO27799, HITRUST, AI_ACT, or DCB0129_DCB0160.',
+              'Optional audit target such as HIPAA, NIS2, FDA_524B, MDR_IVDR, ISO27001_ISO27799, HITRUST, AI_ACT, DCB0129_DCB0160, or THREAT_RESPONSE.',
           },
           baseline_control_ids: {
             type: 'array',
             items: { type: 'string' },
             description: 'Optional control IDs from build_healthcare_baseline.',
+          },
+          threat_ids: {
+            type: 'array',
+            items: { type: 'string' },
+            description:
+              'Optional threat IDs from get_healthcare_threats to generate threat-specific evidence annexes and artifact bundles.',
+          },
+          include_threat_appendix: {
+            type: 'boolean',
+            description:
+              'Optional toggle to include or suppress threat_evidence_appendix output when threat_ids are provided.',
           },
           baseline: {
             type: 'object',
@@ -1307,7 +1324,7 @@ export function createToolDefinitions(context: AboutContext): ToolDefinition[] {
     {
       name: 'get_protocol_security',
       description:
-        'Return protocol-specific security profile for healthcare integration standards (HL7v2, FHIR, SMART on FHIR, DICOM, IHE).',
+        'Return protocol-specific security profile for healthcare integration and exchange standards (HL7v2/FHIR/SMART/UDAP/CDA/openEHR, DICOM/DICOMweb, IHE/IEEE 11073 including XDS/MHD/XCA/XCPD/PIXm/PDQm/PCD, X12, NCPDP, SBOM/vulnerability exchange).',
       inputSchema: {
         type: 'object',
         properties: {

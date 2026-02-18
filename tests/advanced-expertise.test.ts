@@ -30,6 +30,9 @@ describe('advanced healthcare expertise outputs', () => {
     expect(output.ai_act_considerations.high_risk_likelihood).toBe(true);
     expect(output.applicable_standards).toContain('iec_62304');
     expect(output.applicable_standards).toContain('iso_14971');
+    expect(output.applicable_standards).toContain('iec_81001_5_1');
+    expect(output.applicable_standards).toContain('iec_82304_1');
+    expect(output.applicable_standards).toContain('aami_tir57');
   });
 
   it('builds jurisdiction-aware breach decision tree with local and family fallback routing', () => {
@@ -66,6 +69,26 @@ describe('advanced healthcare expertise outputs', () => {
         item.toLowerCase().includes('risk management system documentation'),
       ),
     ).toBe(true);
+  });
+
+  it('builds threat-specific evidence appendix when threat ids are provided', () => {
+    const output = buildEvidencePlan(db, {
+      audit_type: 'THREAT_RESPONSE',
+      threat_ids: ['th_11073_command_injection', 'th_dicomweb_query_scrape'],
+    }) as {
+      templates: Array<{ template_id: string }>;
+      threat_evidence_appendix: Array<{
+        threat_id: string;
+        mapped_standards: Array<{ standard_id: string }>;
+      }>;
+      threat_artifact_checklist: string[];
+    };
+
+    expect(output.templates.length).toBeGreaterThan(0);
+    const iomt = output.threat_evidence_appendix.find((item) => item.threat_id === 'th_11073_command_injection');
+    expect(iomt).toBeDefined();
+    expect((iomt?.mapped_standards ?? []).some((item) => item.standard_id === 'ieee_11073_sdc')).toBe(true);
+    expect(output.threat_artifact_checklist.length).toBeGreaterThan(0);
   });
 
   it('returns explicit BAA/DPA/SCC and sensitive-chain contracting obligations in cross-border scenarios', () => {

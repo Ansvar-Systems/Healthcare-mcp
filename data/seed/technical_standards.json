@@ -73,6 +73,54 @@
       "status": "active"
     },
     {
+      "standard_id": "ihe_xds",
+      "name": "IHE XDS",
+      "authority": "IHE",
+      "scope": "Cross-Enterprise Document Sharing profile for federated clinical document exchange",
+      "version": "current",
+      "status": "active"
+    },
+    {
+      "standard_id": "ihe_mhd",
+      "name": "IHE MHD",
+      "authority": "IHE",
+      "scope": "Mobile access to health documents profile built on modern REST/FHIR document-exchange patterns",
+      "version": "current",
+      "status": "active"
+    },
+    {
+      "standard_id": "ihe_xca",
+      "name": "IHE XCA",
+      "authority": "IHE",
+      "scope": "Cross-Community Access profile for federated health information discovery and retrieval",
+      "version": "current",
+      "status": "active"
+    },
+    {
+      "standard_id": "ihe_xcpd",
+      "name": "IHE XCPD",
+      "authority": "IHE",
+      "scope": "Cross-Community Patient Discovery profile for patient identity matching across organizations",
+      "version": "current",
+      "status": "active"
+    },
+    {
+      "standard_id": "ihe_pixm",
+      "name": "IHE PIXm",
+      "authority": "IHE",
+      "scope": "Patient Identifier Cross-reference for Mobile profile enabling cross-domain patient identity correlation",
+      "version": "current",
+      "status": "active"
+    },
+    {
+      "standard_id": "ihe_pdqm",
+      "name": "IHE PDQm",
+      "authority": "IHE",
+      "scope": "Patient Demographics Query for Mobile profile for patient lookup and identity resolution",
+      "version": "current",
+      "status": "active"
+    },
+    {
       "standard_id": "iec_62304",
       "name": "IEC 62304",
       "authority": "IEC",
@@ -137,6 +185,214 @@
       "status": "active"
     },
     {
+      "standard_id": "fhir_bulk_data",
+      "name": "HL7 FHIR Bulk Data Access",
+      "authority": "HL7",
+      "scope": "Flat FHIR export/import framework for large-scale population and payer-provider exchange workflows",
+      "version": "current",
+      "status": "active"
+    },
+    {
+      "standard_id": "smart_backend_services",
+      "name": "SMART Backend Services",
+      "authority": "HL7 SMART",
+      "scope": "System-to-system OAuth2 profile for non-user FHIR API access",
+      "version": "current",
+      "status": "active"
+    },
+    {
+      "standard_id": "udap",
+      "name": "UDAP",
+      "authority": "HL7/UDAP Community",
+      "scope": "Trust, dynamic client registration, and identity profiles for secure healthcare OAuth ecosystems",
+      "version": "current",
+      "status": "active"
+    },
+    {
+      "standard_id": "hl7_cda_ccda",
+      "name": "HL7 CDA/C-CDA",
+      "authority": "HL7",
+      "scope": "Structured clinical document architecture and continuity document constraints for exchange workflows",
+      "version": "current",
+      "status": "active"
+    },
+    {
+      "standard_id": "direct_project",
+      "name": "Direct Project",
+      "authority": "DirectTrust/ONC Ecosystem",
+      "scope": "Secure health information transport framework for trusted message-based clinical exchange",
+      "version": "current",
+      "status": "reference_only"
+    },
+    {
+      "standard_id": "us_core_ig",
+      "name": "US Core Implementation Guide",
+      "authority": "HL7",
+      "scope": "US interoperability constraints and profiles for FHIR-based clinical data exchange",
+      "version": "current",
+      "status": "active"
+    },
+    {
+      "standard_id": "hl7_ips",
+      "name": "HL7 International Patient Summary",
+      "authority": "HL7",
+      "scope": "Cross-border patient summary exchange profile for continuity of care",
+      "version": "current",
+      "status": "active"
+    },
+    {
+      "standard_id": "openehr",
+      "name": "openEHR",
+      "authority": "openEHR Foundation",
+      "scope": "Open clinical data modeling and longitudinal EHR archetype/template framework",
+      "version": "current",
+      "status": "active"
+    },
+    {
+      "standard_id": "dicomweb",
+      "name": "DICOMweb",
+      "authority": "DICOM Standards Committee",
+      "scope": "Web service profile for DICOM imaging retrieval, storage, and metadata query",
+      "version": "current",
+      "status": "active"
+    },
+    {
+      "standard_id": "ihe_pcd",
+      "name": "IHE PCD",
+      "authority": "IHE",
+      "scope": "Patient Care Device integration profiles for clinical device data exchange",
+      "version": "current",
+      "status": "active"
+    },
+    {
+      "standard_id": "ieee_11073_sdc",
+      "name": "IEEE 11073 SDC",
+      "authority": "IEEE",
+      "scope": "Service-oriented medical device interoperability and command/control communication",
+      "version": "current",
+      "status": "active"
+    },
+    {
+      "standard_id": "ieee_11073_phd",
+      "name": "IEEE 11073 PHD",
+      "authority": "IEEE",
+      "scope": "Personal health device communication framework for remote monitoring and home-care telemetry",
+      "version": "current",
+      "status": "active"
+    },
+    {
+      "standard_id": "x12_005010",
+      "name": "ASC X12 005010 Healthcare Transactions",
+      "authority": "ASC X12",
+      "scope": "US healthcare administrative and claims EDI transactions (e.g., 270/271/276/277/278/835/837)",
+      "version": "005010",
+      "status": "active"
+    },
+    {
+      "standard_id": "ncpdp_script",
+      "name": "NCPDP SCRIPT",
+      "authority": "NCPDP",
+      "scope": "E-prescribing message standard for medication orders, refill requests, and prescription status",
+      "version": "current",
+      "status": "active"
+    },
+    {
+      "standard_id": "iec_81001_5_1",
+      "name": "IEC 81001-5-1",
+      "authority": "IEC",
+      "scope": "Health software cybersecurity activities for product development and maintenance",
+      "version": "2021",
+      "status": "active"
+    },
+    {
+      "standard_id": "iec_82304_1",
+      "name": "IEC 82304-1",
+      "authority": "IEC",
+      "scope": "Safety and quality requirements for health software products",
+      "version": "2016",
+      "status": "active"
+    },
+    {
+      "standard_id": "ul_2900_2_1",
+      "name": "UL 2900-2-1",
+      "authority": "UL",
+      "scope": "Cybersecurity requirements and test criteria for network-connectable healthcare systems",
+      "version": "current",
+      "status": "reference_only"
+    },
+    {
+      "standard_id": "aami_tir57",
+      "name": "AAMI TIR57",
+      "authority": "AAMI",
+      "scope": "Principles for medical device security risk management",
+      "version": "current",
+      "status": "reference_only"
+    },
+    {
+      "standard_id": "aami_tir97",
+      "name": "AAMI TIR97",
+      "authority": "AAMI",
+      "scope": "Postmarket cybersecurity management and vulnerability response lifecycle for medical devices",
+      "version": "current",
+      "status": "reference_only"
+    },
+    {
+      "standard_id": "iso_13485",
+      "name": "ISO 13485",
+      "authority": "ISO",
+      "scope": "Quality management system requirements for medical device lifecycle controls",
+      "version": "2016",
+      "status": "active"
+    },
+    {
+      "standard_id": "iso_29147",
+      "name": "ISO/IEC 29147",
+      "authority": "ISO/IEC",
+      "scope": "Vulnerability disclosure guidance for coordinated communication to stakeholders",
+      "version": "2018",
+      "status": "active"
+    },
+    {
+      "standard_id": "iso_30111",
+      "name": "ISO/IEC 30111",
+      "authority": "ISO/IEC",
+      "scope": "Vulnerability handling process requirements and remediation lifecycle",
+      "version": "2019",
+      "status": "active"
+    },
+    {
+      "standard_id": "spdx",
+      "name": "SPDX",
+      "authority": "Linux Foundation",
+      "scope": "Software bill of materials and software component/license metadata exchange format",
+      "version": "2.3+",
+      "status": "active"
+    },
+    {
+      "standard_id": "cyclonedx",
+      "name": "CycloneDX",
+      "authority": "OWASP Foundation",
+      "scope": "SBOM and software supply chain component/vulnerability representation format",
+      "version": "1.6",
+      "status": "active"
+    },
+    {
+      "standard_id": "csaf_2_0",
+      "name": "CSAF 2.0",
+      "authority": "OASIS",
+      "scope": "Machine-readable security advisory format for coordinated vulnerability notifications",
+      "version": "2.0",
+      "status": "active"
+    },
+    {
+      "standard_id": "vex",
+      "name": "VEX",
+      "authority": "CISA/NTIA ecosystem",
+      "scope": "Vulnerability exploitability exchange assertions for software components in SBOM contexts",
+      "version": "current",
+      "status": "active"
+    },
+    {
       "standard_id": "snomed_ct",
       "name": "SNOMED CT",
       "authority": "SNOMED International",
@@ -158,6 +414,46 @@
       "authority": "WHO",
       "scope": "Diagnosis classification coding frameworks",
       "version": "current",
+      "status": "active"
+    },
+    {
+      "standard_id": "tefca_qtf",
+      "name": "TEFCA QTF",
+      "authority": "ONC / Sequoia Project",
+      "scope": "US trusted-exchange common agreement and technical framework for QHIN-based interoperability",
+      "version": "current",
+      "status": "active"
+    },
+    {
+      "standard_id": "hhs_405d_hicp",
+      "name": "HHS 405(d) HICP",
+      "authority": "HHS 405(d) Program",
+      "scope": "Healthcare Industry Cybersecurity Practices implementation guidance for high-risk threat classes",
+      "version": "2023",
+      "status": "reference_only"
+    },
+    {
+      "standard_id": "imdrf_n60",
+      "name": "IMDRF N60",
+      "authority": "IMDRF",
+      "scope": "International principles and practices for medical device cybersecurity lifecycle governance",
+      "version": "2020",
+      "status": "reference_only"
+    },
+    {
+      "standard_id": "aami_sw96",
+      "name": "AAMI SW96",
+      "authority": "AAMI",
+      "scope": "Medical device security engineering and risk-management guidance for premarket and postmarket lifecycle",
+      "version": "2023",
+      "status": "active"
+    },
+    {
+      "standard_id": "nistir_8259",
+      "name": "NISTIR 8259",
+      "authority": "NIST",
+      "scope": "IoT cybersecurity capability baseline applicable to connected health and remote-monitoring devices",
+      "version": "2020",
       "status": "active"
     },
     {
@@ -281,6 +577,1070 @@
       "standard_id": "iso_14971",
       "mapping_type": "risk_management",
       "rationale": "Device firmware compromise can create patient hazards that must be controlled through ISO 14971 risk management."
+    },
+    {
+      "mapping_id": "map_threat_iomt_80001",
+      "input_type": "threat",
+      "input_id": "th_iomt_ransomware_clinical_ops",
+      "standard_id": "iec_80001_1",
+      "mapping_type": "network_risk",
+      "rationale": "Hospital IoMT ransomware pathways require explicit networked-medical-device risk ownership and control verification."
+    },
+    {
+      "mapping_id": "map_threat_iomt_81001",
+      "input_type": "threat",
+      "input_id": "th_iomt_ransomware_clinical_ops",
+      "standard_id": "iec_81001_5_1",
+      "mapping_type": "secure_lifecycle",
+      "rationale": "Health software cybersecurity lifecycle controls reduce exploitability in connected care delivery systems."
+    },
+    {
+      "mapping_id": "map_threat_iomt_11073sdc",
+      "input_type": "threat",
+      "input_id": "th_iomt_ransomware_clinical_ops",
+      "standard_id": "ieee_11073_sdc",
+      "mapping_type": "interoperability_hardening",
+      "rationale": "Service-oriented device interconnects require authenticated command and communication trust to constrain ransomware spread."
+    },
+    {
+      "mapping_id": "map_threat_firmware_81001",
+      "input_type": "threat",
+      "input_id": "th_device_firmware_manipulation",
+      "standard_id": "iec_81001_5_1",
+      "mapping_type": "secure_lifecycle",
+      "rationale": "Firmware lifecycle threats require secure development and maintenance activities aligned to health software cybersecurity guidance."
+    },
+    {
+      "mapping_id": "map_threat_firmware_aami_tir57",
+      "input_type": "threat",
+      "input_id": "th_device_firmware_manipulation",
+      "standard_id": "aami_tir57",
+      "mapping_type": "risk_management",
+      "rationale": "TIR57 provides practical methods to integrate cybersecurity hazards into medical device risk analysis and controls."
+    },
+    {
+      "mapping_id": "map_threat_firmware_aami_tir97",
+      "input_type": "threat",
+      "input_id": "th_device_firmware_manipulation",
+      "standard_id": "aami_tir97",
+      "mapping_type": "postmarket_process",
+      "rationale": "Postmarket vulnerability intake, triage, and remediation processes are central for firmware compromise response."
+    },
+    {
+      "mapping_id": "map_threat_firmware_sbom_spdx",
+      "input_type": "threat",
+      "input_id": "th_device_firmware_manipulation",
+      "standard_id": "spdx",
+      "mapping_type": "sbom_governance",
+      "rationale": "SPDX supports component-level transparency for vulnerable libraries and transitive firmware dependencies."
+    },
+    {
+      "mapping_id": "map_threat_firmware_sbom_cyclonedx",
+      "input_type": "threat",
+      "input_id": "th_device_firmware_manipulation",
+      "standard_id": "cyclonedx",
+      "mapping_type": "sbom_governance",
+      "rationale": "CycloneDX enables vulnerability-linked SBOM workflows for operationally actionable remediation tracking."
+    },
+    {
+      "mapping_id": "map_threat_firmware_csaf",
+      "input_type": "threat",
+      "input_id": "th_device_firmware_manipulation",
+      "standard_id": "csaf_2_0",
+      "mapping_type": "advisory_exchange",
+      "rationale": "CSAF provides structured vulnerability advisory exchange across device vendors, providers, and regulators."
+    },
+    {
+      "mapping_id": "map_threat_firmware_vex",
+      "input_type": "threat",
+      "input_id": "th_device_firmware_manipulation",
+      "standard_id": "vex",
+      "mapping_type": "exploitability_exchange",
+      "rationale": "VEX assertions reduce false-positive response burden by identifying component vulnerabilities that are not exploitable in deployed context."
+    },
+    {
+      "mapping_id": "map_threat_firmware_iso29147",
+      "input_type": "threat",
+      "input_id": "th_device_firmware_manipulation",
+      "standard_id": "iso_29147",
+      "mapping_type": "disclosure_process",
+      "rationale": "Coordinated disclosure communication is required when firmware weaknesses affect distributed clinical deployments."
+    },
+    {
+      "mapping_id": "map_threat_firmware_iso30111",
+      "input_type": "threat",
+      "input_id": "th_device_firmware_manipulation",
+      "standard_id": "iso_30111",
+      "mapping_type": "vulnerability_handling",
+      "rationale": "ISO/IEC 30111 formalizes vulnerability handling activities from intake to verified remediation closure."
+    },
+    {
+      "mapping_id": "map_pattern_hc_ehr_fhir_bulk",
+      "input_type": "architecture_pattern",
+      "input_id": "hc-ehr",
+      "standard_id": "fhir_bulk_data",
+      "mapping_type": "bulk_exchange_security",
+      "rationale": "EHR population-level exports should align with FHIR bulk exchange controls and authorization guardrails."
+    },
+    {
+      "mapping_id": "map_pattern_hc_ehr_us_core",
+      "input_type": "architecture_pattern",
+      "input_id": "hc-ehr",
+      "standard_id": "us_core_ig",
+      "mapping_type": "interoperability_profile",
+      "rationale": "US EHR integrations commonly inherit US Core profile obligations for data consistency and API behavior."
+    },
+    {
+      "mapping_id": "map_pattern_hc_hie_iua",
+      "input_type": "architecture_pattern",
+      "input_id": "hc-hie",
+      "standard_id": "ihe_iua",
+      "mapping_type": "authorization_federation",
+      "rationale": "Cross-enterprise exchange requires harmonized internet user authorization and token trust semantics."
+    },
+    {
+      "mapping_id": "map_pattern_hc_hie_ips",
+      "input_type": "architecture_pattern",
+      "input_id": "hc-hie",
+      "standard_id": "hl7_ips",
+      "mapping_type": "cross_border_interoperability",
+      "rationale": "Cross-border health information exchange requires standardized summary payloads for safe continuity of care."
+    },
+    {
+      "mapping_id": "map_pattern_hc_hie_xds",
+      "input_type": "architecture_pattern",
+      "input_id": "hc-hie",
+      "standard_id": "ihe_xds",
+      "mapping_type": "document_exchange_profile",
+      "rationale": "Cross-enterprise document sharing architectures frequently rely on XDS trust, registry, and document source/consumer controls."
+    },
+    {
+      "mapping_id": "map_pattern_hc_ehr_openehr",
+      "input_type": "architecture_pattern",
+      "input_id": "hc-ehr",
+      "standard_id": "openehr",
+      "mapping_type": "clinical_data_model",
+      "rationale": "Longitudinal EHR platforms may use openEHR archetypes/templates and should apply consistent model-governance and access controls."
+    },
+    {
+      "mapping_id": "map_pattern_hc_iomt_80001",
+      "input_type": "architecture_pattern",
+      "input_id": "hc-iomt",
+      "standard_id": "iec_80001_1",
+      "mapping_type": "network_risk",
+      "rationale": "IoMT environments need explicit risk governance for mixed IT and medical device network ecosystems."
+    },
+    {
+      "mapping_id": "map_pattern_hc_iomt_11073_sdc",
+      "input_type": "architecture_pattern",
+      "input_id": "hc-iomt",
+      "standard_id": "ieee_11073_sdc",
+      "mapping_type": "device_interoperability",
+      "rationale": "Service-oriented device connectivity controls are central for secure bedside and perioperative interoperability."
+    },
+    {
+      "mapping_id": "map_pattern_hc_iomt_11073_phd",
+      "input_type": "architecture_pattern",
+      "input_id": "hc-iomt",
+      "standard_id": "ieee_11073_phd",
+      "mapping_type": "telemetry_interoperability",
+      "rationale": "Remote and personal health device telemetry exchanges should align with IEEE 11073 PHD constraints."
+    },
+    {
+      "mapping_id": "map_pattern_hc_iomt_ihe_pcd",
+      "input_type": "architecture_pattern",
+      "input_id": "hc-iomt",
+      "standard_id": "ihe_pcd",
+      "mapping_type": "device_data_profile",
+      "rationale": "IHE PCD profiles support reliable integration of patient care device data into clinical workflows."
+    },
+    {
+      "mapping_id": "map_pattern_hc_pacs_dicomweb",
+      "input_type": "architecture_pattern",
+      "input_id": "hc-pacs",
+      "standard_id": "dicomweb",
+      "mapping_type": "web_imaging_security",
+      "rationale": "Modern imaging exchange frequently exposes DICOMweb endpoints that require explicit API and metadata hardening."
+    },
+    {
+      "mapping_id": "map_pattern_hc_pharmacy_ncpdp",
+      "input_type": "architecture_pattern",
+      "input_id": "hc-pharmacy",
+      "standard_id": "ncpdp_script",
+      "mapping_type": "eprescribing_exchange",
+      "rationale": "Pharmacy and e-prescribing workflows rely on NCPDP SCRIPT message integrity and authentication controls."
+    },
+    {
+      "mapping_id": "map_pattern_hc_erp_x12",
+      "input_type": "architecture_pattern",
+      "input_id": "hc-erp",
+      "standard_id": "x12_005010",
+      "mapping_type": "claims_interchange",
+      "rationale": "Revenue-cycle and payer integration pathways map to ASC X12 healthcare transaction controls."
+    },
+    {
+      "mapping_id": "map_pattern_hc_samd_62304",
+      "input_type": "architecture_pattern",
+      "input_id": "hc-samd",
+      "standard_id": "iec_62304",
+      "mapping_type": "software_lifecycle",
+      "rationale": "SaMD pipelines require traceable software lifecycle activities and class-driven verification evidence."
+    },
+    {
+      "mapping_id": "map_pattern_hc_samd_81001",
+      "input_type": "architecture_pattern",
+      "input_id": "hc-samd",
+      "standard_id": "iec_81001_5_1",
+      "mapping_type": "secure_lifecycle",
+      "rationale": "Health software development and maintenance should include explicit cybersecurity activities from requirements through operations."
+    },
+    {
+      "mapping_id": "map_pattern_hc_samd_82304",
+      "input_type": "architecture_pattern",
+      "input_id": "hc-samd",
+      "standard_id": "iec_82304_1",
+      "mapping_type": "product_safety_quality",
+      "rationale": "Health software product safety and quality expectations complement cybersecurity controls in SaMD environments."
+    },
+    {
+      "mapping_id": "map_pattern_hc_telehealth_11073_phd",
+      "input_type": "architecture_pattern",
+      "input_id": "hc-telehealth",
+      "standard_id": "ieee_11073_phd",
+      "mapping_type": "remote_monitoring_interoperability",
+      "rationale": "Telehealth programs using remote patient monitoring should align telemetry trust and interoperability expectations with IEEE 11073 PHD."
+    },
+    {
+      "mapping_id": "map_threat_dicomweb_scrape_dicomweb",
+      "input_type": "threat",
+      "input_id": "th_dicomweb_query_scrape",
+      "standard_id": "dicomweb",
+      "mapping_type": "api_hardening",
+      "rationale": "DICOMweb query and retrieval abuse should be mitigated through profile-specific authorization, throttling, and metadata controls."
+    },
+    {
+      "mapping_id": "map_threat_dicomweb_scrape_atna",
+      "input_type": "threat",
+      "input_id": "th_dicomweb_query_scrape",
+      "standard_id": "ihe_atna",
+      "mapping_type": "audit_traceability",
+      "rationale": "ATNA-aligned auditing strengthens forensic reconstruction for unauthorized imaging enumeration and retrieval events."
+    },
+    {
+      "mapping_id": "map_threat_11073_command_ieee_sdc",
+      "input_type": "threat",
+      "input_id": "th_11073_command_injection",
+      "standard_id": "ieee_11073_sdc",
+      "mapping_type": "command_trust_control",
+      "rationale": "Command-path trust and service authorization controls are central to reducing IEEE 11073 SDC command injection risk."
+    },
+    {
+      "mapping_id": "map_threat_11073_command_80001",
+      "input_type": "threat",
+      "input_id": "th_11073_command_injection",
+      "standard_id": "iec_80001_1",
+      "mapping_type": "network_risk",
+      "rationale": "Networked device command risk should be governed through shared-responsibility and residual-risk processes in IEC 80001-1."
+    },
+    {
+      "mapping_id": "map_threat_11073_command_14971",
+      "input_type": "threat",
+      "input_id": "th_11073_command_injection",
+      "standard_id": "iso_14971",
+      "mapping_type": "clinical_hazard_control",
+      "rationale": "Unauthorized device command execution can create patient hazards requiring explicit risk control and benefit-risk evaluation."
+    },
+    {
+      "mapping_id": "map_threat_ncpdp_refill_script",
+      "input_type": "threat",
+      "input_id": "th_ncpdp_refill_replay",
+      "standard_id": "ncpdp_script",
+      "mapping_type": "message_integrity",
+      "rationale": "Replay-resilient e-prescribing and refill workflows require strict NCPDP SCRIPT transaction integrity and identity controls."
+    },
+    {
+      "mapping_id": "map_threat_x12_tampering_x12",
+      "input_type": "threat",
+      "input_id": "th_x12_claims_tampering",
+      "standard_id": "x12_005010",
+      "mapping_type": "edi_integrity",
+      "rationale": "Claims tampering risk in payer-provider exchange maps directly to X12 transaction integrity and partner-validation controls."
+    },
+    {
+      "mapping_id": "map_threat_remote_monitoring_11073_phd",
+      "input_type": "threat",
+      "input_id": "th_remote_monitoring_device_spoofing",
+      "standard_id": "ieee_11073_phd",
+      "mapping_type": "telemetry_identity_assurance",
+      "rationale": "Remote monitoring device identity spoofing should be mitigated through trusted telemetry identity and enrollment governance aligned with IEEE 11073 PHD."
+    },
+    {
+      "mapping_id": "map_threat_remote_monitoring_ihe_pcd",
+      "input_type": "threat",
+      "input_id": "th_remote_monitoring_device_spoofing",
+      "standard_id": "ihe_pcd",
+      "mapping_type": "clinical_device_data_validation",
+      "rationale": "IHE PCD profile governance improves consistency and trust for patient-care-device data ingestion into clinical workflows."
+    },
+    {
+      "mapping_id": "map_threat_xds_registry_ihe_xds",
+      "input_type": "threat",
+      "input_id": "th_xds_registry_poisoning",
+      "standard_id": "ihe_xds",
+      "mapping_type": "registry_integrity",
+      "rationale": "XDS registry poisoning risk requires document registry integrity controls, trusted metadata mutation governance, and auditability."
+    },
+    {
+      "mapping_id": "map_threat_xds_registry_ihe_xca",
+      "input_type": "threat",
+      "input_id": "th_xds_registry_poisoning",
+      "standard_id": "ihe_xca",
+      "mapping_type": "cross_community_access_control",
+      "rationale": "Cross-community access trust and endpoint validation controls reduce downstream impact of compromised registry metadata."
+    },
+    {
+      "mapping_id": "map_threat_xcpd_identity_ihe_xcpd",
+      "input_type": "threat",
+      "input_id": "th_xcpd_identity_mismatch",
+      "standard_id": "ihe_xcpd",
+      "mapping_type": "identity_matching_assurance",
+      "rationale": "XCPD governance and patient-discovery integrity controls are central to reducing wrong-patient cross-community correlation events."
+    },
+    {
+      "mapping_id": "map_threat_xcpd_identity_pixm",
+      "input_type": "threat",
+      "input_id": "th_xcpd_identity_mismatch",
+      "standard_id": "ihe_pixm",
+      "mapping_type": "identifier_correlation",
+      "rationale": "PIXm-based identifier cross-reference controls improve identity-correlation confidence and detect high-risk mapping anomalies."
+    },
+    {
+      "mapping_id": "map_threat_openehr_template_openehr",
+      "input_type": "threat",
+      "input_id": "th_openehr_archetype_tampering",
+      "standard_id": "openehr",
+      "mapping_type": "model_governance",
+      "rationale": "openEHR archetype/template tampering must be controlled through strict model lifecycle governance and version integrity assurance."
+    },
+    {
+      "mapping_id": "map_threat_openehr_template_iso27799",
+      "input_type": "threat",
+      "input_id": "th_openehr_archetype_tampering",
+      "standard_id": "iso_27799",
+      "mapping_type": "health_informatics_security",
+      "rationale": "Health-informatics integrity and governance safeguards support safe management of semantically critical EHR data-model changes."
+    },
+    {
+      "mapping_id": "map_threat_udap_dynamic_client_udap",
+      "input_type": "threat",
+      "input_id": "th_udap_dynamic_client_abuse",
+      "standard_id": "udap",
+      "mapping_type": "trust_framework_security",
+      "rationale": "UDAP trust anchor and dynamic client registration controls are key to preventing malicious federation onboarding."
+    },
+    {
+      "mapping_id": "map_threat_udap_dynamic_client_smart",
+      "input_type": "threat",
+      "input_id": "th_udap_dynamic_client_abuse",
+      "standard_id": "smart_on_fhir",
+      "mapping_type": "oauth_scope_governance",
+      "rationale": "SMART scope governance and client registration assurance reduce rogue-client impact in healthcare OAuth ecosystems."
+    },
+    {
+      "mapping_id": "map_threat_ccda_document_hl7_cda",
+      "input_type": "threat",
+      "input_id": "th_ccda_document_injection",
+      "standard_id": "hl7_cda_ccda",
+      "mapping_type": "document_integrity",
+      "rationale": "C-CDA document injection scenarios require robust structured-document validation and signature integrity controls."
+    },
+    {
+      "mapping_id": "map_threat_ccda_document_direct_project",
+      "input_type": "threat",
+      "input_id": "th_ccda_document_injection",
+      "standard_id": "direct_project",
+      "mapping_type": "trusted_transport",
+      "rationale": "Trusted message transport controls can reduce unauthorized sender abuse in document-based exchange channels."
+    },
+    {
+      "mapping_id": "map_pattern_hc_hie_xca",
+      "input_type": "architecture_pattern",
+      "input_id": "hc-hie",
+      "standard_id": "ihe_xca",
+      "mapping_type": "federated_access_profile",
+      "rationale": "HIE deployments frequently require cross-community access governance aligned with XCA trust and retrieval constraints."
+    },
+    {
+      "mapping_id": "map_pattern_hc_hie_xcpd",
+      "input_type": "architecture_pattern",
+      "input_id": "hc-hie",
+      "standard_id": "ihe_xcpd",
+      "mapping_type": "patient_discovery_profile",
+      "rationale": "Cross-enterprise identity resolution in HIE contexts depends on robust patient-discovery controls and confidence governance."
+    },
+    {
+      "mapping_id": "map_pattern_hc_hie_pixm",
+      "input_type": "architecture_pattern",
+      "input_id": "hc-hie",
+      "standard_id": "ihe_pixm",
+      "mapping_type": "identifier_cross_reference",
+      "rationale": "Cross-community patient identifier reconciliation should align to PIXm constraints for consistency and safety."
+    },
+    {
+      "mapping_id": "map_pattern_hc_hie_pdqm",
+      "input_type": "architecture_pattern",
+      "input_id": "hc-hie",
+      "standard_id": "ihe_pdqm",
+      "mapping_type": "demographic_query_profile",
+      "rationale": "Patient demographic query controls are critical for safe and accurate cross-organization identity lookup."
+    },
+    {
+      "mapping_id": "map_pattern_hc_hie_mhd",
+      "input_type": "architecture_pattern",
+      "input_id": "hc-hie",
+      "standard_id": "ihe_mhd",
+      "mapping_type": "mobile_document_exchange",
+      "rationale": "Modern mobile document exchange pathways in HIE systems commonly map to MHD profile constraints and trust expectations."
+    },
+    {
+      "mapping_id": "map_pattern_hc_hie_iso22600",
+      "input_type": "architecture_pattern",
+      "input_id": "hc-hie",
+      "standard_id": "iso_22600",
+      "mapping_type": "privilege_management",
+      "rationale": "Federated healthcare authorization and privilege management concerns are directly addressed by ISO 22600 concepts."
+    },
+    {
+      "mapping_id": "map_pattern_hc_hie_direct_project",
+      "input_type": "architecture_pattern",
+      "input_id": "hc-hie",
+      "standard_id": "direct_project",
+      "mapping_type": "secure_transport_pattern",
+      "rationale": "Message-based trusted transport remains a practical interoperability pattern in many healthcare exchange ecosystems."
+    },
+    {
+      "mapping_id": "map_pattern_hc_ehr_fhir_r5",
+      "input_type": "architecture_pattern",
+      "input_id": "hc-ehr",
+      "standard_id": "hl7_fhir_r5",
+      "mapping_type": "protocol_dependency",
+      "rationale": "EHR interoperability architectures increasingly include FHIR R5 resources and migration pathways."
+    },
+    {
+      "mapping_id": "map_pattern_hc_ehr_hl7_cda",
+      "input_type": "architecture_pattern",
+      "input_id": "hc-ehr",
+      "standard_id": "hl7_cda_ccda",
+      "mapping_type": "document_interoperability",
+      "rationale": "Inbound/outbound structured clinical-document exchange remains common alongside API-based interoperability."
+    },
+    {
+      "mapping_id": "map_pattern_hc_ehr_snomed_ct",
+      "input_type": "architecture_pattern",
+      "input_id": "hc-ehr",
+      "standard_id": "snomed_ct",
+      "mapping_type": "clinical_terminology",
+      "rationale": "Clinical-record semantics in EHR systems rely on standardized terminology sets for consistency and decision support."
+    },
+    {
+      "mapping_id": "map_pattern_hc_lab_loinc",
+      "input_type": "architecture_pattern",
+      "input_id": "hc-lab",
+      "standard_id": "loinc",
+      "mapping_type": "observation_coding",
+      "rationale": "Laboratory and clinical observation workflows depend on LOINC-coded exchange for interoperability and analytics integrity."
+    },
+    {
+      "mapping_id": "map_pattern_hc_erp_icd",
+      "input_type": "architecture_pattern",
+      "input_id": "hc-erp",
+      "standard_id": "icd_10_11",
+      "mapping_type": "diagnosis_classification",
+      "rationale": "Revenue-cycle and reporting workflows commonly depend on ICD-coded diagnosis classification semantics."
+    },
+    {
+      "mapping_id": "map_threat_hl7v2_injection_hl7_v2",
+      "input_type": "threat",
+      "input_id": "th_hl7v2_message_injection",
+      "standard_id": "hl7_v2",
+      "mapping_type": "protocol_integrity",
+      "rationale": "Message injection risk is directly tied to HL7v2 transport and interface control weaknesses."
+    },
+    {
+      "mapping_id": "map_requirement_smart_to_smart_standard",
+      "input_type": "requirement",
+      "input_id": "SMART_ON_FHIR",
+      "standard_id": "smart_on_fhir",
+      "mapping_type": "protocol_alignment",
+      "rationale": "SMART-specific requirement references should directly map to SMART on FHIR normative security flow expectations."
+    },
+    {
+      "mapping_id": "map_requirement_dicom_to_dicom_core",
+      "input_type": "requirement",
+      "input_id": "DICOM_SECURITY",
+      "standard_id": "dicom",
+      "mapping_type": "protocol_alignment",
+      "rationale": "DICOM security requirements also depend on the core DICOM protocol and metadata handling model."
+    },
+    {
+      "mapping_id": "map_requirement_smart_backend_udap",
+      "input_type": "requirement",
+      "input_id": "SMART_BACKEND_SERVICES",
+      "standard_id": "udap",
+      "mapping_type": "trust_framework_alignment",
+      "rationale": "UDAP trust profiles complement SMART backend service security by strengthening client trust and registration assurance."
+    },
+    {
+      "mapping_id": "map_requirement_ehds_secondary_use_xca",
+      "input_type": "requirement",
+      "input_id": "EHDS_SECONDARY_USE",
+      "standard_id": "ihe_xca",
+      "mapping_type": "cross_community_exchange",
+      "rationale": "EHDS-like secondary-use distribution and retrieval workflows may traverse federated cross-community access patterns."
+    },
+    {
+      "mapping_id": "map_requirement_ehds_secondary_use_mhd",
+      "input_type": "requirement",
+      "input_id": "EHDS_SECONDARY_USE",
+      "standard_id": "ihe_mhd",
+      "mapping_type": "mobile_document_exchange",
+      "rationale": "Secondary-use and document-sharing endpoints increasingly rely on modern API/mobile document exchange profiles."
+    },
+    {
+      "mapping_id": "map_requirement_hipaa_to_iso27799",
+      "input_type": "requirement",
+      "input_id": "HIPAA_164.312",
+      "standard_id": "iso_27799",
+      "mapping_type": "health_informatics_guidance",
+      "rationale": "ISO 27799 provides healthcare-specific control guidance aligned with core HIPAA security safeguards."
+    },
+    {
+      "mapping_id": "map_requirement_fda_524b_iso13485",
+      "input_type": "requirement",
+      "input_id": "FDA_524B",
+      "standard_id": "iso_13485",
+      "mapping_type": "quality_system_alignment",
+      "rationale": "Device cybersecurity lifecycle evidence should be integrated into medical-device quality management controls."
+    },
+    {
+      "mapping_id": "map_requirement_nis2_art21_ihe_ser",
+      "input_type": "requirement",
+      "input_id": "NIS2_ART_21",
+      "standard_id": "ihe_ser",
+      "mapping_type": "security_event_reporting",
+      "rationale": "Structured security-event reporting strengthens incident coordination and reporting readiness for essential entities."
+    },
+    {
+      "mapping_id": "map_control_hipaa_to_hitrust_csf",
+      "input_type": "control",
+      "input_id": "HIPAA_SAFEGUARDS",
+      "standard_id": "hitrust_csf",
+      "mapping_type": "framework_crosswalk",
+      "rationale": "HITRUST CSF provides healthcare-focused crosswalk and implementation maturity context for HIPAA safeguard domains."
+    },
+    {
+      "mapping_id": "map_threat_firmware_ul2900",
+      "input_type": "threat",
+      "input_id": "th_device_firmware_manipulation",
+      "standard_id": "ul_2900_2_1",
+      "mapping_type": "device_cyber_test_assurance",
+      "rationale": "UL 2900-2-1 testing criteria provide additional assurance for identifying firmware and software security weaknesses."
+    },
+    {
+      "mapping_id": "map_threat_firmware_mdcg_2019_16",
+      "input_type": "threat",
+      "input_id": "th_device_firmware_manipulation",
+      "standard_id": "mdcg_2019_16",
+      "mapping_type": "eu_regulatory_guidance_alignment",
+      "rationale": "EU medical-device cybersecurity expectations in MDCG guidance are directly relevant to firmware-manipulation risk treatment."
+    },
+    {
+      "mapping_id": "map_threat_fhir_bulk_exfil_fhir_bulk",
+      "input_type": "threat",
+      "input_id": "th_fhir_bulk_exfiltration",
+      "standard_id": "fhir_bulk_data",
+      "mapping_type": "bulk_exchange_hardening",
+      "rationale": "FHIR bulk-exfiltration scenarios require strict controls aligned to bulk data export semantics and authorization constraints."
+    },
+    {
+      "mapping_id": "map_threat_fhir_bulk_exfil_smart",
+      "input_type": "threat",
+      "input_id": "th_fhir_bulk_exfiltration",
+      "standard_id": "smart_on_fhir",
+      "mapping_type": "oauth_scope_governance",
+      "rationale": "Over-permissive SMART scopes are a primary precondition for unauthorized large-scale FHIR data extraction."
+    },
+    {
+      "mapping_id": "map_threat_ehr_order_integrity_iso27799",
+      "input_type": "threat",
+      "input_id": "th_ehr_order_manipulation",
+      "standard_id": "iso_27799",
+      "mapping_type": "clinical_record_integrity",
+      "rationale": "EHR order and chart-integrity risk requires healthcare-specific safeguards for data quality, integrity, and traceability."
+    },
+    {
+      "mapping_id": "map_threat_ehr_order_privilege_iso22600",
+      "input_type": "threat",
+      "input_id": "th_ehr_order_manipulation",
+      "standard_id": "iso_22600",
+      "mapping_type": "privilege_management",
+      "rationale": "Role and privilege governance is central to reducing unauthorized order manipulation by compromised privileged identities."
+    },
+    {
+      "mapping_id": "map_threat_dicom_metadata_dicom_core",
+      "input_type": "threat",
+      "input_id": "th_dicom_metadata_leak",
+      "standard_id": "dicom",
+      "mapping_type": "metadata_governance",
+      "rationale": "DICOM metadata leakage risk directly depends on disciplined handling of DICOM header fields and export workflows."
+    },
+    {
+      "mapping_id": "map_threat_dicom_metadata_atna",
+      "input_type": "threat",
+      "input_id": "th_dicom_metadata_leak",
+      "standard_id": "ihe_atna",
+      "mapping_type": "audit_and_node_auth",
+      "rationale": "ATNA-aligned audit and node-authentication controls improve detection and containment of unauthorized imaging metadata exposure."
+    },
+    {
+      "mapping_id": "map_threat_ihe_token_forgery_xua",
+      "input_type": "threat",
+      "input_id": "th_ihe_token_forgery",
+      "standard_id": "ihe_xua",
+      "mapping_type": "assertion_validation",
+      "rationale": "Token-forgery threats in federated exchange map directly to XUA assertion trust and validation controls."
+    },
+    {
+      "mapping_id": "map_threat_ihe_token_forgery_iua",
+      "input_type": "threat",
+      "input_id": "th_ihe_token_forgery",
+      "standard_id": "ihe_iua",
+      "mapping_type": "authorization_enforcement",
+      "rationale": "IUA profile controls help constrain token scope, audience, and authorization misuse in internet-facing health APIs."
+    },
+    {
+      "mapping_id": "map_threat_prescription_diversion_ncpdp",
+      "input_type": "threat",
+      "input_id": "th_prescription_diversion",
+      "standard_id": "ncpdp_script",
+      "mapping_type": "eprescribing_integrity",
+      "rationale": "Prescription-diversion risk is tightly coupled to NCPDP SCRIPT transaction authenticity, integrity, and prescriber assurance."
+    },
+    {
+      "mapping_id": "map_threat_prescription_diversion_iso27799",
+      "input_type": "threat",
+      "input_id": "th_prescription_diversion",
+      "standard_id": "iso_27799",
+      "mapping_type": "health_informatics_control",
+      "rationale": "Healthcare-specific security controls support fraud reduction and safe medication workflow governance."
+    },
+    {
+      "mapping_id": "map_threat_telehealth_identity_smart",
+      "input_type": "threat",
+      "input_id": "th_telehealth_identity_takeover",
+      "standard_id": "smart_on_fhir",
+      "mapping_type": "identity_and_scope_control",
+      "rationale": "Telehealth identity-takeover scenarios often intersect with OAuth-token and scope misuse in SMART-enabled portal/API integrations."
+    },
+    {
+      "mapping_id": "map_threat_telehealth_identity_11073phd",
+      "input_type": "threat",
+      "input_id": "th_telehealth_identity_takeover",
+      "standard_id": "ieee_11073_phd",
+      "mapping_type": "remote_identity_assurance",
+      "rationale": "Remote care workflows rely on trusted personal-device and identity context, making IEEE 11073 PHD controls relevant for telemetry-linked takeover risk."
+    },
+    {
+      "mapping_id": "map_threat_biobank_iso27799",
+      "input_type": "threat",
+      "input_id": "th_biobank_data_theft",
+      "standard_id": "iso_27799",
+      "mapping_type": "research_data_protection",
+      "rationale": "High-sensitivity genomic/biobank datasets require healthcare-tailored safeguards for confidentiality, monitoring, and controlled access."
+    },
+    {
+      "mapping_id": "map_threat_biobank_hl7_ips",
+      "input_type": "threat",
+      "input_id": "th_biobank_data_theft",
+      "standard_id": "hl7_ips",
+      "mapping_type": "cross_border_data_minimization",
+      "rationale": "Cross-border dataset sharing risks are reduced through standardized minimum-necessary summary exchange constraints."
+    },
+    {
+      "mapping_id": "map_threat_vendor_supply_chain_csaf",
+      "input_type": "threat",
+      "input_id": "th_vendor_supply_chain_compromise",
+      "standard_id": "csaf_2_0",
+      "mapping_type": "supplier_advisory_coordination",
+      "rationale": "Machine-readable advisory coordination is essential for rapid multi-vendor response to downstream supply-chain compromise."
+    },
+    {
+      "mapping_id": "map_threat_vendor_supply_chain_vex",
+      "input_type": "threat",
+      "input_id": "th_vendor_supply_chain_compromise",
+      "standard_id": "vex",
+      "mapping_type": "exploitability_prioritization",
+      "rationale": "VEX assertions support rapid triage of which vulnerable components are exploitable across dependent healthcare environments."
+    },
+    {
+      "mapping_id": "map_requirement_smart_backend_services",
+      "input_type": "requirement",
+      "input_id": "SMART_BACKEND_SERVICES",
+      "standard_id": "smart_backend_services",
+      "mapping_type": "protocol_alignment",
+      "rationale": "Backend-to-backend FHIR integrations should align to SMART Backend Services authorization requirements."
+    },
+    {
+      "mapping_id": "map_requirement_fhir_bulk_data",
+      "input_type": "requirement",
+      "input_id": "FHIR_BULK_DATA",
+      "standard_id": "fhir_bulk_data",
+      "mapping_type": "protocol_alignment",
+      "rationale": "Population-level exports/imports should apply FHIR bulk operation guidance and security controls."
+    },
+    {
+      "mapping_id": "map_requirement_dicomweb_security",
+      "input_type": "requirement",
+      "input_id": "DICOMWEB_SECURITY",
+      "standard_id": "dicomweb",
+      "mapping_type": "protocol_alignment",
+      "rationale": "DICOMweb interfaces should enforce web API security controls and imaging metadata protection workflows."
+    },
+    {
+      "mapping_id": "map_requirement_fda_524b_spdx",
+      "input_type": "requirement",
+      "input_id": "FDA_524B",
+      "standard_id": "spdx",
+      "mapping_type": "sbom_alignment",
+      "rationale": "FDA cybersecurity documentation expectations include maintainable software component inventory practices supported by SBOM formats."
+    },
+    {
+      "mapping_id": "map_requirement_fda_524b_cyclonedx",
+      "input_type": "requirement",
+      "input_id": "FDA_524B",
+      "standard_id": "cyclonedx",
+      "mapping_type": "sbom_alignment",
+      "rationale": "CycloneDX provides machine-readable component and vulnerability context for FDA-aligned submission and maintenance workflows."
+    },
+    {
+      "mapping_id": "map_requirement_fda_524b_vex",
+      "input_type": "requirement",
+      "input_id": "FDA_524B",
+      "standard_id": "vex",
+      "mapping_type": "exploitability_assurance",
+      "rationale": "VEX statements improve vulnerability decision evidence by clarifying exploitability in the deployed device context."
+    },
+    {
+      "mapping_id": "map_requirement_fda_524b_iso30111",
+      "input_type": "requirement",
+      "input_id": "FDA_524B",
+      "standard_id": "iso_30111",
+      "mapping_type": "vulnerability_handling",
+      "rationale": "Structured vulnerability handling lifecycle evidence supports FDA secure-by-design and postmarket cybersecurity expectations."
+    },
+    {
+      "mapping_id": "map_requirement_nis2_supply_chain_csaf",
+      "input_type": "requirement",
+      "input_id": "NIS2_SUPPLY_CHAIN",
+      "standard_id": "csaf_2_0",
+      "mapping_type": "supply_chain_advisory",
+      "rationale": "NIS2 supply chain risk management is strengthened by machine-readable advisory exchange with suppliers."
+    },
+    {
+      "mapping_id": "map_requirement_nis2_supply_chain_vex",
+      "input_type": "requirement",
+      "input_id": "NIS2_SUPPLY_CHAIN",
+      "standard_id": "vex",
+      "mapping_type": "supplier_exploitability_signal",
+      "rationale": "Exploitability exchange improves triage quality and remediation prioritization in multi-vendor healthcare ecosystems."
+    },
+    {
+      "mapping_id": "map_requirement_ehds_secondary_use_ips",
+      "input_type": "requirement",
+      "input_id": "EHDS_SECONDARY_USE",
+      "standard_id": "hl7_ips",
+      "mapping_type": "cross_border_data_portability",
+      "rationale": "EHDS secondary-use and cross-border continuity models benefit from standardized patient-summary payload semantics."
+    },
+    {
+      "mapping_id": "map_requirement_ehds_secondary_use_xds",
+      "input_type": "requirement",
+      "input_id": "EHDS_SECONDARY_USE",
+      "standard_id": "ihe_xds",
+      "mapping_type": "federated_document_exchange",
+      "rationale": "Federated document exchange controls and trust boundaries are relevant for secondary-use sharing infrastructures."
+    },
+    {
+      "mapping_id": "map_requirement_ai_act_art9_14971",
+      "input_type": "requirement",
+      "input_id": "AI_ACT_ART_9",
+      "standard_id": "iso_14971",
+      "mapping_type": "risk_management_alignment",
+      "rationale": "AI Act risk-management obligations in clinical contexts align with medical-device risk analysis and residual-risk treatment methods."
+    },
+    {
+      "mapping_id": "map_requirement_ai_act_art9_62304",
+      "input_type": "requirement",
+      "input_id": "AI_ACT_ART_9",
+      "standard_id": "iec_62304",
+      "mapping_type": "lifecycle_alignment",
+      "rationale": "Clinical AI software changes should be governed through lifecycle controls with documented verification and validation evidence."
+    },
+    {
+      "mapping_id": "map_pattern_hc_hie_tefca_qtf",
+      "input_type": "architecture_pattern",
+      "input_id": "hc-hie",
+      "standard_id": "tefca_qtf",
+      "mapping_type": "trusted_exchange_alignment",
+      "rationale": "US HIE interoperability trust architecture can align to TEFCA exchange governance and technical trust expectations."
+    },
+    {
+      "mapping_id": "map_requirement_tefca_exchange_qtf",
+      "input_type": "requirement",
+      "input_id": "TEFCA_EXCHANGE",
+      "standard_id": "tefca_qtf",
+      "mapping_type": "policy_to_technical_alignment",
+      "rationale": "TEFCA exchange requirements should be anchored to QTF trust, identity, and data-sharing constraints."
+    },
+    {
+      "mapping_id": "map_control_hipaa_to_hicp",
+      "input_type": "control",
+      "input_id": "HIPAA_SAFEGUARDS",
+      "standard_id": "hhs_405d_hicp",
+      "mapping_type": "implementation_playbook",
+      "rationale": "HICP provides practical healthcare-sector security practice profiles to operationalize HIPAA safeguard requirements."
+    },
+    {
+      "mapping_id": "map_threat_ransomware_hicp",
+      "input_type": "threat",
+      "input_id": "th_iomt_ransomware_clinical_ops",
+      "standard_id": "hhs_405d_hicp",
+      "mapping_type": "threat_playbook_alignment",
+      "rationale": "HICP prioritizes ransomware resilience and recovery practices for healthcare delivery organizations."
+    },
+    {
+      "mapping_id": "map_requirement_fda_524b_imdrf_n60",
+      "input_type": "requirement",
+      "input_id": "FDA_524B",
+      "standard_id": "imdrf_n60",
+      "mapping_type": "global_device_cyber_alignment",
+      "rationale": "IMDRF cybersecurity principles provide internationally aligned lifecycle practices that complement FDA 524B expectations."
+    },
+    {
+      "mapping_id": "map_threat_device_firmware_imdrf_n60",
+      "input_type": "threat",
+      "input_id": "th_device_firmware_manipulation",
+      "standard_id": "imdrf_n60",
+      "mapping_type": "device_lifecycle_governance",
+      "rationale": "Firmware-manipulation risk requires coordinated pre/post-market cybersecurity lifecycle governance aligned with IMDRF practice."
+    },
+    {
+      "mapping_id": "map_requirement_fda_524b_aami_sw96",
+      "input_type": "requirement",
+      "input_id": "FDA_524B",
+      "standard_id": "aami_sw96",
+      "mapping_type": "engineering_process_alignment",
+      "rationale": "AAMI SW96 details device security engineering and risk-management methods aligned with FDA secure-by-design intent."
+    },
+    {
+      "mapping_id": "map_pattern_hc_samd_aami_sw96",
+      "input_type": "architecture_pattern",
+      "input_id": "hc-samd",
+      "standard_id": "aami_sw96",
+      "mapping_type": "samd_security_engineering",
+      "rationale": "SaMD design and maintenance workflows should implement medical-device security engineering lifecycle controls."
+    },
+    {
+      "mapping_id": "map_pattern_hc_iomt_nistir_8259",
+      "input_type": "architecture_pattern",
+      "input_id": "hc-iomt",
+      "standard_id": "nistir_8259",
+      "mapping_type": "iot_capability_baseline",
+      "rationale": "Connected medical-device fleets benefit from explicit IoT capability baselines for identity, update, and telemetry security."
+    },
+    {
+      "mapping_id": "map_threat_remote_monitoring_nistir_8259",
+      "input_type": "threat",
+      "input_id": "th_remote_monitoring_device_spoofing",
+      "standard_id": "nistir_8259",
+      "mapping_type": "device_identity_and_telemetry_integrity",
+      "rationale": "Remote-monitoring spoofing scenarios map to IoT baseline expectations for device identity, secure communications, and behavior monitoring."
+    },
+    {
+      "mapping_id": "map_threat_terminology_poisoning_snomed",
+      "input_type": "threat",
+      "input_id": "th_terminology_service_poisoning",
+      "standard_id": "snomed_ct",
+      "mapping_type": "clinical_terminology_integrity",
+      "rationale": "Terminology poisoning directly affects SNOMED concept integrity and downstream semantic safety in clinical records."
+    },
+    {
+      "mapping_id": "map_threat_terminology_poisoning_loinc",
+      "input_type": "threat",
+      "input_id": "th_terminology_service_poisoning",
+      "standard_id": "loinc",
+      "mapping_type": "lab_observation_semantics",
+      "rationale": "Manipulated laboratory observation coding maps can alter interpretation and decision pathways tied to LOINC semantics."
+    },
+    {
+      "mapping_id": "map_threat_terminology_poisoning_icd",
+      "input_type": "threat",
+      "input_id": "th_terminology_service_poisoning",
+      "standard_id": "icd_10_11",
+      "mapping_type": "diagnosis_classification_integrity",
+      "rationale": "Diagnosis coding manipulation can distort care classification, reporting, and reimbursement decisions."
+    },
+    {
+      "mapping_id": "map_threat_terminology_poisoning_iso27799",
+      "input_type": "threat",
+      "input_id": "th_terminology_service_poisoning",
+      "standard_id": "iso_27799",
+      "mapping_type": "health_data_integrity_controls",
+      "rationale": "Healthcare-specific integrity and governance controls are needed to prevent and detect semantic data corruption."
+    },
+    {
+      "mapping_id": "map_threat_hl7v2_injection_hl7v2",
+      "input_type": "threat",
+      "input_id": "th_hl7v2_message_injection",
+      "standard_id": "hl7_v2",
+      "mapping_type": "legacy_message_integrity",
+      "rationale": "HL7 v2 message injection risk requires strict transport and payload integrity controls tied to deployed v2 message contracts."
+    },
+    {
+      "mapping_id": "map_requirement_hipaa_164312_nist80066",
+      "input_type": "requirement",
+      "input_id": "HIPAA_164.312",
+      "standard_id": "nist_sp_800_66",
+      "mapping_type": "implementation_guidance",
+      "rationale": "NIST SP 800-66 provides implementation guidance for HIPAA technical safeguard requirements."
+    },
+    {
+      "mapping_id": "map_requirement_mdr_annex_i_mdcg",
+      "input_type": "requirement",
+      "input_id": "MDR_ANNEX_I",
+      "standard_id": "mdcg_2019_16",
+      "mapping_type": "regulatory_interpretation",
+      "rationale": "MDCG 2019-16 provides practical interpretation guidance for MDR Annex I cybersecurity expectations."
+    },
+    {
+      "mapping_id": "map_threat_device_firmware_fda_guidance",
+      "input_type": "threat",
+      "input_id": "th_device_firmware_manipulation",
+      "standard_id": "fda_premarket_cyber_2023",
+      "mapping_type": "secure_by_design_alignment",
+      "rationale": "Firmware integrity threats align directly to FDA secure-by-design and postmarket cybersecurity evidence expectations."
+    },
+    {
+      "mapping_id": "map_threat_device_firmware_tir57",
+      "input_type": "threat",
+      "input_id": "th_device_firmware_manipulation",
+      "standard_id": "aami_tir57",
+      "mapping_type": "device_security_risk_management",
+      "rationale": "AAMI TIR57 supports security-risk analysis, control selection, and residual-risk treatment for device firmware pathways."
+    },
+    {
+      "mapping_id": "map_threat_device_firmware_tir97",
+      "input_type": "threat",
+      "input_id": "th_device_firmware_manipulation",
+      "standard_id": "aami_tir97",
+      "mapping_type": "postmarket_vulnerability_response",
+      "rationale": "AAMI TIR97 defines postmarket monitoring and coordinated response patterns relevant to firmware compromise scenarios."
+    },
+    {
+      "mapping_id": "map_threat_11073_ul2900",
+      "input_type": "threat",
+      "input_id": "th_11073_command_injection",
+      "standard_id": "ul_2900_2_1",
+      "mapping_type": "healthcare_product_security_testing",
+      "rationale": "UL 2900-2-1 security test criteria are relevant for validating command-path hardening in connected healthcare products."
+    },
+    {
+      "mapping_id": "map_requirement_fda_524b_iso29147",
+      "input_type": "requirement",
+      "input_id": "FDA_524B",
+      "standard_id": "iso_29147",
+      "mapping_type": "vulnerability_disclosure_alignment",
+      "rationale": "FDA cybersecurity expectations include coordinated vulnerability disclosure practices aligned with ISO/IEC 29147."
+    },
+    {
+      "mapping_id": "map_pattern_hc_ehr_us_core_ig",
+      "input_type": "architecture_pattern",
+      "input_id": "hc-ehr",
+      "standard_id": "us_core_ig",
+      "mapping_type": "us_profile_alignment",
+      "rationale": "US EHR interoperability deployments should align FHIR resources and constraints with US Core profiles."
+    },
+    {
+      "mapping_id": "map_requirement_us_core_interop",
+      "input_type": "requirement",
+      "input_id": "US_CORE_INTEROP",
+      "standard_id": "us_core_ig",
+      "mapping_type": "profile_alignment",
+      "rationale": "US interoperability requirements are commonly operationalized through US Core Implementation Guide profiles."
+    },
+    {
+      "mapping_id": "map_pattern_hc_hie_ihe_ser",
+      "input_type": "architecture_pattern",
+      "input_id": "hc-hie",
+      "standard_id": "ihe_ser",
+      "mapping_type": "security_event_reporting",
+      "rationale": "Cross-enterprise exchange environments benefit from explicit security/privacy event reporting alignment to IHE SeR."
+    },
+    {
+      "mapping_id": "map_threat_xcpd_identity_pdqm",
+      "input_type": "threat",
+      "input_id": "th_xcpd_identity_mismatch",
+      "standard_id": "ihe_pdqm",
+      "mapping_type": "patient_demographics_validation",
+      "rationale": "Identity mismatch reduction depends on robust demographics-query and validation controls in patient discovery flows."
+    },
+    {
+      "mapping_id": "map_pattern_hc_samd_iec82304",
+      "input_type": "architecture_pattern",
+      "input_id": "hc-samd",
+      "standard_id": "iec_82304_1",
+      "mapping_type": "health_software_product_quality",
+      "rationale": "SaMD product quality and safety outcomes rely on IEC 82304-1 lifecycle quality expectations."
+    },
+    {
+      "mapping_id": "map_pattern_hc_samd_iso13485",
+      "input_type": "architecture_pattern",
+      "input_id": "hc-samd",
+      "standard_id": "iso_13485",
+      "mapping_type": "quality_management_alignment",
+      "rationale": "Medical software product lifecycle in regulated contexts typically requires quality management integration aligned with ISO 13485."
+    },
+    {
+      "mapping_id": "map_threat_udap_smart_backend",
+      "input_type": "threat",
+      "input_id": "th_udap_dynamic_client_abuse",
+      "standard_id": "smart_backend_services",
+      "mapping_type": "backend_client_auth_governance",
+      "rationale": "Dynamic client abuse in machine-to-machine ecosystems maps to backend authorization and client assurance controls."
+    },
+    {
+      "mapping_id": "map_requirement_hitrust_program",
+      "input_type": "requirement",
+      "input_id": "HITRUST_PROGRAM",
+      "standard_id": "hitrust_csf",
+      "mapping_type": "assessment_framework_alignment",
+      "rationale": "Organizations pursuing HITRUST assurance should anchor evidence strategy to HITRUST CSF requirement structure."
+    },
+    {
+      "mapping_id": "map_requirement_fhir_r5_profile",
+      "input_type": "requirement",
+      "input_id": "FHIR_R5_PROFILE",
+      "standard_id": "hl7_fhir_r5",
+      "mapping_type": "version_specific_alignment",
+      "rationale": "FHIR R5-specific interoperability requirements should explicitly map to R5 resource semantics and constraints."
+    },
+    {
+      "mapping_id": "map_requirement_fhir_r4_profile",
+      "input_type": "requirement",
+      "input_id": "FHIR_R4_PROFILE",
+      "standard_id": "hl7_fhir_r4",
+      "mapping_type": "version_specific_alignment",
+      "rationale": "FHIR R4-focused interoperability programs should anchor implementation controls to R4 profile and resource semantics."
     }
   ]
 }

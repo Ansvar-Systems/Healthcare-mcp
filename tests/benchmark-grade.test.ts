@@ -5,10 +5,12 @@ import { openDatabase } from '../src/db.js';
 import { assessBreachObligations } from '../src/tools/assess_breach_obligations.js';
 import { assessClinicalRisk } from '../src/tools/assess_clinical_risk.js';
 import { assessHealthcareApplicability } from '../src/tools/assess_healthcare_applicability.js';
+import { buildEvidencePlan } from '../src/tools/build_evidence_plan.js';
 import { classifyHealthData } from '../src/tools/classify_health_data.js';
 import { compareJurisdictions } from '../src/tools/compare_jurisdictions.js';
 import { getArchitecturePattern } from '../src/tools/get_architecture_pattern.js';
 import { getHealthcareThreats } from '../src/tools/get_healthcare_threats.js';
+import { getProtocolSecurity } from '../src/tools/get_protocol_security.js';
 import { getThreatResponsePlaybook } from '../src/tools/get_threat_response_playbook.js';
 import { mapToHealthcareStandards } from '../src/tools/map_to_healthcare_standards.js';
 import { resolveAuthoritativeContext } from '../src/tools/resolve_authoritative_context.js';
@@ -100,6 +102,10 @@ describe('expert benchmark grade gate', () => {
         return searchDomainKnowledge(db, input);
       case 'assess_clinical_risk':
         return assessClinicalRisk(input);
+      case 'build_evidence_plan':
+        return buildEvidencePlan(db, input);
+      case 'get_protocol_security':
+        return getProtocolSecurity(input);
       case 'resolve_authoritative_context':
         return resolveAuthoritativeContext(db, input);
       case 'get_threat_response_playbook':

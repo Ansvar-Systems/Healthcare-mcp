@@ -1,12 +1,12 @@
 {
   "version": "0.1.0",
-  "generated_at": "2026-02-18T12:21:40.585Z",
+  "generated_at": "2026-02-18T17:23:45.643Z",
   "description": "Deterministic hashes for Healthcare MCP ontology and crosswalk subsets. Use in CI for drift detection.",
   "hashes": [
     {
       "id": "table_counts",
       "description": "Core ontology table counts",
-      "hash": "c612c13ae0445d2d1018e75e8daa093ac03994fc3464578c3df086ef997336d6",
+      "hash": "9f1ac88a885f6f0b5f0ec81a2503a94298dd0eb3afcdbb455c28aeede336be4c",
       "sample": [
         {
           "table_name": "architecture_patterns",
@@ -26,19 +26,19 @@
         },
         {
           "table_name": "technical_standards",
-          "count": 21
+          "count": 58
         },
         {
           "table_name": "threat_expert_profiles",
-          "count": 13
+          "count": 24
         },
         {
           "table_name": "threat_response_playbooks",
-          "count": 13
+          "count": 24
         },
         {
           "table_name": "threat_scenarios",
-          "count": 13
+          "count": 24
         }
       ]
     },
@@ -149,12 +149,22 @@
     {
       "id": "threat_regulation_routes",
       "description": "Threat to regulation route mappings",
-      "hash": "5c28e6650d11169a7efe0278b42d34851577fb174dfeff940211b55d14bfaff9",
+      "hash": "23877f39a81335275638d0edb702301f310b36186c1f7ee43bf518718326c0bd",
       "sample": [
+        {
+          "threat_id": "th_11073_command_injection",
+          "source_mcp": "US_Regulations_MCP",
+          "requirement_ref": "FDA_524B"
+        },
         {
           "threat_id": "th_biobank_data_theft",
           "source_mcp": "EU_Regulations_MCP",
           "requirement_ref": "EHDS_SECONDARY_USE"
+        },
+        {
+          "threat_id": "th_ccda_document_injection",
+          "source_mcp": "US_Regulations_MCP",
+          "requirement_ref": "HIPAA_164.312(e)"
         },
         {
           "threat_id": "th_clinical_ai_poisoning",
@@ -168,6 +178,11 @@
         },
         {
           "threat_id": "th_dicom_metadata_leak",
+          "source_mcp": "EU_Regulations_MCP",
+          "requirement_ref": "GDPR_ART_5"
+        },
+        {
+          "threat_id": "th_dicomweb_query_scrape",
           "source_mcp": "EU_Regulations_MCP",
           "requirement_ref": "GDPR_ART_5"
         },
@@ -207,9 +222,24 @@
           "requirement_ref": "NIS2_ART_21"
         },
         {
+          "threat_id": "th_ncpdp_refill_replay",
+          "source_mcp": "US-law-mcp",
+          "requirement_ref": "US_CONTROLLED_SUBSTANCE_TRACKING"
+        },
+        {
+          "threat_id": "th_openehr_archetype_tampering",
+          "source_mcp": "US_Regulations_MCP",
+          "requirement_ref": "HIPAA_164.312(c)"
+        },
+        {
           "threat_id": "th_prescription_diversion",
           "source_mcp": "US-law-mcp",
           "requirement_ref": "US_CONTROLLED_SUBSTANCE_TRACKING"
+        },
+        {
+          "threat_id": "th_remote_monitoring_device_spoofing",
+          "source_mcp": "EU_Regulations_MCP",
+          "requirement_ref": "GDPR_ART_32"
         },
         {
           "threat_id": "th_telehealth_identity_takeover",
@@ -217,19 +247,61 @@
           "requirement_ref": "HIPAA_164.312(d)"
         },
         {
+          "threat_id": "th_terminology_service_poisoning",
+          "source_mcp": "EU_Regulations_MCP",
+          "requirement_ref": "GDPR_ART_5"
+        },
+        {
+          "threat_id": "th_terminology_service_poisoning",
+          "source_mcp": "US_Regulations_MCP",
+          "requirement_ref": "HIPAA_164.312(c)"
+        },
+        {
+          "threat_id": "th_udap_dynamic_client_abuse",
+          "source_mcp": "US_Regulations_MCP",
+          "requirement_ref": "HIPAA_164.312(d)"
+        },
+        {
           "threat_id": "th_vendor_supply_chain_compromise",
           "source_mcp": "EU_Regulations_MCP",
           "requirement_ref": "NIS2_SUPPLY_CHAIN"
+        },
+        {
+          "threat_id": "th_x12_claims_tampering",
+          "source_mcp": "US_Regulations_MCP",
+          "requirement_ref": "HIPAA_164.312(e)"
+        },
+        {
+          "threat_id": "th_xcpd_identity_mismatch",
+          "source_mcp": "EU_Regulations_MCP",
+          "requirement_ref": "GDPR_ART_5"
+        },
+        {
+          "threat_id": "th_xds_registry_poisoning",
+          "source_mcp": "EU_Regulations_MCP",
+          "requirement_ref": "GDPR_ART_32"
         }
       ]
     },
     {
       "id": "threat_expert_profiles",
       "description": "Threat expert intelligence profile coverage (MITRE techniques, likelihood, detection)",
-      "hash": "d460a108cb4632d13d211a0d297c91d126df0308c33f7030c7352d92bc129eb1",
+      "hash": "eb153a37d851628146f80b7782484d0119cf045060c46d0e18d7e63b9dc305dc",
       "sample": [
         {
+          "threat_id": "th_11073_command_injection",
+          "mitre_technique_count": 3,
+          "likelihood_factor_count": 3,
+          "detection_indicator_count": 3
+        },
+        {
           "threat_id": "th_biobank_data_theft",
+          "mitre_technique_count": 3,
+          "likelihood_factor_count": 3,
+          "detection_indicator_count": 3
+        },
+        {
+          "threat_id": "th_ccda_document_injection",
           "mitre_technique_count": 3,
           "likelihood_factor_count": 3,
           "detection_indicator_count": 3
@@ -248,6 +320,12 @@
         },
         {
           "threat_id": "th_dicom_metadata_leak",
+          "mitre_technique_count": 3,
+          "likelihood_factor_count": 3,
+          "detection_indicator_count": 3
+        },
+        {
+          "threat_id": "th_dicomweb_query_scrape",
           "mitre_technique_count": 3,
           "likelihood_factor_count": 3,
           "detection_indicator_count": 3
@@ -289,7 +367,25 @@
           "detection_indicator_count": 3
         },
         {
+          "threat_id": "th_ncpdp_refill_replay",
+          "mitre_technique_count": 3,
+          "likelihood_factor_count": 3,
+          "detection_indicator_count": 3
+        },
+        {
+          "threat_id": "th_openehr_archetype_tampering",
+          "mitre_technique_count": 3,
+          "likelihood_factor_count": 3,
+          "detection_indicator_count": 3
+        },
+        {
           "threat_id": "th_prescription_diversion",
+          "mitre_technique_count": 3,
+          "likelihood_factor_count": 3,
+          "detection_indicator_count": 3
+        },
+        {
+          "threat_id": "th_remote_monitoring_device_spoofing",
           "mitre_technique_count": 3,
           "likelihood_factor_count": 3,
           "detection_indicator_count": 3
@@ -301,7 +397,37 @@
           "detection_indicator_count": 3
         },
         {
+          "threat_id": "th_terminology_service_poisoning",
+          "mitre_technique_count": 3,
+          "likelihood_factor_count": 3,
+          "detection_indicator_count": 3
+        },
+        {
+          "threat_id": "th_udap_dynamic_client_abuse",
+          "mitre_technique_count": 3,
+          "likelihood_factor_count": 3,
+          "detection_indicator_count": 3
+        },
+        {
           "threat_id": "th_vendor_supply_chain_compromise",
+          "mitre_technique_count": 3,
+          "likelihood_factor_count": 3,
+          "detection_indicator_count": 3
+        },
+        {
+          "threat_id": "th_x12_claims_tampering",
+          "mitre_technique_count": 3,
+          "likelihood_factor_count": 3,
+          "detection_indicator_count": 3
+        },
+        {
+          "threat_id": "th_xcpd_identity_mismatch",
+          "mitre_technique_count": 3,
+          "likelihood_factor_count": 3,
+          "detection_indicator_count": 3
+        },
+        {
+          "threat_id": "th_xds_registry_poisoning",
           "mitre_technique_count": 3,
           "likelihood_factor_count": 3,
           "detection_indicator_count": 3
@@ -311,10 +437,26 @@
     {
       "id": "threat_response_playbooks",
       "description": "Threat response playbook coverage (containment, clinical safety, forensics, recovery)",
-      "hash": "525e00b5c61189a83e91d8986a86605622cdfccb3b466ea96ed02ac1b6c32616",
+      "hash": "d9737120f36510a23e5065acbd20039fb05820a9f498659ffdd74f92e647bd1f",
       "sample": [
         {
+          "threat_id": "th_11073_command_injection",
+          "triage_priority": "P1",
+          "containment_count": 2,
+          "clinical_safety_count": 2,
+          "forensic_count": 3,
+          "recovery_count": 2
+        },
+        {
           "threat_id": "th_biobank_data_theft",
+          "triage_priority": "P1",
+          "containment_count": 2,
+          "clinical_safety_count": 2,
+          "forensic_count": 3,
+          "recovery_count": 2
+        },
+        {
+          "threat_id": "th_ccda_document_injection",
           "triage_priority": "P1",
           "containment_count": 2,
           "clinical_safety_count": 2,
@@ -340,6 +482,14 @@
         {
           "threat_id": "th_dicom_metadata_leak",
           "triage_priority": "P2",
+          "containment_count": 2,
+          "clinical_safety_count": 2,
+          "forensic_count": 3,
+          "recovery_count": 2
+        },
+        {
+          "threat_id": "th_dicomweb_query_scrape",
+          "triage_priority": "P1",
           "containment_count": 2,
           "clinical_safety_count": 2,
           "forensic_count": 3,
@@ -394,7 +544,31 @@
           "recovery_count": 3
         },
         {
+          "threat_id": "th_ncpdp_refill_replay",
+          "triage_priority": "P1",
+          "containment_count": 2,
+          "clinical_safety_count": 2,
+          "forensic_count": 3,
+          "recovery_count": 2
+        },
+        {
+          "threat_id": "th_openehr_archetype_tampering",
+          "triage_priority": "P1",
+          "containment_count": 2,
+          "clinical_safety_count": 2,
+          "forensic_count": 3,
+          "recovery_count": 2
+        },
+        {
           "threat_id": "th_prescription_diversion",
+          "triage_priority": "P1",
+          "containment_count": 2,
+          "clinical_safety_count": 2,
+          "forensic_count": 3,
+          "recovery_count": 2
+        },
+        {
+          "threat_id": "th_remote_monitoring_device_spoofing",
           "triage_priority": "P1",
           "containment_count": 2,
           "clinical_safety_count": 2,
@@ -410,7 +584,47 @@
           "recovery_count": 2
         },
         {
+          "threat_id": "th_terminology_service_poisoning",
+          "triage_priority": "P1",
+          "containment_count": 3,
+          "clinical_safety_count": 2,
+          "forensic_count": 3,
+          "recovery_count": 2
+        },
+        {
+          "threat_id": "th_udap_dynamic_client_abuse",
+          "triage_priority": "P2",
+          "containment_count": 2,
+          "clinical_safety_count": 2,
+          "forensic_count": 3,
+          "recovery_count": 2
+        },
+        {
           "threat_id": "th_vendor_supply_chain_compromise",
+          "triage_priority": "P1",
+          "containment_count": 2,
+          "clinical_safety_count": 2,
+          "forensic_count": 3,
+          "recovery_count": 2
+        },
+        {
+          "threat_id": "th_x12_claims_tampering",
+          "triage_priority": "P2",
+          "containment_count": 2,
+          "clinical_safety_count": 2,
+          "forensic_count": 3,
+          "recovery_count": 2
+        },
+        {
+          "threat_id": "th_xcpd_identity_mismatch",
+          "triage_priority": "P1",
+          "containment_count": 2,
+          "clinical_safety_count": 2,
+          "forensic_count": 3,
+          "recovery_count": 2
+        },
+        {
+          "threat_id": "th_xds_registry_poisoning",
           "triage_priority": "P1",
           "containment_count": 2,
           "clinical_safety_count": 2,

@@ -15,7 +15,7 @@ This MCP focuses on:
 - Healthcare architecture patterns (EHR/FHIR, DICOM/PACS, IoMT contexts)
 - Healthcare threat scenarios (clinical + cyber impact)
 - Enriched threat expert profiles (MITRE techniques, exploit preconditions, detection indicators, likelihood drivers, historical incident patterns)
-- Technical standards mapping (FHIR, DICOM, IEC 62304, ISO 14971, IEC 80001-1, FDA guidance)
+- Technical standards mapping (FHIR/IHE/IEEE 11073/openEHR/UDAP/C-CDA, DICOM/DICOMweb, IEC 62304/81001/82304, ISO 14971, IEC 80001-1, TEFCA QTF, HHS 405(d) HICP, IMDRF/AAMI SW96, FDA + SBOM/vulnerability exchange)
 - Applicability and breach-routing logic for EU/US
 - Conflict-aware obligation resolution (`strictest_wins`) for overlapping multi-jurisdiction requirements
 - Contract-chain intelligence (BAA, DPA, SCC-style transfer mechanisms, Part 2 redisclosure, EHDS secondary-use permit signals)
@@ -163,5 +163,9 @@ Latest expertise upgrades in this branch:
 - Breach engine now supports exact-jurisdiction + family fallback matching (`US-CA` + `US`, `SE` + `EU`) with `decision_tree` and `notification_matrix`.
 - Applicability now includes explicit `contracting_obligations` for BAA/DPA/SCC/Part 2/EHDS chain logic.
 - Evidence templates expanded to `MDR_IVDR`, `ISO27001_ISO27799`, `HITRUST`, `AI_ACT`, and `DCB0129_DCB0160`.
-- Protocol security expanded with IHE profile-level guidance (`ATNA`, `XUA`, `IUA`, `SeR`).
+- Protocol security expanded with IHE profile-level guidance (`ATNA`, `XUA`, `IUA`, `SeR`, `XDS`, `MHD`, `XCA`, `XCPD`, `PIXm`, `PDQm`, `PCD`) plus `openEHR`, `UDAP`, `C-CDA`, `DICOMweb`, `IEEE 11073 SDC/PHD`, `X12`, `NCPDP`, and SBOM/vulnerability exchange profiles (`SPDX`, `CycloneDX`, `CSAF`, `VEX`).
 - Added a threat response playbook layer (containment, clinical safety, forensic artifacts, recovery validation, communication, escalation routes).
+- Threat corpus expanded with expert-linked scenarios for `DICOMweb` API scraping, `IEEE 11073` command injection, `NCPDP` refill replay, `X12` claims tampering, and remote-monitoring device identity spoofing.
+- Threat corpus further expanded for federated exchange abuse (`XDS` registry poisoning, `XCPD` identity mismatch, `UDAP` client abuse, `openEHR` template tampering, `C-CDA` document injection).
+- `build_evidence_plan` now supports `threat_ids` and `THREAT_RESPONSE` annex templates to generate threat-specific incident evidence bundles.
+- Breach-routing rules expanded with additional exact-jurisdiction healthcare breach profiles for EU member states (`NL`, `FR`, `IT`, `ES`) and US states (`US-FL`, `US-WA`, `US-IL`) with family fallback behavior.

@@ -265,6 +265,248 @@
     ]
   },
   {
+    "threat_id": "th_dicomweb_query_scrape",
+    "mitre_techniques": ["T1213", "T1041", "T1190"],
+    "likelihood_factors": [
+      "DICOMweb APIs increase externally reachable imaging query surface",
+      "Imaging services frequently expose broad metadata fields by default",
+      "Legacy access policies are often ported into modern API gateways without granular segmentation"
+    ],
+    "exploit_preconditions": [
+      "Compromised API credential or weakly protected integration account",
+      "Insufficient study-level authorization controls",
+      "Limited alerting on abnormal query/retrieve velocity"
+    ],
+    "detection_indicators": [
+      "High-volume QIDO/WADO calls from a single integration identity",
+      "Sequential study enumeration patterns outside normal workflows",
+      "Unexpected metadata extraction from non-radiology user contexts"
+    ],
+    "historical_incidents": [
+      "Repeated healthcare imaging exposures have shown that discoverable PACS/DICOM services can drive high-volume confidentiality breaches"
+    ]
+  },
+  {
+    "threat_id": "th_11073_command_injection",
+    "mitre_techniques": ["T1078", "T1550", "T1565"],
+    "likelihood_factors": [
+      "Service-oriented device control surfaces expand command-path attack opportunities",
+      "Biomedical trust-anchor management is often inconsistent across vendors",
+      "Clinical urgency may reduce tolerance for aggressive command-path lockouts"
+    ],
+    "exploit_preconditions": [
+      "Ability to impersonate trusted device/orchestrator identity",
+      "Weak command authorization policy at service endpoint",
+      "Insufficient runtime provenance checks for high-risk command calls"
+    ],
+    "detection_indicators": [
+      "Control commands issued from atypical node identities",
+      "Unexpected command bursts near alarm state transitions",
+      "Mismatch between asserted device context and authorized role profile"
+    ],
+    "historical_incidents": [
+      "Medical-device advisories consistently highlight inadequate authentication and authorization in networked command interfaces"
+    ]
+  },
+  {
+    "threat_id": "th_ncpdp_refill_replay",
+    "mitre_techniques": ["T1078", "T1557", "T1110"],
+    "likelihood_factors": [
+      "E-prescribing pathways involve multiple intermediaries and trust handoffs",
+      "Replay protections are inconsistently validated across pharmacy ecosystems",
+      "Controlled-substance demand creates persistent fraud incentives"
+    ],
+    "exploit_preconditions": [
+      "Access to prescription/refill message channel or compromised intermediary account",
+      "Weak nonce/timestamp validation for refill transactions",
+      "Insufficient anomaly monitoring on prescriber refill cadence"
+    ],
+    "detection_indicators": [
+      "Repeated identical refill requests within abnormal intervals",
+      "Refill volume spikes disconnected from encounter history",
+      "Dispense destinations inconsistent with patient baseline geography"
+    ],
+    "historical_incidents": [
+      "Pharmacy and healthcare fraud investigations repeatedly show replay/credential abuse in prescription workflows"
+    ]
+  },
+  {
+    "threat_id": "th_x12_claims_tampering",
+    "mitre_techniques": ["T1565", "T1041", "T1199"],
+    "likelihood_factors": [
+      "Clearinghouse concentration creates systemic single-point compromise risk",
+      "Batch EDI processing can delay detection of integrity manipulation",
+      "Complex payer-provider mappings increase opportunity for subtle data tampering"
+    ],
+    "exploit_preconditions": [
+      "Compromise of EDI transformation or transmission path",
+      "Weak end-to-end integrity validation for X12 payloads",
+      "Limited reconciliation between source clinical events and claim output"
+    ],
+    "detection_indicators": [
+      "Unexpected deltas in claim adjudication outcomes by payer",
+      "X12 segment-level anomalies in recurring transaction families",
+      "Mismatch between authorized service lines and billed procedure sets"
+    ],
+    "historical_incidents": [
+      "Major healthcare clearinghouse disruptions have shown high operational impact from transaction-path compromise"
+    ]
+  },
+  {
+    "threat_id": "th_remote_monitoring_device_spoofing",
+    "mitre_techniques": ["T1036", "T1078", "T1565"],
+    "likelihood_factors": [
+      "Home-network and consumer-device conditions reduce trust assurance",
+      "Enrollment workflows can under-verify persistent device identity",
+      "High-volume remote telemetry streams complicate manual validation"
+    ],
+    "exploit_preconditions": [
+      "Ability to spoof or clone enrolled device identity",
+      "Insufficient attestation and key-binding in ingestion stack",
+      "Weak cross-checks between telemetry and clinical context"
+    ],
+    "detection_indicators": [
+      "Physiological values inconsistent with patient longitudinal baseline",
+      "Multiple device identities presenting overlapping telemetry signatures",
+      "Source-network and geolocation drift for a stable patient device"
+    ],
+    "historical_incidents": [
+      "Remote monitoring security assessments consistently report identity and telemetry integrity weaknesses in home-care ecosystems"
+    ]
+  },
+  {
+    "threat_id": "th_xds_registry_poisoning",
+    "mitre_techniques": ["T1565", "T1078", "T1199"],
+    "likelihood_factors": [
+      "Federated document exchange relies on shared trust assumptions across multiple operators",
+      "Registry metadata is high-value because it controls discoverability and retrieval routing",
+      "Cross-community governance maturity often varies between participants"
+    ],
+    "exploit_preconditions": [
+      "Compromised registry or integration-service credentials",
+      "Insufficient integrity controls on metadata updates",
+      "Weak cross-entity reconciliation and alerting"
+    ],
+    "detection_indicators": [
+      "Unexpected document metadata mutations outside approved maintenance windows",
+      "Cross-community retrieval patterns misaligned with patient encounter context",
+      "Spike in failed or rerouted document retrieval events"
+    ],
+    "historical_incidents": [
+      "Healthcare exchange incidents repeatedly show that identity and metadata trust-layer weaknesses can cause broad downstream exposure"
+    ]
+  },
+  {
+    "threat_id": "th_xcpd_identity_mismatch",
+    "mitre_techniques": ["T1078", "T1589", "T1530"],
+    "likelihood_factors": [
+      "Patient matching is probabilistic and sensitive to data quality drift",
+      "Cross-jurisdiction demographic normalization differences increase mismatch risk",
+      "High-throughput discovery workflows reduce manual verification opportunities"
+    ],
+    "exploit_preconditions": [
+      "Ability to influence patient discovery attributes or identity mapping channels",
+      "Insufficient confidence-threshold governance for automatic matches",
+      "Limited downstream verification of identity-correlation provenance"
+    ],
+    "detection_indicators": [
+      "Frequent identity-correlation overrides in specific organizations",
+      "Low-confidence match acceptance rates above baseline",
+      "Record retrieval requests tied to demographic combinations with high collision risk"
+    ],
+    "historical_incidents": [
+      "Interoperability programs and patient-safety investigations consistently identify wrong-patient matching as a high-impact risk class"
+    ]
+  },
+  {
+    "threat_id": "th_openehr_archetype_tampering",
+    "mitre_techniques": ["T1565.001", "T1098", "T1078"],
+    "likelihood_factors": [
+      "Model-driven EHR stacks centralize semantic control in archetype/template governance paths",
+      "Change-management shortcuts can bypass formal safety and integrity review",
+      "Downstream systems may trust template versions without independent validation"
+    ],
+    "exploit_preconditions": [
+      "Administrative or governance-role compromise",
+      "Insufficient approval controls for archetype/template publication",
+      "Weak semantic regression testing before production rollout"
+    ],
+    "detection_indicators": [
+      "Unexpected archetype/template version changes with broad deployment impact",
+      "Clinical decision-support drift after model updates",
+      "Spike in record-validation errors tied to new template versions"
+    ],
+    "historical_incidents": [
+      "Health IT incident reports repeatedly note that configuration and data-model changes can create patient-safety hazards at scale"
+    ]
+  },
+  {
+    "threat_id": "th_udap_dynamic_client_abuse",
+    "mitre_techniques": ["T1550", "T1190", "T1078"],
+    "likelihood_factors": [
+      "Dynamic client onboarding expands attack surface in federated health ecosystems",
+      "Trust-anchor and certificate lifecycle governance is operationally complex",
+      "Partner ecosystems may differ in registration assurance quality"
+    ],
+    "exploit_preconditions": [
+      "Ability to exploit registration policy or trust-anchor misconfiguration",
+      "Insufficient client vetting and attestation checks",
+      "Limited behavioral monitoring for newly registered clients"
+    ],
+    "detection_indicators": [
+      "New client registrations with atypical scope and audience combinations",
+      "Rapid post-registration data access bursts",
+      "Certificate chain anomalies during onboarding and token exchange"
+    ],
+    "historical_incidents": [
+      "OAuth ecosystem breaches across sectors repeatedly show client-registration and trust misconfiguration as common compromise enablers"
+    ]
+  },
+  {
+    "threat_id": "th_ccda_document_injection",
+    "mitre_techniques": ["T1190", "T1565", "T1027"],
+    "likelihood_factors": [
+      "Document-based exchange channels may accept high-complexity payloads from external partners",
+      "Validation often focuses on structure more than clinical semantic consistency",
+      "Legacy ingestion pipelines can propagate malformed content widely before detection"
+    ],
+    "exploit_preconditions": [
+      "Access to trusted inbound document channel or compromised sender identity",
+      "Insufficient signature, schema, and semantic validation controls",
+      "Lack of quarantine review for anomalous document payloads"
+    ],
+    "detection_indicators": [
+      "Unexpected coded-value distributions in inbound C-CDA sections",
+      "Parser warnings or transformation failures correlated with specific sources",
+      "Clinical discrepancy flags after document ingestion events"
+    ],
+    "historical_incidents": [
+      "Clinical-document exchange programs have repeatedly documented data quality and integrity risk from malformed external payloads"
+    ]
+  },
+  {
+    "threat_id": "th_terminology_service_poisoning",
+    "mitre_techniques": ["T1565.001", "T1078", "T1556"],
+    "likelihood_factors": [
+      "Terminology services are high-impact single points for semantic correctness across many systems",
+      "Governance workflows for value-set updates are often operationally constrained",
+      "Clinical coding and billing dependencies amplify downstream blast radius"
+    ],
+    "exploit_preconditions": [
+      "Compromised terminology-administration account, API token, or CI pipeline",
+      "Insufficient signing, approval, and provenance controls for value-set publication",
+      "Limited semantic regression testing before production synchronization"
+    ],
+    "detection_indicators": [
+      "Unexpected value-set or concept-map deltas outside approved release cadence",
+      "Sudden coding-distribution shifts in diagnoses, labs, or problem lists",
+      "CDS alert behavior drift correlated with terminology update events"
+    ],
+    "historical_incidents": [
+      "Patient-safety and interoperability investigations repeatedly identify terminology and mapping quality failures as high-impact root causes"
+    ]
+  },
+  {
     "threat_id": "th_vendor_supply_chain_compromise",
     "mitre_techniques": ["T1195", "T1199", "T1486"],
     "likelihood_factors": [

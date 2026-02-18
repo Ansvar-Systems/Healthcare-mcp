@@ -160,5 +160,117 @@
       "Containment and remediation actions"
     ],
     "source_router": "German-law-mcp:BDSG + EU_Regulations_MCP:GDPR_ART_33"
+  },
+  {
+    "rule_id": "rule_nl_member_state_breach",
+    "jurisdiction": "NL",
+    "trigger_category": "member_state_healthcare_data",
+    "deadline_hours": 72,
+    "notify_parties": [
+      "Dutch Data Protection Authority (Autoriteit Persoonsgegevens)",
+      "Affected individuals when high risk"
+    ],
+    "content_requirements": [
+      "Incident chronology",
+      "Impacted Dutch healthcare processing context",
+      "Containment, patient safety, and remediation actions"
+    ],
+    "source_router": "NL-law-mcp:Dutch_healthcare_confidentiality + EU_Regulations_MCP:GDPR_ART_33"
+  },
+  {
+    "rule_id": "rule_fr_member_state_breach",
+    "jurisdiction": "FR",
+    "trigger_category": "member_state_healthcare_data",
+    "deadline_hours": 72,
+    "notify_parties": [
+      "CNIL",
+      "Affected individuals when high risk"
+    ],
+    "content_requirements": [
+      "Incident chronology",
+      "Impacted healthcare records and categories",
+      "Mitigation and notification measures"
+    ],
+    "source_router": "FR-law-mcp:French_health_data_law + EU_Regulations_MCP:GDPR_ART_33"
+  },
+  {
+    "rule_id": "rule_it_member_state_breach",
+    "jurisdiction": "IT",
+    "trigger_category": "member_state_healthcare_data",
+    "deadline_hours": 72,
+    "notify_parties": [
+      "Italian Data Protection Authority (Garante)",
+      "Affected individuals when high risk"
+    ],
+    "content_requirements": [
+      "Incident chronology",
+      "Impacted healthcare and special-category data details",
+      "Containment and corrective-action summary"
+    ],
+    "source_router": "IT-law-mcp:Italian_healthcare_privacy_law + EU_Regulations_MCP:GDPR_ART_33"
+  },
+  {
+    "rule_id": "rule_es_member_state_breach",
+    "jurisdiction": "ES",
+    "trigger_category": "member_state_healthcare_data",
+    "deadline_hours": 72,
+    "notify_parties": [
+      "Spanish Data Protection Authority (AEPD)",
+      "Affected individuals when high risk"
+    ],
+    "content_requirements": [
+      "Incident chronology",
+      "Healthcare data categories and impact scope",
+      "Mitigation and patient-protection steps"
+    ],
+    "source_router": "ES-law-mcp:Spanish_health_data_law + EU_Regulations_MCP:GDPR_ART_33"
+  },
+  {
+    "rule_id": "rule_us_fl_health_privacy",
+    "jurisdiction": "US-FL",
+    "trigger_category": "state_health_privacy",
+    "deadline_hours": 720,
+    "notify_parties": [
+      "Affected Florida residents",
+      "Florida Attorney General when threshold is met"
+    ],
+    "content_requirements": [
+      "Incident summary",
+      "Impacted health and personal data categories",
+      "Consumer-protection and remediation details"
+    ],
+    "source_router": "US-law-mcp:FL_BREACH_LAW + US-law-mcp:FL_HEALTH_PRIVACY"
+  },
+  {
+    "rule_id": "rule_us_wa_health_privacy",
+    "jurisdiction": "US-WA",
+    "trigger_category": "state_health_privacy",
+    "deadline_hours": 720,
+    "notify_parties": [
+      "Affected Washington residents",
+      "Washington Attorney General when threshold is met"
+    ],
+    "content_requirements": [
+      "Incident summary",
+      "Impacted consumer/health data classes",
+      "Containment and protective measures"
+    ],
+    "source_router": "US-law-mcp:WA_MHMDA + US-law-mcp:WA_BREACH_LAW"
+  },
+  {
+    "rule_id": "rule_us_il_health_privacy",
+    "jurisdiction": "US-IL",
+    "trigger_category": "state_health_privacy",
+    "deadline_hours": 720,
+    "notify_parties": [
+      "Affected Illinois residents",
+      "Illinois Attorney General when threshold is met"
+    ],
+    "content_requirements": [
+      "Incident summary",
+      "Impacted personal/health information scope",
+      "Mitigation and support actions"
+    ],
+    "source_router": "US-law-mcp:IL_BREACH_LAW + US-law-mcp:IL_HEALTH_PRIVACY"
   }
 ]

@@ -289,7 +289,7 @@ function buildSynthesizedCountryObligations(
         conditions: [`role=${entityType}`, 'coverage_mode=synthesized_us'],
         source_router: 'US_Regulations_MCP:FDA_524B',
         regulation_refs: ['FDA_524B'],
-        standard_refs: ['IEC_62304', 'ISO_14971'],
+        standard_refs: ['IEC_62304', 'ISO_14971', 'IEC_81001_5_1', 'AAMI_SW96', 'IMDRF_N60'],
         confidence: 'inferred',
         basis:
           'US device and AI-enabled clinical software contexts commonly require FDA cybersecurity/SaMD pathway validation.',
@@ -361,7 +361,7 @@ function buildSynthesizedCountryObligations(
         conditions: [`role=${entityType}`, 'coverage_mode=synthesized_eu'],
         source_router: 'EU_Regulations_MCP:MDR_ANNEX_I',
         regulation_refs: ['MDR_ANNEX_I'],
-        standard_refs: ['IEC_62304', 'ISO_14971', 'IEC_80001_1'],
+        standard_refs: ['IEC_62304', 'ISO_14971', 'IEC_80001_1', 'IEC_81001_5_1'],
         confidence: 'inferred',
         basis:
           'Medical-device environments in EU jurisdictions typically require MDR Annex I-aligned cybersecurity controls.',
@@ -380,7 +380,7 @@ function buildSynthesizedCountryObligations(
         conditions: [`role=${entityType}`, 'coverage_mode=synthesized_eu'],
         source_router: 'EU_Regulations_MCP:AI_ACT',
         regulation_refs: ['AI_ACT_ANNEX_III_HEALTH'],
-        standard_refs: ['ISO_14971', 'IEC_62304'],
+        standard_refs: ['ISO_14971', 'IEC_62304', 'IEC_81001_5_1', 'IEC_82304_1'],
         confidence: 'inferred',
         basis:
           'Clinical AI use-cases in diagnosis or treatment support can trigger high-risk AI obligations in EU contexts.',

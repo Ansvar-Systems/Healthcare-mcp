@@ -2,7 +2,7 @@
   "version": "0.1.0",
   "title": "Healthcare MCP Expert Benchmark",
   "description": "Weighted scenario benchmark for healthcare-domain expertise and routing quality.",
-  "minimum_score": 90,
+  "minimum_score": 114,
   "scenarios": [
     {
       "id": "BM-HC-001",
@@ -154,6 +154,64 @@
         { "path": "immediate_containment_actions", "operator": "min_count", "expected": 1 },
         { "path": "clinical_safety_actions", "operator": "min_count", "expected": 1 },
         { "path": "escalation_routes", "operator": "min_count", "expected": 1 }
+      ]
+    },
+    {
+      "id": "BM-HC-013",
+      "weight": 8,
+      "tool": "build_evidence_plan",
+      "input": {
+        "audit_type": "THREAT_RESPONSE",
+        "threat_ids": ["th_11073_command_injection"]
+      },
+      "assertions": [
+        { "path": "templates", "operator": "min_count", "expected": 1 },
+        { "path": "threat_evidence_appendix", "operator": "min_count", "expected": 1 },
+        { "path": "threat_artifact_checklist", "operator": "min_count", "expected": 1 }
+      ]
+    },
+    {
+      "id": "BM-HC-014",
+      "weight": 8,
+      "tool": "get_protocol_security",
+      "input": {
+        "protocol": "IEEE_11073_SDC"
+      },
+      "assertions": [
+        { "path": "known_weaknesses", "operator": "min_count", "expected": 1 },
+        { "path": "recommended_controls", "operator": "contains", "expected": "SCF-IAM" }
+      ]
+    },
+    {
+      "id": "BM-HC-015",
+      "weight": 8,
+      "tool": "map_to_healthcare_standards",
+      "input": { "input_type": "threat", "input_id": "th_dicomweb_query_scrape" },
+      "assertions": [
+        { "path": "coverage.direct_mapping_count", "operator": "equals", "expected": 2 },
+        { "path": "coverage.standard_count", "operator": "equals", "expected": 2 }
+      ]
+    },
+    {
+      "id": "BM-HC-016",
+      "weight": 6,
+      "tool": "get_protocol_security",
+      "input": {
+        "protocol": "XCPD"
+      },
+      "assertions": [
+        { "path": "known_weaknesses", "operator": "min_count", "expected": 1 },
+        { "path": "recommended_controls", "operator": "contains", "expected": "SCF-IAM" }
+      ]
+    },
+    {
+      "id": "BM-HC-017",
+      "weight": 6,
+      "tool": "map_to_healthcare_standards",
+      "input": { "input_type": "threat", "input_id": "th_xds_registry_poisoning" },
+      "assertions": [
+        { "path": "coverage.direct_mapping_count", "operator": "equals", "expected": 2 },
+        { "path": "coverage.standard_count", "operator": "equals", "expected": 2 }
       ]
     }
   ]

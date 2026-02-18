@@ -103,5 +103,61 @@
     ],
     "linked_standards": ["ISO_14971", "IEC_62304"],
     "linked_controls": ["SCF-RM", "SCF-IR", "SCF-GOV"]
+  },
+  {
+    "template_id": "evidence_threat_response_dicomweb",
+    "audit_type": "THREAT_RESPONSE",
+    "name": "DICOMweb Incident Response Evidence Annex",
+    "description": "Incident evidence package for imaging API enumeration, metadata leakage, and unauthorized retrieval scenarios.",
+    "artifacts": [
+      "DICOMweb API query/retrieve logs with principal attribution",
+      "Study-level access decision records",
+      "Imaging export destination and volume monitoring outputs",
+      "Metadata minimization and de-identification validation evidence"
+    ],
+    "linked_standards": ["DICOM", "DICOMWEB", "IHE_ATNA"],
+    "linked_controls": ["SCF-IAM", "SCF-DLP", "SCF-AU"]
+  },
+  {
+    "template_id": "evidence_threat_response_iomt_command",
+    "audit_type": "THREAT_RESPONSE",
+    "name": "IoMT Command and Device Integrity Evidence Annex",
+    "description": "Evidence bundle for networked device command injection, ransomware lateral movement, and control-plane integrity incidents.",
+    "artifacts": [
+      "Device command provenance and authorization logs",
+      "Trust-anchor and certificate lifecycle records",
+      "Biomedical network segmentation validation and exception logs",
+      "Clinical safety fallback activation and verification records"
+    ],
+    "linked_standards": ["IEC_80001_1", "ISO_14971", "IEEE_11073_SDC", "IHE_PCD"],
+    "linked_controls": ["SCF-SC", "SCF-IAM", "SCF-IR", "SCF-RM"]
+  },
+  {
+    "template_id": "evidence_threat_response_transaction_integrity",
+    "audit_type": "THREAT_RESPONSE",
+    "name": "Transaction Integrity and Fraud Response Evidence Annex",
+    "description": "Evidence package for prescription replay, claims tampering, and healthcare transaction integrity threats.",
+    "artifacts": [
+      "NCPDP transaction replay-prevention and prescriber verification records",
+      "X12 transformation integrity checks and reconciliation outputs",
+      "Clearinghouse partner trust and incident communication records",
+      "Fraud/anomaly detection tuning and alert investigation evidence"
+    ],
+    "linked_standards": ["NCPDP_SCRIPT", "X12_005010", "ISO_30111", "CSAF_2_0"],
+    "linked_controls": ["SCF-IAM", "SCF-AU", "SCF-SCRM", "SCF-VM"]
+  },
+  {
+    "template_id": "evidence_threat_response_remote_monitoring",
+    "audit_type": "THREAT_RESPONSE",
+    "name": "Remote Monitoring Telemetry Integrity Evidence Annex",
+    "description": "Evidence pack for remote patient monitoring identity spoofing and falsified telemetry events.",
+    "artifacts": [
+      "Device enrollment and attestation records",
+      "Telemetry provenance validation outputs",
+      "Clinical plausibility and override review records",
+      "Patient safety communication and escalation logs"
+    ],
+    "linked_standards": ["IEEE_11073_PHD", "IHE_PCD", "ISO_27799"],
+    "linked_controls": ["SCF-IAM", "SCF-AU", "SCF-IR"]
   }
 ]

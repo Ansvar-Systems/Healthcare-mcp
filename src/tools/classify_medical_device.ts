@@ -135,6 +135,8 @@ export function classifyMedicalDevice(
   ]);
   const activeMonitoring = hasAny(loweredDescription, [
     'active monitoring',
+    'remote monitoring',
+    'wearable',
     'vital signs',
     'physiological monitoring',
     'icu',
@@ -221,19 +223,34 @@ export function classifyMedicalDevice(
   const standardsHint = new Set<string>(['iso_14971']);
   if (samdLikely || isSoftwareFunction || drivesClinicalDecisions) {
     standardsHint.add('iec_62304');
+    standardsHint.add('iec_81001_5_1');
+    standardsHint.add('iec_82304_1');
+    standardsHint.add('iso_13485');
+    standardsHint.add('aami_sw96');
   }
   if (activeMonitoring || lifeSustainingContext) {
     standardsHint.add('iec_80001_1');
+    standardsHint.add('aami_tir57');
+    standardsHint.add('ul_2900_2_1');
+    standardsHint.add('nistir_8259');
   }
   if (region === 'US' || region === 'US_EU') {
     standardsHint.add('fda_premarket_cyber_2023');
     standardsHint.add('nist_sp_800_66');
+    standardsHint.add('aami_tir97');
+    standardsHint.add('imdrf_n60');
+    standardsHint.add('iso_30111');
   }
   if (region === 'EU' || region === 'US_EU') {
     standardsHint.add('mdcg_2019_16');
+    standardsHint.add('iso_29147');
   }
   if (drivesClinicalDecisions || aiActHighRiskLikely) {
     standardsHint.add('iso_27799');
+  }
+  if (hasAiMl) {
+    standardsHint.add('iec_81001_5_1');
+    standardsHint.add('aami_tir57');
   }
 
   return {

@@ -79,6 +79,78 @@
       "obligation_summary": "Secondary-use health data governance and access constraints."
     },
     {
+      "threat_id": "th_dicomweb_query_scrape",
+      "source_mcp": "EU_Regulations_MCP",
+      "requirement_ref": "GDPR_ART_5",
+      "obligation_summary": "Imaging metadata and payload access must meet minimization and confidentiality principles."
+    },
+    {
+      "threat_id": "th_11073_command_injection",
+      "source_mcp": "US_Regulations_MCP",
+      "requirement_ref": "FDA_524B",
+      "obligation_summary": "Networked device command/control safeguards and secure lifecycle evidence are expected for regulated devices."
+    },
+    {
+      "threat_id": "th_ncpdp_refill_replay",
+      "source_mcp": "US-law-mcp",
+      "requirement_ref": "US_CONTROLLED_SUBSTANCE_TRACKING",
+      "obligation_summary": "Controlled-substance refill workflows require anti-fraud controls and auditable prescribing integrity."
+    },
+    {
+      "threat_id": "th_x12_claims_tampering",
+      "source_mcp": "US_Regulations_MCP",
+      "requirement_ref": "HIPAA_164.312(e)",
+      "obligation_summary": "Transmission integrity and security controls apply to covered electronic healthcare transaction pathways."
+    },
+    {
+      "threat_id": "th_remote_monitoring_device_spoofing",
+      "source_mcp": "EU_Regulations_MCP",
+      "requirement_ref": "GDPR_ART_32",
+      "obligation_summary": "Appropriate technical and organizational measures are required for secure remote-health telemetry processing."
+    },
+    {
+      "threat_id": "th_xds_registry_poisoning",
+      "source_mcp": "EU_Regulations_MCP",
+      "requirement_ref": "GDPR_ART_32",
+      "obligation_summary": "Cross-enterprise document-sharing infrastructure must implement robust security and integrity safeguards."
+    },
+    {
+      "threat_id": "th_xcpd_identity_mismatch",
+      "source_mcp": "EU_Regulations_MCP",
+      "requirement_ref": "GDPR_ART_5",
+      "obligation_summary": "Identity accuracy and integrity are essential to lawful, fair, and accurate processing of health data."
+    },
+    {
+      "threat_id": "th_openehr_archetype_tampering",
+      "source_mcp": "US_Regulations_MCP",
+      "requirement_ref": "HIPAA_164.312(c)",
+      "obligation_summary": "Integrity controls are required to prevent improper alteration and destruction of ePHI."
+    },
+    {
+      "threat_id": "th_udap_dynamic_client_abuse",
+      "source_mcp": "US_Regulations_MCP",
+      "requirement_ref": "HIPAA_164.312(d)",
+      "obligation_summary": "Person or entity authentication controls are required for trusted client onboarding and access."
+    },
+    {
+      "threat_id": "th_ccda_document_injection",
+      "source_mcp": "US_Regulations_MCP",
+      "requirement_ref": "HIPAA_164.312(e)",
+      "obligation_summary": "Transmission security and integrity controls apply to inbound clinical-document exchange channels."
+    },
+    {
+      "threat_id": "th_terminology_service_poisoning",
+      "source_mcp": "US_Regulations_MCP",
+      "requirement_ref": "HIPAA_164.312(c)",
+      "obligation_summary": "Integrity controls must protect against improper alteration of coded clinical content and associated ePHI semantics."
+    },
+    {
+      "threat_id": "th_terminology_service_poisoning",
+      "source_mcp": "EU_Regulations_MCP",
+      "requirement_ref": "GDPR_ART_5",
+      "obligation_summary": "Accuracy, integrity, and confidentiality principles require robust controls for terminology and coding correctness."
+    },
+    {
       "threat_id": "th_vendor_supply_chain_compromise",
       "source_mcp": "EU_Regulations_MCP",
       "requirement_ref": "NIS2_SUPPLY_CHAIN",
@@ -157,6 +229,72 @@
       "control_framework": "NIST_CSF_2.0",
       "control_id": "DE.CM-01",
       "control_summary": "Continuous monitoring for anomalous access and exfiltration patterns."
+    },
+    {
+      "threat_id": "th_dicomweb_query_scrape",
+      "control_framework": "NIST_800_53",
+      "control_id": "AC-4",
+      "control_summary": "Constrain information flow and export pathways for imaging APIs."
+    },
+    {
+      "threat_id": "th_11073_command_injection",
+      "control_framework": "NIST_800_53",
+      "control_id": "SI-7",
+      "control_summary": "Protect command and software integrity for network-connected clinical devices."
+    },
+    {
+      "threat_id": "th_ncpdp_refill_replay",
+      "control_framework": "NIST_800_53",
+      "control_id": "IA-2",
+      "control_summary": "Strong authentication and verification in prescribing/refill workflows."
+    },
+    {
+      "threat_id": "th_x12_claims_tampering",
+      "control_framework": "NIST_800_53",
+      "control_id": "AU-12",
+      "control_summary": "Generate auditable evidence for transaction transformations and integrity decisions."
+    },
+    {
+      "threat_id": "th_remote_monitoring_device_spoofing",
+      "control_framework": "NIST_CSF_2.0",
+      "control_id": "DE.CM-01",
+      "control_summary": "Detect anomalous remote telemetry identity and behavior patterns."
+    },
+    {
+      "threat_id": "th_xds_registry_poisoning",
+      "control_framework": "NIST_800_53",
+      "control_id": "AU-12",
+      "control_summary": "Comprehensive auditing for cross-community registry/document metadata changes."
+    },
+    {
+      "threat_id": "th_xcpd_identity_mismatch",
+      "control_framework": "NIST_800_53",
+      "control_id": "AC-6",
+      "control_summary": "Least-privilege and verification controls for identity-correlation and record retrieval operations."
+    },
+    {
+      "threat_id": "th_openehr_archetype_tampering",
+      "control_framework": "NIST_800_53",
+      "control_id": "CM-3",
+      "control_summary": "Controlled and approved configuration/model change management for clinical templates."
+    },
+    {
+      "threat_id": "th_udap_dynamic_client_abuse",
+      "control_framework": "NIST_800_53",
+      "control_id": "IA-5",
+      "control_summary": "Credential lifecycle governance for trusted client registration and certificate material."
+    },
+    {
+      "threat_id": "th_ccda_document_injection",
+      "control_framework": "NIST_800_53",
+      "control_id": "SI-10",
+      "control_summary": "Input/document validation controls to prevent malformed or malicious payload ingestion."
+    },
+    {
+      "threat_id": "th_terminology_service_poisoning",
+      "control_framework": "NIST_800_53",
+      "control_id": "CM-3",
+      "control_summary": "Formal configuration and change-control enforcement for terminology-value-set and concept-map updates."
     },
     {
       "threat_id": "th_vendor_supply_chain_compromise",
