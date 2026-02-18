@@ -1,0 +1,272 @@
+{
+  "$schema": "Golden contract tests for Healthcare Intelligence MCP",
+  "version": "0.1.0",
+  "description": "Scaffold tests validating domain-routing and baseline healthcare ontology behavior.",
+  "tests": [
+    {
+      "id": "GT-HC-001",
+      "description": "about returns domain_router role",
+      "tool": "about",
+      "input": {},
+      "assertions": [
+        { "path": "composition.role", "operator": "equals", "expected": "domain_router" }
+      ]
+    },
+    {
+      "id": "GT-HC-002",
+      "description": "list_profiles includes architecture patterns",
+      "tool": "list_profiles",
+      "input": { "profile_type": "architecture_patterns" },
+      "assertions": [
+        { "path": "architecture_patterns", "operator": "min_count", "expected": 1 }
+      ]
+    },
+    {
+      "id": "GT-HC-003",
+      "description": "classify_health_data identifies critical data tier",
+      "tool": "classify_health_data",
+      "input": {
+        "description": "Patient diagnosis records, genomic data, and behavioral treatment notes"
+      },
+      "assertions": [
+        { "path": "protection_tier", "operator": "equals", "expected": "critical" }
+      ]
+    },
+    {
+      "id": "GT-HC-004",
+      "description": "get_architecture_pattern returns trust boundaries",
+      "tool": "get_architecture_pattern",
+      "input": { "pattern_id": "ehr_fhir_gateway" },
+      "assertions": [
+        { "path": "trust_boundaries", "operator": "min_count", "expected": 1 }
+      ]
+    },
+    {
+      "id": "GT-HC-005",
+      "description": "get_healthcare_threats returns clinically scoped threats",
+      "tool": "get_healthcare_threats",
+      "input": { "pattern_id": "ehr_fhir_gateway", "limit": 5 },
+      "assertions": [
+        { "path": "threats", "operator": "min_count", "expected": 1 },
+        { "path": "mitre_mapping", "operator": "min_count", "expected": 1 }
+      ]
+    },
+    {
+      "id": "GT-HC-006",
+      "description": "assess_breach_obligations resolves strictest deadline",
+      "tool": "assess_breach_obligations",
+      "input": {
+        "jurisdictions": ["US", "EU"],
+        "data_categories": ["ephi"],
+        "incident_summary": "Unauthorized access to patient records"
+      },
+      "assertions": [
+        { "path": "strictest_deadline.deadline_hours", "operator": "equals", "expected": 24 }
+      ]
+    },
+    {
+      "id": "GT-HC-007",
+      "description": "build_evidence_plan returns HIPAA artifact checklist",
+      "tool": "build_evidence_plan",
+      "input": { "audit_type": "HIPAA" },
+      "assertions": [
+        { "path": "templates", "operator": "min_count", "expected": 1 },
+        { "path": "artifact_checklist", "operator": "min_count", "expected": 3 }
+      ]
+    },
+    {
+      "id": "GT-HC-008",
+      "description": "map_to_healthcare_standards maps token theft threat",
+      "tool": "map_to_healthcare_standards",
+      "input": {
+        "input_type": "threat",
+        "input_id": "th_hl7_fhir_token_theft"
+      },
+      "assertions": [
+        { "path": "standards", "operator": "min_count", "expected": 1 }
+      ]
+    },
+    {
+      "id": "GT-HC-009",
+      "description": "compare_jurisdictions returns entries for EU and US",
+      "tool": "compare_jurisdictions",
+      "input": {
+        "topic": "breach notification",
+        "jurisdictions": ["US", "EU"]
+      },
+      "assertions": [
+        { "path": "comparison", "operator": "min_count", "expected": 2 }
+      ]
+    },
+    {
+      "id": "GT-HC-010",
+      "description": "build_healthcare_baseline includes critical controls",
+      "tool": "build_healthcare_baseline",
+      "input": {
+        "organization_profile": {
+          "jurisdictions": ["US", "EU"],
+          "entity_type": "provider",
+          "data_categories": ["ephi"],
+          "has_medical_devices": true
+        }
+      },
+      "assertions": [
+        { "path": "prioritized_controls", "operator": "min_count", "expected": 5 }
+      ]
+    },
+    {
+      "id": "GT-HC-011",
+      "description": "resolve_authoritative_context returns readiness summary structure",
+      "tool": "resolve_authoritative_context",
+      "input": {
+        "topic": "HIPAA and GDPR breach obligations",
+        "jurisdictions": ["US", "EU"]
+      },
+      "assertions": [
+        { "path": "summary", "operator": "has_key", "expected": "ok" },
+        { "path": "upstream_results", "operator": "min_count", "expected": 1 }
+      ]
+    },
+    {
+      "id": "GT-HC-012",
+      "description": "list_sources returns source entries",
+      "tool": "list_sources",
+      "input": {},
+      "assertions": [
+        { "path": "sources", "operator": "min_count", "expected": 1 }
+      ]
+    },
+    {
+      "id": "GT-HC-013",
+      "description": "search_domain_knowledge returns threat matches for ransomware",
+      "tool": "search_domain_knowledge",
+      "input": {
+        "query": "ransomware",
+        "content_type": "threat",
+        "limit": 5
+      },
+      "assertions": [
+        { "path": "results", "operator": "min_count", "expected": 1 }
+      ]
+    },
+    {
+      "id": "GT-HC-014",
+      "description": "map_hipaa_safeguards returns all safeguard classes",
+      "tool": "map_hipaa_safeguards",
+      "input": {
+        "system_description": "Hospital EHR with ePHI and portal access",
+        "data_types": ["ephi"]
+      },
+      "assertions": [
+        { "path": "administrative_safeguards", "operator": "min_count", "expected": 1 },
+        { "path": "physical_safeguards", "operator": "min_count", "expected": 1 },
+        { "path": "technical_safeguards", "operator": "min_count", "expected": 1 }
+      ]
+    },
+    {
+      "id": "GT-HC-021",
+      "description": "get_threat_response_playbook returns operational playbook actions",
+      "tool": "get_threat_response_playbook",
+      "input": { "threat_id": "th_iomt_ransomware_clinical_ops" },
+      "assertions": [
+        { "path": "triage_priority", "operator": "equals", "expected": "P1" },
+        { "path": "immediate_containment_actions", "operator": "min_count", "expected": 1 },
+        { "path": "clinical_safety_actions", "operator": "min_count", "expected": 1 }
+      ]
+    },
+    {
+      "id": "GT-HC-015",
+      "description": "SE applicability overlay includes GDPR, NIS2, and Patientdatalagen",
+      "tool": "assess_applicability",
+      "input": {
+        "country": "SE",
+        "role": "provider",
+        "system_types": ["ehr"],
+        "data_types": ["health_data"]
+      },
+      "assertions": [
+        { "path": "obligations", "operator": "min_count", "expected": 3 }
+      ]
+    },
+    {
+      "id": "GT-HC-016",
+      "description": "US-CA telehealth AI applicability overlay includes HIPAA, CMIA, CCPA, FDA and telehealth law",
+      "tool": "assess_applicability",
+      "input": {
+        "country": "US-CA",
+        "role": "provider",
+        "system_types": ["telehealth"],
+        "data_types": ["ephi", "mental_health"],
+        "additional_context": { "uses_ai_for_clinical_decisions": true }
+      },
+      "assertions": [
+        { "path": "obligations", "operator": "min_count", "expected": 5 }
+      ]
+    },
+    {
+      "id": "GT-HC-017",
+      "description": "DE medical-device AI applicability overlay includes MDR, GDPR, BDSG, AI Act, and NIS2",
+      "tool": "assess_applicability",
+      "input": {
+        "country": "DE",
+        "role": "provider",
+        "system_types": ["medical_device"],
+        "data_types": ["health_data", "genetic_data"],
+        "additional_context": { "uses_ai_for_clinical_decisions": true }
+      },
+      "assertions": [
+        { "path": "obligations", "operator": "min_count", "expected": 5 }
+      ]
+    },
+    {
+      "id": "GT-HC-018",
+      "description": "FR applicability uses synthesized EU fallback obligations when explicit overlay pack is absent",
+      "tool": "assess_applicability",
+      "input": {
+        "country": "FR",
+        "role": "provider",
+        "system_types": ["ehr"],
+        "data_types": ["health_data"]
+      },
+      "assertions": [
+        { "path": "obligations", "operator": "min_count", "expected": 3 },
+        { "path": "overlay_summary.synthesized_country_codes", "operator": "min_count", "expected": 1 }
+      ]
+    },
+    {
+      "id": "GT-HC-019",
+      "description": "US-NY applicability uses synthesized US state fallback obligations",
+      "tool": "assess_applicability",
+      "input": {
+        "country": "US-NY",
+        "role": "provider",
+        "system_types": ["portal"],
+        "data_types": ["ephi"]
+      },
+      "assertions": [
+        { "path": "obligations", "operator": "min_count", "expected": 2 },
+        { "path": "overlay_summary.synthesized_country_codes", "operator": "min_count", "expected": 1 }
+      ]
+    },
+    {
+      "id": "GT-HC-020",
+      "description": "Cross-jurisdiction applicability includes deterministic conflict resolution output",
+      "tool": "assess_applicability",
+      "input": {
+        "country": "US-CA,DE",
+        "role": "provider",
+        "system_types": ["telehealth", "medical_device"],
+        "data_types": ["ephi", "health_data"],
+        "additional_context": {
+          "uses_ai_for_clinical_decisions": true,
+          "has_medical_devices": true
+        }
+      },
+      "assertions": [
+        { "path": "conflict_resolution.policy.name", "operator": "equals", "expected": "strictest_wins" },
+        { "path": "conflict_resolution.conflicts", "operator": "min_count", "expected": 1 },
+        { "path": "decision_quality.requires_authoritative_validation", "operator": "equals", "expected": true }
+      ]
+    }
+  ]
+}

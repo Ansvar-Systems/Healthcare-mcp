@@ -1,0 +1,289 @@
+[
+  {
+    "threat_id": "th_hl7_fhir_token_theft",
+    "mitre_techniques": ["T1528", "T1550", "T1078"],
+    "likelihood_factors": [
+      "Third-party app ecosystems increase token exposure paths",
+      "Long-lived refresh tokens amplify blast radius when stolen",
+      "Over-broad SMART scopes are common in early integrations"
+    ],
+    "exploit_preconditions": [
+      "Compromised partner or client application",
+      "Weak redirect URI or token handling controls",
+      "Insufficient token binding and session monitoring"
+    ],
+    "detection_indicators": [
+      "Unusual token-use geography or device fingerprint shifts",
+      "Rapid high-volume Patient/Observation export sequences",
+      "Scope usage anomalies versus baseline app behavior"
+    ],
+    "historical_incidents": [
+      "Healthcare portals and API ecosystems have repeatedly shown OAuth token misuse patterns in breach investigations"
+    ]
+  },
+  {
+    "threat_id": "th_fhir_bulk_exfiltration",
+    "mitre_techniques": ["T1213", "T1020", "T1041"],
+    "likelihood_factors": [
+      "Bulk export endpoints are high-value attacker objectives",
+      "Role/scope drift over time can silently increase data access",
+      "Partner integrations often bypass strict export throttling"
+    ],
+    "exploit_preconditions": [
+      "Access token with export-capable scope",
+      "Insufficient patient-compartment or row-level controls",
+      "Weak anomaly detection on long-running export jobs"
+    ],
+    "detection_indicators": [
+      "Large FHIR export jobs outside approved windows",
+      "Repeated $export calls from unfamiliar integrations",
+      "Spike in data egress volume tied to one client identity"
+    ],
+    "historical_incidents": [
+      "Large healthcare breaches commonly involve over-privileged API/service accounts and bulk extraction behavior"
+    ]
+  },
+  {
+    "threat_id": "th_hl7v2_message_injection",
+    "mitre_techniques": ["T1071", "T1565", "T1190"],
+    "likelihood_factors": [
+      "HL7v2 lacks native message-layer authentication",
+      "Legacy interface engines frequently rely on network trust",
+      "Clinical interfaces often have broad internal reach"
+    ],
+    "exploit_preconditions": [
+      "Access to interface network segment or engine",
+      "Ability to craft syntactically valid HL7 segments",
+      "Insufficient schema and sender validation"
+    ],
+    "detection_indicators": [
+      "Unexpected ADT/ORM/ORU message bursts",
+      "Segment-level anomalies in PID/OBR/OBX fields",
+      "Atypical message sender IDs or routing paths"
+    ],
+    "historical_incidents": [
+      "Healthcare incident analyses frequently cite insecure integration interfaces as initial manipulation vectors"
+    ]
+  },
+  {
+    "threat_id": "th_ehr_order_manipulation",
+    "mitre_techniques": ["T1565.001", "T1078", "T1114"],
+    "likelihood_factors": [
+      "Privileged account abuse remains a persistent healthcare risk",
+      "High clinical urgency can mask subtle order tampering",
+      "Insufficient dual-control for high-risk order changes"
+    ],
+    "exploit_preconditions": [
+      "Compromised clinician/admin credentials",
+      "Write access to medication/allergy/order fields",
+      "Limited immutable logging or delayed review workflows"
+    ],
+    "detection_indicators": [
+      "Out-of-hours high-risk order modifications",
+      "Frequent allergy/medication overrides by one account",
+      "Order-change patterns inconsistent with clinician specialty"
+    ],
+    "historical_incidents": [
+      "Healthcare safety advisories repeatedly warn about integrity-focused attacks, not only confidentiality breaches"
+    ]
+  },
+  {
+    "threat_id": "th_dicom_metadata_leak",
+    "mitre_techniques": ["T1537", "T1005", "T1041"],
+    "likelihood_factors": [
+      "DICOM header de-identification is often inconsistently enforced",
+      "Research sharing workflows increase export frequency",
+      "Legacy imaging systems may lack modern data-loss controls"
+    ],
+    "exploit_preconditions": [
+      "Access to imaging export workflow or PACS integration",
+      "Missing metadata-sanitization policy enforcement",
+      "Inadequate outbound data review controls"
+    ],
+    "detection_indicators": [
+      "DICOM exports containing direct identifiers in headers",
+      "Unusual volume of external DICOM transfers",
+      "Access to imaging archives from unexpected user groups"
+    ],
+    "historical_incidents": [
+      "Publicly exposed PACS systems and imaging metadata leaks have been repeatedly documented in healthcare security research"
+    ]
+  },
+  {
+    "threat_id": "th_iomt_ransomware_clinical_ops",
+    "mitre_techniques": ["T1486", "T1490", "T1021"],
+    "likelihood_factors": [
+      "Ransomware targeting healthcare remains persistent and high-impact",
+      "Flat or weakly segmented IT/IoMT networks accelerate spread",
+      "Legacy medical devices often lag patch cycles"
+    ],
+    "exploit_preconditions": [
+      "Initial endpoint compromise in enterprise IT",
+      "Lateral movement path into biomedical/device zones",
+      "Insufficient backup isolation and recovery rehearsals"
+    ],
+    "detection_indicators": [
+      "Simultaneous device-management and AD account anomalies",
+      "Rapid encryption-like I/O across clinical systems",
+      "Sudden device communication drop-offs in ICU/OR segments"
+    ],
+    "historical_incidents": [
+      "NHS disruption during WannaCry (2017)",
+      "Large US healthcare ransomware incidents causing procedure delays and diversion events"
+    ]
+  },
+  {
+    "threat_id": "th_device_firmware_manipulation",
+    "mitre_techniques": ["T1542.001", "T1195", "T1601"],
+    "likelihood_factors": [
+      "Medical device firmware and update channels are attractive long-dwell vectors",
+      "Supplier ecosystem complexity increases trust-chain risk",
+      "Verification controls vary widely across device fleets"
+    ],
+    "exploit_preconditions": [
+      "Compromised firmware signing/update infrastructure",
+      "Weak secure-boot or update signature verification",
+      "Limited SBOM-driven vulnerability governance"
+    ],
+    "detection_indicators": [
+      "Firmware hash drift from approved baselines",
+      "Unexpected update package provenance",
+      "Safety-alarm behavior changes after updates"
+    ],
+    "historical_incidents": [
+      "Multiple FDA and CISA advisories have highlighted medical-device software and firmware integrity vulnerabilities"
+    ]
+  },
+  {
+    "threat_id": "th_ihe_token_forgery",
+    "mitre_techniques": ["T1550", "T1606", "T1078"],
+    "likelihood_factors": [
+      "Federated trust is brittle when implementations diverge",
+      "Cross-organization token validation can be inconsistent",
+      "Legacy identity bridges can weaken issuer assurance"
+    ],
+    "exploit_preconditions": [
+      "Issuer/audience validation weakness",
+      "Replay window or clock-skew tolerance gaps",
+      "Insufficient assertion-signature verification"
+    ],
+    "detection_indicators": [
+      "Token audience/issuer mismatches in federation logs",
+      "Unexpected assertion chains between organizations",
+      "Anomalous cross-enterprise access spikes by one identity"
+    ],
+    "historical_incidents": [
+      "Healthcare federation incidents frequently involve trust-configuration errors enabling unauthorized cross-domain access"
+    ]
+  },
+  {
+    "threat_id": "th_prescription_diversion",
+    "mitre_techniques": ["T1078", "T1098", "T1565"],
+    "likelihood_factors": [
+      "Controlled-substance workflows are high-value fraud targets",
+      "Credential-sharing and weak MFA increase abuse risk",
+      "Clinical throughput pressure can reduce review quality"
+    ],
+    "exploit_preconditions": [
+      "Access to prescribing credentials or workflow approvals",
+      "Weak anomaly controls for controlled-substance ordering",
+      "Insufficient segregation of prescribing and dispensing duties"
+    ],
+    "detection_indicators": [
+      "High-risk prescribing velocity anomalies by provider",
+      "Prescription pattern shifts outside specialty norms",
+      "Mismatch between encounter records and prescription activity"
+    ],
+    "historical_incidents": [
+      "Healthcare and pharmacy fraud cases repeatedly involve credential abuse and e-prescribing manipulation"
+    ]
+  },
+  {
+    "threat_id": "th_clinical_ai_poisoning",
+    "mitre_techniques": ["T1565", "T1195", "T1078"],
+    "likelihood_factors": [
+      "ML pipelines often inherit weak data provenance controls",
+      "Clinical model updates can be operationally under-governed",
+      "Safety impact is high when models influence diagnosis/therapy"
+    ],
+    "exploit_preconditions": [
+      "Write path into training/labeling datasets",
+      "Insufficient validation gates before promotion",
+      "Weak separation between experimentation and production assets"
+    ],
+    "detection_indicators": [
+      "Unexpected model-performance drift by cohort",
+      "Distribution shift in key clinical feature inputs",
+      "Disagreement spikes between model output and clinician override patterns"
+    ],
+    "historical_incidents": [
+      "Clinical AI safety literature and regulatory guidance highlight data governance and model integrity as central risk vectors"
+    ]
+  },
+  {
+    "threat_id": "th_telehealth_identity_takeover",
+    "mitre_techniques": ["T1110", "T1078", "T1556"],
+    "likelihood_factors": [
+      "Consumer-grade account hygiene increases credential-stuffing success",
+      "Telehealth portals are internet-exposed and high-volume",
+      "Session-management misconfigurations are common in rapid deployments"
+    ],
+    "exploit_preconditions": [
+      "Compromised credentials or weak MFA coverage",
+      "Inadequate risk-based authentication controls",
+      "Weak session anomaly detection"
+    ],
+    "detection_indicators": [
+      "Impossible-travel and device-fingerprint anomalies",
+      "Repeated failed login bursts followed by successful access",
+      "Unusual access to message/consultation archives"
+    ],
+    "historical_incidents": [
+      "Telehealth and patient-portal breach reports frequently involve credential abuse and account takeover patterns"
+    ]
+  },
+  {
+    "threat_id": "th_biobank_data_theft",
+    "mitre_techniques": ["T1078", "T1020", "T1041"],
+    "likelihood_factors": [
+      "Genomic datasets have high long-term value",
+      "Research collaboration expands access surface and transfer paths",
+      "Pseudonymized data remains re-identification sensitive"
+    ],
+    "exploit_preconditions": [
+      "Access to research data repositories or export tooling",
+      "Weak export-approval workflows and entitlement controls",
+      "Insufficient monitoring of bulk research data pulls"
+    ],
+    "detection_indicators": [
+      "Large off-hours exports from research environments",
+      "Repeated access to high-value cohorts without protocol context",
+      "Unexpected cross-border data transfer attempts"
+    ],
+    "historical_incidents": [
+      "Research-sector breaches have repeatedly targeted high-value biomedical and genomic datasets"
+    ]
+  },
+  {
+    "threat_id": "th_vendor_supply_chain_compromise",
+    "mitre_techniques": ["T1195", "T1199", "T1486"],
+    "likelihood_factors": [
+      "Healthcare relies on concentrated third-party platforms",
+      "Trusted updates/integrations can bypass perimeter assumptions",
+      "Vendor outages can immediately impact clinical operations"
+    ],
+    "exploit_preconditions": [
+      "Compromise of vendor build/distribution systems",
+      "Implicit trust in update channels or integration credentials",
+      "Insufficient segmentation of vendor-connected pathways"
+    ],
+    "detection_indicators": [
+      "Simultaneous anomalies after vendor software updates",
+      "Unexpected privileged API calls from vendor identities",
+      "Correlated incidents across organizations sharing one vendor"
+    ],
+    "historical_incidents": [
+      "Healthcare-wide downstream disruptions have followed high-impact third-party compromise events, including major clearinghouse incidents"
+    ]
+  }
+]

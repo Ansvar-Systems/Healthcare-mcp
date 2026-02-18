@@ -1,0 +1,394 @@
+[
+  {
+    "threat_id": "th_hl7_fhir_token_theft",
+    "triage_priority": "P1",
+    "immediate_containment_actions": [
+      "Revoke compromised OAuth tokens and rotate client secrets",
+      "Temporarily disable affected app registrations and high-risk scopes",
+      "Enforce short token TTL and refresh-token invalidation for exposed tenants"
+    ],
+    "clinical_safety_actions": [
+      "Verify no unauthorized medication/order changes occurred during token compromise window",
+      "Notify clinical operations leadership if portal/API downtime impacts care continuity"
+    ],
+    "forensic_artifacts": [
+      "OAuth authorization and token-introspection logs",
+      "FHIR resource access logs with patient/resource scope",
+      "App-registration and consent-change audit trail"
+    ],
+    "recovery_validation_checks": [
+      "Confirm all privileged scopes were re-approved under least privilege",
+      "Validate anomaly alerts for suspicious bulk read patterns",
+      "Run post-incident query to detect residual unauthorized sessions"
+    ],
+    "communication_requirements": [
+      "Privacy/compliance incident briefing for legal and DPO teams",
+      "Partner app security notification with required remediation evidence"
+    ],
+    "escalation_routes": [
+      "US_Regulations_MCP:HIPAA_164.312",
+      "EU_Regulations_MCP:GDPR_ART_33",
+      "Security_Controls_MCP:token_access_controls"
+    ]
+  },
+  {
+    "threat_id": "th_fhir_bulk_exfiltration",
+    "triage_priority": "P1",
+    "immediate_containment_actions": [
+      "Suspend active bulk-export jobs and quarantine high-risk service accounts",
+      "Apply emergency export throttles and compartment-level access constraints"
+    ],
+    "clinical_safety_actions": [
+      "Coordinate with care teams if API restrictions affect clinical workflows",
+      "Prioritize restoration of read-only critical-care integrations"
+    ],
+    "forensic_artifacts": [
+      "Bulk export job history and response metadata",
+      "Outbound data-transfer and gateway egress logs",
+      "Service-account entitlement change history"
+    ],
+    "recovery_validation_checks": [
+      "Verify export endpoints enforce approved purpose and scope constraints",
+      "Validate no stale long-lived export tokens remain active"
+    ],
+    "communication_requirements": [
+      "Regulator-ready breach chronology with dataset scope",
+      "Executive operations briefing on data-loss and containment status"
+    ],
+    "escalation_routes": [
+      "EU_Regulations_MCP:GDPR_ART_9",
+      "US_Regulations_MCP:HIPAA_BREACH",
+      "Security_Controls_MCP:information_flow_controls"
+    ]
+  },
+  {
+    "threat_id": "th_hl7v2_message_injection",
+    "triage_priority": "P1",
+    "immediate_containment_actions": [
+      "Isolate compromised interface channels and enforce sender allow-lists",
+      "Enable strict HL7 schema/segment validation at integration gateway"
+    ],
+    "clinical_safety_actions": [
+      "Place high-risk orders/results into manual verification queue",
+      "Notify lab/pharmacy/radiology leads for integrity recheck procedures"
+    ],
+    "forensic_artifacts": [
+      "Raw HL7 message logs and ACK/NACK traces",
+      "Interface engine route and transformation audit logs",
+      "Order/result correction records"
+    ],
+    "recovery_validation_checks": [
+      "Confirm trusted senders only and tested validation rules",
+      "Validate corrected records were propagated to downstream systems"
+    ],
+    "communication_requirements": [
+      "Clinical safety incident update to command center",
+      "Compliance notification if record integrity and confidentiality were affected"
+    ],
+    "escalation_routes": [
+      "US_Regulations_MCP:HIPAA_164.312(e)",
+      "EU_Regulations_MCP:GDPR_ART_32",
+      "Security_Controls_MCP:message_integrity_controls"
+    ]
+  },
+  {
+    "threat_id": "th_ehr_order_manipulation",
+    "triage_priority": "P1",
+    "immediate_containment_actions": [
+      "Lock suspected privileged accounts and enforce emergency access review",
+      "Enable temporary dual-approval for high-risk order modifications"
+    ],
+    "clinical_safety_actions": [
+      "Run rapid review of altered medication/allergy/order entries",
+      "Escalate potentially affected patients for clinician confirmation"
+    ],
+    "forensic_artifacts": [
+      "EHR order-change audit logs",
+      "Privileged access and session traces",
+      "Patient chart integrity diff reports"
+    ],
+    "recovery_validation_checks": [
+      "Verify all tampered records restored with clinician sign-off",
+      "Confirm immutable logging and alerting are operational"
+    ],
+    "communication_requirements": [
+      "Immediate patient safety command update",
+      "Legal/compliance briefing on integrity impact and reportability"
+    ],
+    "escalation_routes": [
+      "US_Regulations_MCP:HIPAA_164.312(c)",
+      "EU_Regulations_MCP:GDPR_ART_5",
+      "Security_Controls_MCP:audit_integrity_controls"
+    ]
+  },
+  {
+    "threat_id": "th_dicom_metadata_leak",
+    "triage_priority": "P2",
+    "immediate_containment_actions": [
+      "Suspend external imaging export channels pending sanitization checks",
+      "Enforce DICOM header de-identification policies"
+    ],
+    "clinical_safety_actions": [
+      "Preserve access to essential imaging workflows while restricting external transfers",
+      "Coordinate with radiology for prioritized safe-sharing exceptions"
+    ],
+    "forensic_artifacts": [
+      "DICOM export logs and target destinations",
+      "Sample leaked headers with identifying fields",
+      "PACS/VNA user access logs"
+    ],
+    "recovery_validation_checks": [
+      "Validate metadata scrubbing coverage across all export paths",
+      "Confirm outbound transfer monitoring alerts on PHI patterns"
+    ],
+    "communication_requirements": [
+      "Privacy office notification for potential identifiable imaging disclosure",
+      "Partner-site notice if shared datasets contained identifiers"
+    ],
+    "escalation_routes": [
+      "EU_Regulations_MCP:GDPR_ART_5",
+      "US_Regulations_MCP:HIPAA_BREACH",
+      "Security_Controls_MCP:data_minimization_controls"
+    ]
+  },
+  {
+    "threat_id": "th_iomt_ransomware_clinical_ops",
+    "triage_priority": "P1",
+    "immediate_containment_actions": [
+      "Segment and isolate infected IT and biomedical network zones",
+      "Disable lateral movement paths and non-essential remote management channels",
+      "Activate offline backup and recovery workflow"
+    ],
+    "clinical_safety_actions": [
+      "Initiate downtime clinical procedures and patient diversion criteria",
+      "Perform bedside/manual fallback checks for safety-critical devices"
+    ],
+    "forensic_artifacts": [
+      "Endpoint and network telemetry from IT and IoMT segments",
+      "Ransom note binaries and encryption process indicators",
+      "Device management system event logs"
+    ],
+    "recovery_validation_checks": [
+      "Verify prioritized restoration of critical-care systems first",
+      "Run safety checks on reconnected devices before clinical use",
+      "Validate backup integrity and clean-room recovery records"
+    ],
+    "communication_requirements": [
+      "Hospital incident command and executive operations updates",
+      "Regulator/authority incident reporting timeline execution"
+    ],
+    "escalation_routes": [
+      "EU_Regulations_MCP:NIS2_ART_21",
+      "US_Regulations_MCP:HIPAA_BREACH",
+      "Security_Controls_MCP:network_segmentation_and_recovery"
+    ]
+  },
+  {
+    "threat_id": "th_device_firmware_manipulation",
+    "triage_priority": "P1",
+    "immediate_containment_actions": [
+      "Block untrusted update channels and revoke affected signing material",
+      "Quarantine suspect device batches and halt non-essential firmware rollouts"
+    ],
+    "clinical_safety_actions": [
+      "Risk-assess impacted devices in active care settings",
+      "Apply clinical fallback plans for high-risk therapy/monitoring functions"
+    ],
+    "forensic_artifacts": [
+      "Firmware hashes and signing certificate provenance",
+      "Update distribution logs and package manifests",
+      "Device behavior anomaly telemetry"
+    ],
+    "recovery_validation_checks": [
+      "Validate trusted firmware image restoration and secure-boot status",
+      "Confirm SBOM and vulnerability status for restored builds"
+    ],
+    "communication_requirements": [
+      "Biomedical engineering and manufacturer coordination briefings",
+      "Regulatory reporting package for device cybersecurity events"
+    ],
+    "escalation_routes": [
+      "US_Regulations_MCP:FDA_524B",
+      "EU_Regulations_MCP:MDR_ANNEX_I",
+      "Security_Controls_MCP:firmware_integrity_controls"
+    ]
+  },
+  {
+    "threat_id": "th_ihe_token_forgery",
+    "triage_priority": "P2",
+    "immediate_containment_actions": [
+      "Invalidate suspicious federation assertions and rotate trust anchors",
+      "Restrict cross-enterprise access until issuer validation is confirmed"
+    ],
+    "clinical_safety_actions": [
+      "Ensure urgent clinical data exchange paths are available through verified channels",
+      "Temporarily require enhanced verification for external record requests"
+    ],
+    "forensic_artifacts": [
+      "Assertion/token validation failure logs",
+      "Federation trust-store and certificate change history",
+      "Cross-enterprise access audit trails"
+    ],
+    "recovery_validation_checks": [
+      "Validate issuer/audience/signature checks in all relying parties",
+      "Confirm replay and TTL protections are enforced"
+    ],
+    "communication_requirements": [
+      "Cross-organization security coordination notice",
+      "Privacy/compliance summary if unauthorized access confirmed"
+    ],
+    "escalation_routes": [
+      "EU_Regulations_MCP:GDPR_ART_32",
+      "Security_Controls_MCP:federated_identity_controls"
+    ]
+  },
+  {
+    "threat_id": "th_prescription_diversion",
+    "triage_priority": "P1",
+    "immediate_containment_actions": [
+      "Suspend suspicious prescribing accounts and enforce step-up authentication",
+      "Enable enhanced controlled-substance prescribing monitoring"
+    ],
+    "clinical_safety_actions": [
+      "Coordinate with pharmacy leadership on suspect prescription holds",
+      "Review potential patient-care interruption impacts"
+    ],
+    "forensic_artifacts": [
+      "E-prescribing transaction logs",
+      "Provider authentication and session traces",
+      "PDMP integration and alert records"
+    ],
+    "recovery_validation_checks": [
+      "Verify role-based controls and separation-of-duty gates",
+      "Validate anomaly thresholds for controlled-substance workflows"
+    ],
+    "communication_requirements": [
+      "Compliance/legal notification for controlled-substance fraud exposure",
+      "Law-enforcement escalation pathway where required"
+    ],
+    "escalation_routes": [
+      "US-law-mcp:US_CONTROLLED_SUBSTANCE_TRACKING",
+      "Security_Controls_MCP:prescribing_fraud_controls"
+    ]
+  },
+  {
+    "threat_id": "th_clinical_ai_poisoning",
+    "triage_priority": "P1",
+    "immediate_containment_actions": [
+      "Freeze model promotion pipeline and rollback suspect model versions",
+      "Isolate compromised training data sources and labeling channels"
+    ],
+    "clinical_safety_actions": [
+      "Increase human-overrides and validation for AI-assisted decisions",
+      "Notify clinical governance board for urgent safety review"
+    ],
+    "forensic_artifacts": [
+      "Model registry history and deployment manifests",
+      "Training data lineage and provenance logs",
+      "Model-performance drift and override statistics"
+    ],
+    "recovery_validation_checks": [
+      "Re-validate models against clean reference datasets",
+      "Confirm ongoing drift monitoring and alerting thresholds"
+    ],
+    "communication_requirements": [
+      "AI governance, legal, and safety leadership briefing",
+      "Regulatory risk summary for high-risk health AI obligations"
+    ],
+    "escalation_routes": [
+      "EU_Regulations_MCP:AI_ACT_ART_9",
+      "US_Regulations_MCP:FDA_AI_ML_GUIDANCE",
+      "Security_Controls_MCP:ml_governance_controls"
+    ]
+  },
+  {
+    "threat_id": "th_telehealth_identity_takeover",
+    "triage_priority": "P2",
+    "immediate_containment_actions": [
+      "Force password reset and session invalidation for affected accounts",
+      "Enable risk-based MFA enforcement for telehealth portals"
+    ],
+    "clinical_safety_actions": [
+      "Protect active consultation continuity through verified re-authentication workflow",
+      "Review potentially exposed sensitive consultation transcripts"
+    ],
+    "forensic_artifacts": [
+      "Authentication logs and failed-login burst metrics",
+      "Session-token lifecycle traces",
+      "Portal messaging and consultation access logs"
+    ],
+    "recovery_validation_checks": [
+      "Validate anti-credential-stuffing controls and lockout tuning",
+      "Confirm impossible-travel and device-fingerprint anomaly alerts"
+    ],
+    "communication_requirements": [
+      "Patient notification preparation for exposed telehealth records",
+      "Executive update on account takeover scope and remediation status"
+    ],
+    "escalation_routes": [
+      "US_Regulations_MCP:HIPAA_164.312(d)",
+      "EU_Regulations_MCP:GDPR_ART_33",
+      "Security_Controls_MCP:authentication_controls"
+    ]
+  },
+  {
+    "threat_id": "th_biobank_data_theft",
+    "triage_priority": "P1",
+    "immediate_containment_actions": [
+      "Suspend affected research export credentials and external transfer channels",
+      "Apply emergency restrictions to genomic dataset retrieval endpoints"
+    ],
+    "clinical_safety_actions": [
+      "Coordinate with research governance and ethics boards on participant impact",
+      "Preserve critical clinical-research continuity for patient-care-linked studies"
+    ],
+    "forensic_artifacts": [
+      "Research data export and access logs",
+      "Consent and permit context for accessed cohorts",
+      "Cross-border transfer audit records"
+    ],
+    "recovery_validation_checks": [
+      "Re-validate purpose-based access controls for research datasets",
+      "Confirm export monitoring for large cohort pulls"
+    ],
+    "communication_requirements": [
+      "Participant-risk communication plan with legal/ethics oversight",
+      "Regulator-ready summary for secondary-use governance impact"
+    ],
+    "escalation_routes": [
+      "EU_Regulations_MCP:EHDS_SECONDARY_USE",
+      "EU_Regulations_MCP:GDPR_ART_9",
+      "Security_Controls_MCP:research_data_access_controls"
+    ]
+  },
+  {
+    "threat_id": "th_vendor_supply_chain_compromise",
+    "triage_priority": "P1",
+    "immediate_containment_actions": [
+      "Isolate affected vendor integrations and disable high-risk trust channels",
+      "Invoke third-party incident response and contractual security obligations"
+    ],
+    "clinical_safety_actions": [
+      "Assess downstream impact on scheduling, billing, and clinical workflows",
+      "Activate contingency operations for critical third-party dependencies"
+    ],
+    "forensic_artifacts": [
+      "Vendor integration transaction logs",
+      "Software/update provenance artifacts",
+      "Third-party access and API-key usage telemetry"
+    ],
+    "recovery_validation_checks": [
+      "Confirm vendor remediation evidence before re-enabling connectivity",
+      "Validate compensating controls and segmentation for resumed trust"
+    ],
+    "communication_requirements": [
+      "Board-level incident update for systemic third-party risk",
+      "Customer/partner communications aligned with legal obligations"
+    ],
+    "escalation_routes": [
+      "EU_Regulations_MCP:NIS2_SUPPLY_CHAIN",
+      "US_Regulations_MCP:HIPAA_BAA",
+      "Security_Controls_MCP:third_party_risk_controls"
+    ]
+  }
+]

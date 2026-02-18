@@ -1,0 +1,160 @@
+{
+  "version": "0.1.0",
+  "title": "Healthcare MCP Expert Benchmark",
+  "description": "Weighted scenario benchmark for healthcare-domain expertise and routing quality.",
+  "minimum_score": 90,
+  "scenarios": [
+    {
+      "id": "BM-HC-001",
+      "weight": 10,
+      "tool": "classify_health_data",
+      "input": {
+        "description": "Genomic sequencing records, diagnoses, and therapy history for precision medicine",
+        "jurisdictions": ["US", "DE"]
+      },
+      "assertions": [
+        { "path": "protection_tier", "operator": "equals", "expected": "critical" }
+      ]
+    },
+    {
+      "id": "BM-HC-002",
+      "weight": 8,
+      "tool": "get_architecture_pattern",
+      "input": { "pattern_id": "hc-iomt" },
+      "assertions": [
+        { "path": "trust_boundaries", "operator": "min_count", "expected": 1 },
+        { "path": "known_weak_points", "operator": "min_count", "expected": 1 }
+      ]
+    },
+    {
+      "id": "BM-HC-003",
+      "weight": 8,
+      "tool": "get_healthcare_threats",
+      "input": { "pattern_id": "hc-ehr", "limit": 10 },
+      "assertions": [
+        { "path": "threats", "operator": "min_count", "expected": 2 }
+      ]
+    },
+    {
+      "id": "BM-HC-004",
+      "weight": 16,
+      "tool": "assess_applicability",
+      "input": {
+        "country": "US-CA,DE",
+        "role": "provider",
+        "system_types": ["telehealth", "medical_device"],
+        "data_types": ["ephi", "health_data"],
+        "additional_context": {
+          "uses_ai_for_clinical_decisions": true,
+          "has_medical_devices": true
+        }
+      },
+      "assertions": [
+        { "path": "conflict_resolution.policy.name", "operator": "equals", "expected": "strictest_wins" },
+        { "path": "conflict_resolution.conflicts", "operator": "min_count", "expected": 1 },
+        { "path": "decision_quality.requires_authoritative_validation", "operator": "equals", "expected": true }
+      ]
+    },
+    {
+      "id": "BM-HC-005",
+      "weight": 8,
+      "tool": "compare_jurisdictions",
+      "input": {
+        "topic": "breach notification",
+        "jurisdictions": ["US-CA", "DE"]
+      },
+      "assertions": [
+        { "path": "comparison", "operator": "min_count", "expected": 2 },
+        { "path": "strictest_deadline.deadline_hours", "operator": "max_number", "expected": 72 }
+      ]
+    },
+    {
+      "id": "BM-HC-006",
+      "weight": 8,
+      "tool": "map_to_healthcare_standards",
+      "input": { "input_type": "threat", "input_id": "th_device_firmware_manipulation" },
+      "assertions": [
+        { "path": "standards", "operator": "min_count", "expected": 1 }
+      ]
+    },
+    {
+      "id": "BM-HC-007",
+      "weight": 10,
+      "tool": "assess_breach_obligations",
+      "input": {
+        "jurisdictions": ["US", "EU"],
+        "data_categories": ["ephi"],
+        "incident_summary": "Unauthorized access to patient data exports"
+      },
+      "assertions": [
+        { "path": "strictest_deadline.deadline_hours", "operator": "equals", "expected": 24 }
+      ]
+    },
+    {
+      "id": "BM-HC-008",
+      "weight": 8,
+      "tool": "search_domain_knowledge",
+      "input": {
+        "query": "automotive ECU secure boot bypass",
+        "content_type": "all"
+      },
+      "assertions": [
+        { "path": "recommended_mcp", "operator": "equals", "expected": "Automotive-MCP" }
+      ]
+    },
+    {
+      "id": "BM-HC-009",
+      "weight": 8,
+      "tool": "assess_clinical_risk",
+      "input": {
+        "threat_scenario": "Infusion pump dosage manipulation in ICU",
+        "clinical_setting": "ICU"
+      },
+      "assertions": [
+        { "path": "harm_severity", "operator": "equals", "expected": "critical" }
+      ]
+    },
+    {
+      "id": "BM-HC-010",
+      "weight": 8,
+      "tool": "assess_applicability",
+      "input": {
+        "country": "FR",
+        "role": "provider",
+        "system_types": ["ehr"],
+        "data_types": ["health_data"]
+      },
+      "assertions": [
+        { "path": "obligations", "operator": "min_count", "expected": 3 },
+        { "path": "overlay_summary.synthesized_country_codes", "operator": "contains", "expected": "FR" }
+      ]
+    },
+    {
+      "id": "BM-HC-011",
+      "weight": 8,
+      "tool": "resolve_authoritative_context",
+      "input": {
+        "topic": "HIPAA and GDPR healthcare safeguards",
+        "jurisdictions": ["US", "EU"]
+      },
+      "assertions": [
+        { "path": "summary", "operator": "has_key", "expected": "not_configured" },
+        { "path": "upstream_results", "operator": "min_count", "expected": 1 }
+      ]
+    },
+    {
+      "id": "BM-HC-012",
+      "weight": 6,
+      "tool": "get_threat_response_playbook",
+      "input": {
+        "threat_id": "th_iomt_ransomware_clinical_ops"
+      },
+      "assertions": [
+        { "path": "triage_priority", "operator": "equals", "expected": "P1" },
+        { "path": "immediate_containment_actions", "operator": "min_count", "expected": 1 },
+        { "path": "clinical_safety_actions", "operator": "min_count", "expected": 1 },
+        { "path": "escalation_routes", "operator": "min_count", "expected": 1 }
+      ]
+    }
+  ]
+}

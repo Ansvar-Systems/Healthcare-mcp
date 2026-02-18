@@ -1,0 +1,132 @@
+[
+  {
+    "rule_id": "us_samd_class_iii_life_support",
+    "region": "US",
+    "framework": "FDA",
+    "class_label": "Class III / PMA likely",
+    "trigger_keywords": [
+      "implantable",
+      "life sustaining",
+      "life-support",
+      "closed-loop",
+      "autonomous dosing",
+      "critical therapy"
+    ],
+    "notes": "High-risk intended use and potential direct patient harm suggest Class III/PMA pathway."
+  },
+  {
+    "rule_id": "us_samd_class_ii_diagnostic",
+    "region": "US",
+    "framework": "FDA",
+    "class_label": "Class II / 510(k) likely",
+    "trigger_keywords": [
+      "diagnostic",
+      "clinical decision support",
+      "patient-specific recommendations",
+      "triage"
+    ],
+    "notes": "Common SaMD diagnostic/decision-support contexts often align with Class II and 510(k)-like routes."
+  },
+  {
+    "rule_id": "us_device_class_ii_monitoring",
+    "region": "US",
+    "framework": "FDA",
+    "class_label": "Class II likely",
+    "trigger_keywords": [
+      "remote monitoring",
+      "vital signs",
+      "alarm",
+      "physiological monitoring",
+      "infusion pump"
+    ],
+    "notes": "Monitoring and active therapeutic support typically require special controls."
+  },
+  {
+    "rule_id": "us_device_class_i_low_risk",
+    "region": "US",
+    "framework": "FDA",
+    "class_label": "Class I likely",
+    "trigger_keywords": [
+      "non-invasive wellness",
+      "low risk monitoring",
+      "administrative aid"
+    ],
+    "notes": "Low-risk functions without therapeutic/diagnostic claims may align with Class I or non-device pathways."
+  },
+  {
+    "rule_id": "us_non_device_admin",
+    "region": "US",
+    "framework": "FDA",
+    "class_label": "Not medical device (initial screen)",
+    "trigger_keywords": [
+      "billing",
+      "scheduling",
+      "administrative only",
+      "claims processing"
+    ],
+    "notes": "No direct diagnostic or therapeutic claim detected."
+  },
+  {
+    "rule_id": "eu_mdr_rule11_class_iii",
+    "region": "EU",
+    "framework": "MDR",
+    "class_label": "Class III likely (MDR Rule 11 high risk)",
+    "trigger_keywords": [
+      "critical condition",
+      "life threatening",
+      "therapy drives decisions",
+      "autonomous treatment"
+    ],
+    "notes": "Software decisions that may lead to death/irreversible deterioration can trigger Rule 11 high-risk classification."
+  },
+  {
+    "rule_id": "eu_mdr_rule11_class_iib",
+    "region": "EU",
+    "framework": "MDR",
+    "class_label": "Class IIb likely (MDR Rule 11)",
+    "trigger_keywords": [
+      "active monitoring",
+      "vital physiological",
+      "icu monitoring",
+      "therapy recommendation"
+    ],
+    "notes": "Monitoring vital parameters or therapy-driving software often maps to IIb under Rule 11 context."
+  },
+  {
+    "rule_id": "eu_mdr_rule11_class_iia",
+    "region": "EU",
+    "framework": "MDR",
+    "class_label": "Class IIa likely (MDR Rule 11)",
+    "trigger_keywords": [
+      "clinical workflow support",
+      "non-critical decision support",
+      "risk stratification"
+    ],
+    "notes": "Decision-support software for non-critical contexts may align with IIa."
+  },
+  {
+    "rule_id": "eu_device_class_i_low_risk",
+    "region": "EU",
+    "framework": "MDR",
+    "class_label": "Class I likely",
+    "trigger_keywords": [
+      "wellness",
+      "administrative aid",
+      "non-medical recommendation"
+    ],
+    "notes": "Low-risk or non-medical intended use may remain Class I or out-of-scope for MDR."
+  },
+  {
+    "rule_id": "eu_non_device_admin",
+    "region": "EU",
+    "framework": "MDR",
+    "class_label": "Not medical device (initial screen)",
+    "trigger_keywords": [
+      "billing",
+      "scheduling",
+      "administrative only",
+      "claims processing"
+    ],
+    "notes": "No medical intended use detected from description."
+  }
+]

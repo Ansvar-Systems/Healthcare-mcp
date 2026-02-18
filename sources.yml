@@ -1,0 +1,130 @@
+## Data Source Provenance
+## Healthcare Intelligence MCP
+## Last updated: 2026-02-18
+
+sources:
+  - id: hipaa_rule_map
+    name: "HIPAA Security/Privacy Rule structured map"
+    type: regulation_index
+    authority: "HHS OCR"
+    authoritative_url: "https://www.hhs.gov/hipaa/index.html"
+    license: "Public domain (US government)"
+    data_obtained: "2026-02-18"
+    data_method: "Metadata indexing only, authoritative text delegated to US Regulations MCP"
+    content_scope: "Section-level index and healthcare applicability logic"
+    update_frequency: weekly
+
+  - id: eu_healthcare_reg_map
+    name: "EU healthcare regulation index"
+    type: regulation_index
+    authority: "EUR-Lex / European Commission"
+    authoritative_url: "https://eur-lex.europa.eu/"
+    license: "EU public legal texts"
+    data_obtained: "2026-02-18"
+    data_method: "Metadata indexing only, authoritative text delegated to EU Regulations MCP"
+    content_scope: "GDPR special-category data, NIS2 healthcare entities, MDR/IVDR, AI Act, EHDS context"
+    update_frequency: weekly
+
+  - id: hl7_fhir_specs
+    name: "HL7 FHIR specification references"
+    type: technical_standard
+    authority: "HL7 International"
+    authoritative_url: "https://www.hl7.org/fhir/"
+    license: "FHIR base specification under HL7 terms (public reference use)"
+    data_obtained: "2026-02-18"
+    data_method: "Standard mapping metadata only"
+    content_scope: "FHIR R4/R5 resource and security profile mapping"
+    update_frequency: monthly
+
+  - id: dicom_standard
+    name: "DICOM specification references"
+    type: technical_standard
+    authority: "DICOM Standards Committee"
+    authoritative_url: "https://www.dicomstandard.org/current/"
+    license: "Open access specification"
+    data_obtained: "2026-02-18"
+    data_method: "Standard mapping metadata only"
+    content_scope: "Imaging transfer and metadata-security mapping"
+    update_frequency: monthly
+
+  - id: ihe_profiles
+    name: "IHE security profile references"
+    type: technical_standard
+    authority: "IHE International"
+    authoritative_url: "https://profiles.ihe.net/"
+    license: "Open profile references"
+    data_obtained: "2026-02-18"
+    data_method: "Profile mapping metadata only"
+    content_scope: "ATNA, XUA, IUA, SeR mapping and response playbook routing"
+    update_frequency: monthly
+
+  - id: nist_800_66
+    name: "NIST SP 800-66 HIPAA implementation guidance"
+    type: technical_standard
+    authority: "NIST"
+    authoritative_url: "https://csrc.nist.gov/publications/detail/sp/800-66/rev-2/final"
+    license: "Public domain (US government)"
+    data_obtained: "2026-02-18"
+    data_method: "Control/obligation crosswalk metadata only"
+    content_scope: "HIPAA safeguard implementation guidance mapping"
+    update_frequency: quarterly
+
+  - id: fda_device_cyber_guidance
+    name: "FDA device cybersecurity guidance references"
+    type: regulation_index
+    authority: "U.S. Food and Drug Administration"
+    authoritative_url: "https://www.fda.gov/medical-devices/digital-health-center-excellence/cybersecurity"
+    license: "Public domain (US government)"
+    data_obtained: "2026-02-18"
+    data_method: "Route and applicability metadata only"
+    content_scope: "Premarket/postmarket cybersecurity and 524B pathway references"
+    update_frequency: monthly
+
+  - id: mdcg_guidance
+    name: "MDCG cybersecurity guidance references"
+    type: regulation_index
+    authority: "Medical Device Coordination Group (EU)"
+    authoritative_url: "https://health.ec.europa.eu/medical-devices-sector/new-regulations/guidance-mdcg-endorsed-documents-and-other-guidance_en"
+    license: "EU public guidance"
+    data_obtained: "2026-02-18"
+    data_method: "Route and standard-mapping metadata only"
+    content_scope: "MDR/IVDR cybersecurity expectation mappings"
+    update_frequency: monthly
+
+  - id: mitre_attack
+    name: "MITRE ATT&CK references"
+    type: threat_intelligence
+    authority: "MITRE"
+    authoritative_url: "https://attack.mitre.org/"
+    license: "MITRE ATT&CK terms"
+    data_obtained: "2026-02-18"
+    data_method: "Technique ID mapping metadata and threat expert profile enrichment"
+    content_scope: "Threat scenario ATT&CK tactic/technique mappings"
+    update_frequency: quarterly
+
+  - id: cisa_ics_medical
+    name: "CISA/ICS advisories for healthcare and medical devices"
+    type: threat_intelligence
+    authority: "CISA / ICS"
+    authoritative_url: "https://www.cisa.gov/news-events/cybersecurity-advisories"
+    license: "Public domain (US government)"
+    data_obtained: "2026-02-18"
+    data_method: "Threat pattern and response playbook enrichment metadata"
+    content_scope: "Device and healthcare attack trend references"
+    update_frequency: weekly
+
+  - id: enisa_healthcare
+    name: "ENISA healthcare threat landscape references"
+    type: threat_intelligence
+    authority: "ENISA"
+    authoritative_url: "https://www.enisa.europa.eu/topics/csirts-in-europe/glossary/health-sector"
+    license: "EU public reports"
+    data_obtained: "2026-02-18"
+    data_method: "Threat scenario enrichment metadata"
+    content_scope: "EU healthcare threat patterns and operational impact context"
+    update_frequency: quarterly
+
+coverage:
+  regions: ["US", "EU"]
+  domain: "Healthcare IT/CS threat modeling and compliance orchestration"
+  note: "This MCP is a domain router and ontology provider. It does not replace authoritative legal/control text MCPs."

@@ -1,0 +1,20 @@
+# Development and testing
+tests/
+*.test.ts
+*.test.js
+coverage/
+
+# Source TypeScript (dist is shipped)
+src/
+tsconfig.json
+vitest.config.ts
+
+# Local environment
+.env
+.env.local
+.DS_Store
+
+# Git internals
+.git/
+.gitignore
+.gitattributes

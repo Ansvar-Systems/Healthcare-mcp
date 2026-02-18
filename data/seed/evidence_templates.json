@@ -1,0 +1,107 @@
+[
+  {
+    "template_id": "evidence_hipaa_security_rule",
+    "audit_type": "HIPAA",
+    "name": "HIPAA Security Rule Evidence Pack",
+    "description": "Evidence set for administrative, physical, and technical safeguards.",
+    "artifacts": ["Risk analysis", "Access control policy", "Audit log samples", "Incident response records"],
+    "linked_standards": ["NIST_800_66", "ISO_27001"],
+    "linked_controls": ["SCF-AC", "SCF-AU", "SCF-IR"]
+  },
+  {
+    "template_id": "evidence_fda_premarket",
+    "audit_type": "FDA_524B",
+    "name": "FDA Premarket Cybersecurity Submission Pack",
+    "description": "Device cybersecurity evidence aligned to 2023 FDA guidance and 524B expectations.",
+    "artifacts": ["Threat model", "SBOM", "Vulnerability management plan", "Secure update evidence"],
+    "linked_standards": ["IEC_62304", "ISO_14971"],
+    "linked_controls": ["SCF-VM", "SCF-SDLC", "SCF-CM"]
+  },
+  {
+    "template_id": "evidence_nis2_healthcare",
+    "audit_type": "NIS2",
+    "name": "NIS2 Healthcare Essential Entity Evidence Pack",
+    "description": "Evidence package for cyber risk-management measures and reporting readiness.",
+    "artifacts": [
+      "Risk treatment plan",
+      "Incident reporting workflow",
+      "Supply chain risk records",
+      "Business continuity tests"
+    ],
+    "linked_standards": ["NIST_CSF_2.0", "ISO_27001"],
+    "linked_controls": ["SCF-RM", "SCF-SCRM", "SCF-BCP"]
+  },
+  {
+    "template_id": "evidence_mdr_ivdr_cybersecurity",
+    "audit_type": "MDR_IVDR",
+    "name": "EU MDR/IVDR Cybersecurity Technical Documentation Pack",
+    "description": "Technical documentation artifacts supporting MDR/IVDR cybersecurity expectations.",
+    "artifacts": [
+      "Cybersecurity risk management file",
+      "SBOM",
+      "Secure development lifecycle evidence",
+      "Post-market surveillance cybersecurity plan",
+      "Threat model and vulnerability assessment"
+    ],
+    "linked_standards": ["IEC_62304", "ISO_14971", "MDCG_2019_16"],
+    "linked_controls": ["SCF-SDLC", "SCF-VM", "SCF-RM"]
+  },
+  {
+    "template_id": "evidence_iso27001_iso27799",
+    "audit_type": "ISO27001_ISO27799",
+    "name": "ISO 27001 + ISO 27799 Healthcare Scope Evidence Pack",
+    "description": "Evidence artifacts for healthcare-scoped ISMS controls and health-informatics security requirements.",
+    "artifacts": [
+      "Statement of applicability",
+      "Healthcare-specific risk assessment",
+      "Risk treatment plan",
+      "Control implementation records",
+      "Internal audit and management review evidence"
+    ],
+    "linked_standards": ["ISO_27001", "ISO_27799"],
+    "linked_controls": ["SCF-RM", "SCF-AC", "SCF-AU", "SCF-IR"]
+  },
+  {
+    "template_id": "evidence_hitrust_csf",
+    "audit_type": "HITRUST",
+    "name": "HITRUST CSF Assessment Evidence Pack",
+    "description": "Maturity-oriented implementation evidence for HITRUST CSF healthcare assessments.",
+    "artifacts": [
+      "Policy and procedure evidence by control domain",
+      "Implemented/operating evidence",
+      "Measurement and monitoring outputs",
+      "Management action and exception records"
+    ],
+    "linked_standards": ["HITRUST_CSF"],
+    "linked_controls": ["SCF-GOV", "SCF-RM", "SCF-AC", "SCF-IR"]
+  },
+  {
+    "template_id": "evidence_ai_act_health",
+    "audit_type": "AI_ACT",
+    "name": "AI Act High-Risk Health AI Evidence Pack",
+    "description": "Evidence package for high-risk health AI risk management, governance, and oversight.",
+    "artifacts": [
+      "AI risk management system documentation",
+      "Data governance and quality evidence",
+      "Human oversight procedures",
+      "Accuracy and robustness testing results",
+      "Post-deployment monitoring plan"
+    ],
+    "linked_standards": ["ISO_14971", "IEC_62304"],
+    "linked_controls": ["SCF-AI", "SCF-RM", "SCF-AU"]
+  },
+  {
+    "template_id": "evidence_uk_clinical_safety_case",
+    "audit_type": "DCB0129_DCB0160",
+    "name": "UK Clinical Safety Case Evidence Pack",
+    "description": "Clinical safety case artifacts aligned to DCB0129/DCB0160 safety governance expectations.",
+    "artifacts": [
+      "Clinical safety hazard log",
+      "Clinical risk assessment and mitigations",
+      "Safety case report",
+      "Clinical safety officer sign-off"
+    ],
+    "linked_standards": ["ISO_14971", "IEC_62304"],
+    "linked_controls": ["SCF-RM", "SCF-IR", "SCF-GOV"]
+  }
+]

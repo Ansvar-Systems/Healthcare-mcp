@@ -1,0 +1,164 @@
+[
+  {
+    "rule_id": "rule_us_hipaa_60d",
+    "jurisdiction": "US",
+    "trigger_category": "ephi",
+    "deadline_hours": 1440,
+    "notify_parties": [
+      "Affected individuals",
+      "HHS OCR",
+      "Media if threshold reached"
+    ],
+    "content_requirements": [
+      "Breach description",
+      "Types of information",
+      "Mitigation actions",
+      "Contact method"
+    ],
+    "source_router": "US_Regulations_MCP:HIPAA_BREACH"
+  },
+  {
+    "rule_id": "rule_us_part2_60d",
+    "jurisdiction": "US",
+    "trigger_category": "part2_substance_use",
+    "deadline_hours": 1440,
+    "notify_parties": [
+      "Affected individuals",
+      "Program leadership/compliance",
+      "Federal/state oversight where applicable"
+    ],
+    "content_requirements": [
+      "Breach description",
+      "Substance-use record exposure scope",
+      "Redisclosure constraints",
+      "Mitigation and contact details"
+    ],
+    "source_router": "US_Regulations_MCP:42_CFR_PART_2"
+  },
+  {
+    "rule_id": "rule_us_ca_health_privacy",
+    "jurisdiction": "US-CA",
+    "trigger_category": "state_health_privacy",
+    "deadline_hours": 720,
+    "notify_parties": [
+      "Affected California residents",
+      "California Attorney General when threshold triggered"
+    ],
+    "content_requirements": [
+      "Incident summary",
+      "Categories of impacted personal/medical information",
+      "Remediation and protective steps"
+    ],
+    "source_router": "US-law-mcp:CA_CMIA + US-law-mcp:CA_BREACH_LAW"
+  },
+  {
+    "rule_id": "rule_us_ny_health_privacy",
+    "jurisdiction": "US-NY",
+    "trigger_category": "state_health_privacy",
+    "deadline_hours": 720,
+    "notify_parties": [
+      "Affected New York residents",
+      "NY Attorney General and regulators where required"
+    ],
+    "content_requirements": [
+      "Incident summary",
+      "Impacted data classes",
+      "Protective services and contact channels"
+    ],
+    "source_router": "US-law-mcp:NY_SHIELD_ACT + US-law-mcp:NY_MENTAL_HYGIENE_LAW"
+  },
+  {
+    "rule_id": "rule_us_tx_health_privacy",
+    "jurisdiction": "US-TX",
+    "trigger_category": "state_health_privacy",
+    "deadline_hours": 720,
+    "notify_parties": [
+      "Affected Texas residents",
+      "Texas Attorney General when reportability threshold is met"
+    ],
+    "content_requirements": [
+      "Incident summary",
+      "Impacted health data categories",
+      "Containment and remediation status"
+    ],
+    "source_router": "US-law-mcp:TX_MEDICAL_PRIVACY + US-law-mcp:TX_BREACH_LAW"
+  },
+  {
+    "rule_id": "rule_eu_gdpr",
+    "jurisdiction": "EU",
+    "trigger_category": "special_category_health_data",
+    "deadline_hours": 72,
+    "notify_parties": [
+      "Supervisory authority",
+      "Affected data subjects when high risk"
+    ],
+    "content_requirements": [
+      "Nature of breach",
+      "Likely consequences",
+      "Measures taken",
+      "DPO contact"
+    ],
+    "source_router": "EU_Regulations_MCP:GDPR_ART_33"
+  },
+  {
+    "rule_id": "rule_eu_nis2",
+    "jurisdiction": "EU",
+    "trigger_category": "essential_entity_major_incident",
+    "deadline_hours": 24,
+    "notify_parties": ["National CSIRT or competent authority"],
+    "content_requirements": [
+      "Early warning",
+      "Incident impact",
+      "Indicators of compromise"
+    ],
+    "source_router": "EU_Regulations_MCP:NIS2_INCIDENT_REPORTING"
+  },
+  {
+    "rule_id": "rule_eu_ehds_secondary",
+    "jurisdiction": "EU",
+    "trigger_category": "ehds_secondary_use",
+    "deadline_hours": 72,
+    "notify_parties": [
+      "Health data access body / competent authority where applicable",
+      "Supervisory authority"
+    ],
+    "content_requirements": [
+      "Secondary-use dataset scope",
+      "Permit and access context",
+      "Pseudonymization/control failures"
+    ],
+    "source_router": "EU_Regulations_MCP:EHDS_SECONDARY_USE"
+  },
+  {
+    "rule_id": "rule_se_member_state_breach",
+    "jurisdiction": "SE",
+    "trigger_category": "member_state_healthcare_data",
+    "deadline_hours": 72,
+    "notify_parties": [
+      "Integritetsskyddsmyndigheten (IMY)",
+      "Affected individuals when high risk"
+    ],
+    "content_requirements": [
+      "Incident chronology",
+      "Swedish healthcare data systems impacted",
+      "Containment and patient impact measures"
+    ],
+    "source_router": "SE-law-mcp:Patientdatalagen + EU_Regulations_MCP:GDPR_ART_33"
+  },
+  {
+    "rule_id": "rule_de_member_state_breach",
+    "jurisdiction": "DE",
+    "trigger_category": "member_state_healthcare_data",
+    "deadline_hours": 72,
+    "notify_parties": [
+      "State Data Protection Authority",
+      "Affected individuals when high risk"
+    ],
+    "content_requirements": [
+      "Incident chronology",
+      "Special-category health/genetic data impact",
+      "Containment and remediation actions"
+    ],
+    "source_router": "German-law-mcp:BDSG + EU_Regulations_MCP:GDPR_ART_33"
+  }
+]

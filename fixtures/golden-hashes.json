@@ -1,0 +1,450 @@
+{
+  "version": "0.1.0",
+  "generated_at": "2026-02-18T08:14:36.219Z",
+  "description": "Deterministic hashes for Healthcare MCP ontology and crosswalk subsets. Use in CI for drift detection.",
+  "hashes": [
+    {
+      "id": "table_counts",
+      "description": "Core ontology table counts",
+      "hash": "c612c13ae0445d2d1018e75e8daa093ac03994fc3464578c3df086ef997336d6",
+      "sample": [
+        {
+          "table_name": "architecture_patterns",
+          "count": 15
+        },
+        {
+          "table_name": "health_data_categories",
+          "count": 15
+        },
+        {
+          "table_name": "jurisdiction_overlays",
+          "count": 19
+        },
+        {
+          "table_name": "obligation_profiles",
+          "count": 3
+        },
+        {
+          "table_name": "technical_standards",
+          "count": 21
+        },
+        {
+          "table_name": "threat_expert_profiles",
+          "count": 13
+        },
+        {
+          "table_name": "threat_response_playbooks",
+          "count": 13
+        },
+        {
+          "table_name": "threat_scenarios",
+          "count": 13
+        }
+      ]
+    },
+    {
+      "id": "architecture_pattern_ids",
+      "description": "Supported architecture pattern identifiers",
+      "hash": "9e431dcfe724b4ede99ad20f560a025b6faaca9419cc137d51b6e302d18ded58",
+      "sample": [
+        {
+          "pattern_id": "dicom_pacs_pipeline"
+        },
+        {
+          "pattern_id": "ehr_fhir_gateway"
+        },
+        {
+          "pattern_id": "hc-clinical-ai"
+        },
+        {
+          "pattern_id": "hc-ehr"
+        },
+        {
+          "pattern_id": "hc-erp"
+        },
+        {
+          "pattern_id": "hc-genomics"
+        },
+        {
+          "pattern_id": "hc-hie"
+        },
+        {
+          "pattern_id": "hc-iomt"
+        },
+        {
+          "pattern_id": "hc-lab"
+        },
+        {
+          "pattern_id": "hc-pacs"
+        },
+        {
+          "pattern_id": "hc-pharmacy"
+        },
+        {
+          "pattern_id": "hc-portal"
+        },
+        {
+          "pattern_id": "hc-ris"
+        },
+        {
+          "pattern_id": "hc-samd"
+        },
+        {
+          "pattern_id": "hc-telehealth"
+        }
+      ]
+    },
+    {
+      "id": "critical_data_categories",
+      "description": "Critical healthcare data category identity set",
+      "hash": "eaa10b39f42c10aaee9b63e841c8c6705eb51747ac14b5454eacc9bb4ceabd51",
+      "sample": [
+        {
+          "category_id": "ehds_secondary_use",
+          "name": "EHDS Secondary Use Data",
+          "sensitivity_tier": "critical"
+        },
+        {
+          "category_id": "ephi",
+          "name": "Electronic Protected Health Information",
+          "sensitivity_tier": "critical"
+        },
+        {
+          "category_id": "genetic_data",
+          "name": "Genetic Data",
+          "sensitivity_tier": "critical"
+        },
+        {
+          "category_id": "genomic_biobank_data",
+          "name": "Genomic/Biobank Data",
+          "sensitivity_tier": "critical"
+        },
+        {
+          "category_id": "health_data",
+          "name": "Health Data (General)",
+          "sensitivity_tier": "critical"
+        },
+        {
+          "category_id": "mental_health",
+          "name": "Mental Health Records",
+          "sensitivity_tier": "critical"
+        },
+        {
+          "category_id": "part2_substance_use",
+          "name": "42 CFR Part 2 Substance Use Treatment Records",
+          "sensitivity_tier": "critical"
+        },
+        {
+          "category_id": "pediatric_health",
+          "name": "Pediatric Health Data",
+          "sensitivity_tier": "critical"
+        },
+        {
+          "category_id": "reproductive_health",
+          "name": "Reproductive Health Data",
+          "sensitivity_tier": "critical"
+        }
+      ]
+    },
+    {
+      "id": "threat_regulation_routes",
+      "description": "Threat to regulation route mappings",
+      "hash": "5c28e6650d11169a7efe0278b42d34851577fb174dfeff940211b55d14bfaff9",
+      "sample": [
+        {
+          "threat_id": "th_biobank_data_theft",
+          "source_mcp": "EU_Regulations_MCP",
+          "requirement_ref": "EHDS_SECONDARY_USE"
+        },
+        {
+          "threat_id": "th_clinical_ai_poisoning",
+          "source_mcp": "EU_Regulations_MCP",
+          "requirement_ref": "AI_ACT_ART_9"
+        },
+        {
+          "threat_id": "th_device_firmware_manipulation",
+          "source_mcp": "US_Regulations_MCP",
+          "requirement_ref": "FDA_524B"
+        },
+        {
+          "threat_id": "th_dicom_metadata_leak",
+          "source_mcp": "EU_Regulations_MCP",
+          "requirement_ref": "GDPR_ART_5"
+        },
+        {
+          "threat_id": "th_ehr_order_manipulation",
+          "source_mcp": "US_Regulations_MCP",
+          "requirement_ref": "HIPAA_164.312(c)"
+        },
+        {
+          "threat_id": "th_fhir_bulk_exfiltration",
+          "source_mcp": "EU_Regulations_MCP",
+          "requirement_ref": "GDPR_ART_9"
+        },
+        {
+          "threat_id": "th_hl7_fhir_token_theft",
+          "source_mcp": "EU_Regulations_MCP",
+          "requirement_ref": "GDPR_ART_9"
+        },
+        {
+          "threat_id": "th_hl7_fhir_token_theft",
+          "source_mcp": "US_Regulations_MCP",
+          "requirement_ref": "HIPAA_164.312"
+        },
+        {
+          "threat_id": "th_hl7v2_message_injection",
+          "source_mcp": "US_Regulations_MCP",
+          "requirement_ref": "HIPAA_164.312(e)"
+        },
+        {
+          "threat_id": "th_ihe_token_forgery",
+          "source_mcp": "EU_Regulations_MCP",
+          "requirement_ref": "GDPR_ART_32"
+        },
+        {
+          "threat_id": "th_iomt_ransomware_clinical_ops",
+          "source_mcp": "EU_Regulations_MCP",
+          "requirement_ref": "NIS2_ART_21"
+        },
+        {
+          "threat_id": "th_prescription_diversion",
+          "source_mcp": "US-law-mcp",
+          "requirement_ref": "US_CONTROLLED_SUBSTANCE_TRACKING"
+        },
+        {
+          "threat_id": "th_telehealth_identity_takeover",
+          "source_mcp": "US_Regulations_MCP",
+          "requirement_ref": "HIPAA_164.312(d)"
+        },
+        {
+          "threat_id": "th_vendor_supply_chain_compromise",
+          "source_mcp": "EU_Regulations_MCP",
+          "requirement_ref": "NIS2_SUPPLY_CHAIN"
+        }
+      ]
+    },
+    {
+      "id": "threat_expert_profiles",
+      "description": "Threat expert intelligence profile coverage (MITRE techniques, likelihood, detection)",
+      "hash": "d460a108cb4632d13d211a0d297c91d126df0308c33f7030c7352d92bc129eb1",
+      "sample": [
+        {
+          "threat_id": "th_biobank_data_theft",
+          "mitre_technique_count": 3,
+          "likelihood_factor_count": 3,
+          "detection_indicator_count": 3
+        },
+        {
+          "threat_id": "th_clinical_ai_poisoning",
+          "mitre_technique_count": 3,
+          "likelihood_factor_count": 3,
+          "detection_indicator_count": 3
+        },
+        {
+          "threat_id": "th_device_firmware_manipulation",
+          "mitre_technique_count": 3,
+          "likelihood_factor_count": 3,
+          "detection_indicator_count": 3
+        },
+        {
+          "threat_id": "th_dicom_metadata_leak",
+          "mitre_technique_count": 3,
+          "likelihood_factor_count": 3,
+          "detection_indicator_count": 3
+        },
+        {
+          "threat_id": "th_ehr_order_manipulation",
+          "mitre_technique_count": 3,
+          "likelihood_factor_count": 3,
+          "detection_indicator_count": 3
+        },
+        {
+          "threat_id": "th_fhir_bulk_exfiltration",
+          "mitre_technique_count": 3,
+          "likelihood_factor_count": 3,
+          "detection_indicator_count": 3
+        },
+        {
+          "threat_id": "th_hl7_fhir_token_theft",
+          "mitre_technique_count": 3,
+          "likelihood_factor_count": 3,
+          "detection_indicator_count": 3
+        },
+        {
+          "threat_id": "th_hl7v2_message_injection",
+          "mitre_technique_count": 3,
+          "likelihood_factor_count": 3,
+          "detection_indicator_count": 3
+        },
+        {
+          "threat_id": "th_ihe_token_forgery",
+          "mitre_technique_count": 3,
+          "likelihood_factor_count": 3,
+          "detection_indicator_count": 3
+        },
+        {
+          "threat_id": "th_iomt_ransomware_clinical_ops",
+          "mitre_technique_count": 3,
+          "likelihood_factor_count": 3,
+          "detection_indicator_count": 3
+        },
+        {
+          "threat_id": "th_prescription_diversion",
+          "mitre_technique_count": 3,
+          "likelihood_factor_count": 3,
+          "detection_indicator_count": 3
+        },
+        {
+          "threat_id": "th_telehealth_identity_takeover",
+          "mitre_technique_count": 3,
+          "likelihood_factor_count": 3,
+          "detection_indicator_count": 3
+        },
+        {
+          "threat_id": "th_vendor_supply_chain_compromise",
+          "mitre_technique_count": 3,
+          "likelihood_factor_count": 3,
+          "detection_indicator_count": 3
+        }
+      ]
+    },
+    {
+      "id": "threat_response_playbooks",
+      "description": "Threat response playbook coverage (containment, clinical safety, forensics, recovery)",
+      "hash": "525e00b5c61189a83e91d8986a86605622cdfccb3b466ea96ed02ac1b6c32616",
+      "sample": [
+        {
+          "threat_id": "th_biobank_data_theft",
+          "triage_priority": "P1",
+          "containment_count": 2,
+          "clinical_safety_count": 2,
+          "forensic_count": 3,
+          "recovery_count": 2
+        },
+        {
+          "threat_id": "th_clinical_ai_poisoning",
+          "triage_priority": "P1",
+          "containment_count": 2,
+          "clinical_safety_count": 2,
+          "forensic_count": 3,
+          "recovery_count": 2
+        },
+        {
+          "threat_id": "th_device_firmware_manipulation",
+          "triage_priority": "P1",
+          "containment_count": 2,
+          "clinical_safety_count": 2,
+          "forensic_count": 3,
+          "recovery_count": 2
+        },
+        {
+          "threat_id": "th_dicom_metadata_leak",
+          "triage_priority": "P2",
+          "containment_count": 2,
+          "clinical_safety_count": 2,
+          "forensic_count": 3,
+          "recovery_count": 2
+        },
+        {
+          "threat_id": "th_ehr_order_manipulation",
+          "triage_priority": "P1",
+          "containment_count": 2,
+          "clinical_safety_count": 2,
+          "forensic_count": 3,
+          "recovery_count": 2
+        },
+        {
+          "threat_id": "th_fhir_bulk_exfiltration",
+          "triage_priority": "P1",
+          "containment_count": 2,
+          "clinical_safety_count": 2,
+          "forensic_count": 3,
+          "recovery_count": 2
+        },
+        {
+          "threat_id": "th_hl7_fhir_token_theft",
+          "triage_priority": "P1",
+          "containment_count": 3,
+          "clinical_safety_count": 2,
+          "forensic_count": 3,
+          "recovery_count": 3
+        },
+        {
+          "threat_id": "th_hl7v2_message_injection",
+          "triage_priority": "P1",
+          "containment_count": 2,
+          "clinical_safety_count": 2,
+          "forensic_count": 3,
+          "recovery_count": 2
+        },
+        {
+          "threat_id": "th_ihe_token_forgery",
+          "triage_priority": "P2",
+          "containment_count": 2,
+          "clinical_safety_count": 2,
+          "forensic_count": 3,
+          "recovery_count": 2
+        },
+        {
+          "threat_id": "th_iomt_ransomware_clinical_ops",
+          "triage_priority": "P1",
+          "containment_count": 3,
+          "clinical_safety_count": 2,
+          "forensic_count": 3,
+          "recovery_count": 3
+        },
+        {
+          "threat_id": "th_prescription_diversion",
+          "triage_priority": "P1",
+          "containment_count": 2,
+          "clinical_safety_count": 2,
+          "forensic_count": 3,
+          "recovery_count": 2
+        },
+        {
+          "threat_id": "th_telehealth_identity_takeover",
+          "triage_priority": "P2",
+          "containment_count": 2,
+          "clinical_safety_count": 2,
+          "forensic_count": 3,
+          "recovery_count": 2
+        },
+        {
+          "threat_id": "th_vendor_supply_chain_compromise",
+          "triage_priority": "P1",
+          "containment_count": 2,
+          "clinical_safety_count": 2,
+          "forensic_count": 3,
+          "recovery_count": 2
+        }
+      ]
+    },
+    {
+      "id": "jurisdiction_overlay_coverage",
+      "description": "Explicit jurisdiction overlay coverage by country code",
+      "hash": "8e42cabb7eb224769699bb52f7e8f22538a8be5c18a01c5135a8e19967ae4ea8",
+      "sample": [
+        {
+          "country_code": "DE",
+          "count": 5
+        },
+        {
+          "country_code": "NL",
+          "count": 3
+        },
+        {
+          "country_code": "SE",
+          "count": 3
+        },
+        {
+          "country_code": "US-CA",
+          "count": 5
+        },
+        {
+          "country_code": "US-TX",
+          "count": 3
+        }
+      ]
+    }
+  ]
+}

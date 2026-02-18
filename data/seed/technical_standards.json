@@ -1,0 +1,278 @@
+{
+  "standards": [
+    {
+      "standard_id": "hl7_fhir_r4",
+      "name": "HL7 FHIR R4",
+      "authority": "HL7",
+      "scope": "Interoperability API resources and data exchange model",
+      "version": "R4",
+      "status": "active"
+    },
+    {
+      "standard_id": "hl7_fhir_r5",
+      "name": "HL7 FHIR R5",
+      "authority": "HL7",
+      "scope": "Updated FHIR release with expanded resources and interoperability features",
+      "version": "R5",
+      "status": "active"
+    },
+    {
+      "standard_id": "hl7_v2",
+      "name": "HL7 v2.x",
+      "authority": "HL7",
+      "scope": "Legacy healthcare messaging patterns (ADT/ORM/ORU and related event messaging)",
+      "version": "2.x",
+      "status": "active"
+    },
+    {
+      "standard_id": "smart_on_fhir",
+      "name": "SMART on FHIR",
+      "authority": "HL7 SMART",
+      "scope": "OAuth2/OIDC security model for healthcare app authorization",
+      "version": "current",
+      "status": "active"
+    },
+    {
+      "standard_id": "dicom",
+      "name": "DICOM",
+      "authority": "DICOM Standards Committee",
+      "scope": "Medical imaging data encoding and transfer",
+      "version": "current",
+      "status": "active"
+    },
+    {
+      "standard_id": "ihe_atna",
+      "name": "IHE ATNA",
+      "authority": "IHE",
+      "scope": "Audit Trail and Node Authentication profile",
+      "version": "current",
+      "status": "active"
+    },
+    {
+      "standard_id": "ihe_xua",
+      "name": "IHE XUA",
+      "authority": "IHE",
+      "scope": "Cross-Enterprise User Assertion profile",
+      "version": "current",
+      "status": "active"
+    },
+    {
+      "standard_id": "ihe_iua",
+      "name": "IHE IUA",
+      "authority": "IHE",
+      "scope": "Internet User Authorization profile",
+      "version": "current",
+      "status": "active"
+    },
+    {
+      "standard_id": "ihe_ser",
+      "name": "IHE SeR",
+      "authority": "IHE",
+      "scope": "Security and privacy event reporting profile",
+      "version": "current",
+      "status": "active"
+    },
+    {
+      "standard_id": "iec_62304",
+      "name": "IEC 62304",
+      "authority": "IEC",
+      "scope": "Medical software lifecycle processes",
+      "version": "2006+A1:2015",
+      "status": "active"
+    },
+    {
+      "standard_id": "iso_14971",
+      "name": "ISO 14971",
+      "authority": "ISO",
+      "scope": "Risk management for medical devices",
+      "version": "2019",
+      "status": "active"
+    },
+    {
+      "standard_id": "iec_80001_1",
+      "name": "IEC 80001-1",
+      "authority": "IEC",
+      "scope": "Risk management for IT networks incorporating medical devices",
+      "version": "2021",
+      "status": "active"
+    },
+    {
+      "standard_id": "nist_sp_800_66",
+      "name": "NIST SP 800-66",
+      "authority": "NIST",
+      "scope": "HIPAA Security Rule implementation guidance",
+      "version": "Rev.2",
+      "status": "active"
+    },
+    {
+      "standard_id": "fda_premarket_cyber_2023",
+      "name": "FDA Premarket Cybersecurity Guidance",
+      "authority": "FDA",
+      "scope": "Cybersecurity expectations for device submissions",
+      "version": "2023",
+      "status": "active"
+    },
+    {
+      "standard_id": "mdcg_2019_16",
+      "name": "MDCG 2019-16",
+      "authority": "European Commission/MDCG",
+      "scope": "EU MDR/IVDR cybersecurity guidance",
+      "version": "2019",
+      "status": "active"
+    },
+    {
+      "standard_id": "iso_27799",
+      "name": "ISO 27799",
+      "authority": "ISO",
+      "scope": "Health informatics security controls",
+      "version": "2016",
+      "status": "active"
+    },
+    {
+      "standard_id": "iso_22600",
+      "name": "ISO 22600",
+      "authority": "ISO",
+      "scope": "Health privilege management and authorization frameworks",
+      "version": "2014",
+      "status": "active"
+    },
+    {
+      "standard_id": "snomed_ct",
+      "name": "SNOMED CT",
+      "authority": "SNOMED International",
+      "scope": "Clinical terminology model for healthcare data semantics",
+      "version": "current",
+      "status": "active"
+    },
+    {
+      "standard_id": "loinc",
+      "name": "LOINC",
+      "authority": "Regenstrief",
+      "scope": "Laboratory and clinical observation coding",
+      "version": "current",
+      "status": "active"
+    },
+    {
+      "standard_id": "icd_10_11",
+      "name": "ICD-10/11",
+      "authority": "WHO",
+      "scope": "Diagnosis classification coding frameworks",
+      "version": "current",
+      "status": "active"
+    },
+    {
+      "standard_id": "hitrust_csf",
+      "name": "HITRUST CSF",
+      "authority": "HITRUST",
+      "scope": "Healthcare-focused control framework and assessment methodology",
+      "version": "current",
+      "status": "reference_only"
+    }
+  ],
+  "mappings": [
+    {
+      "mapping_id": "map_threat_token_iec62304",
+      "input_type": "threat",
+      "input_id": "th_hl7_fhir_token_theft",
+      "standard_id": "iec_62304",
+      "mapping_type": "verification",
+      "rationale": "Token handling and authorization pathways should be tested as software safety/security functions."
+    },
+    {
+      "mapping_id": "map_pattern_pacs_80001",
+      "input_type": "architecture_pattern",
+      "input_id": "dicom_pacs_pipeline",
+      "standard_id": "iec_80001_1",
+      "mapping_type": "network_risk",
+      "rationale": "Imaging network integrations require explicit shared responsibility risk controls."
+    },
+    {
+      "mapping_id": "map_threat_iomt_iso14971",
+      "input_type": "threat",
+      "input_id": "th_iomt_ransomware_clinical_ops",
+      "standard_id": "iso_14971",
+      "mapping_type": "risk_management",
+      "rationale": "Clinical risk impacts require hazard and risk control treatment alignment."
+    },
+    {
+      "mapping_id": "map_requirement_iec62304_classc_to_iso14971",
+      "input_type": "requirement",
+      "input_id": "IEC_62304_CLASS_C",
+      "standard_id": "iso_14971",
+      "mapping_type": "cross_standard",
+      "rationale": "Class C software lifecycle activities require explicit risk management integration per ISO 14971."
+    },
+    {
+      "mapping_id": "map_requirement_smart_to_iua",
+      "input_type": "requirement",
+      "input_id": "SMART_ON_FHIR",
+      "standard_id": "ihe_iua",
+      "mapping_type": "profile_alignment",
+      "rationale": "SMART authorization flows align with IHE IUA user authorization requirements."
+    },
+    {
+      "mapping_id": "map_requirement_dicom_to_atna",
+      "input_type": "requirement",
+      "input_id": "DICOM_SECURITY",
+      "standard_id": "ihe_atna",
+      "mapping_type": "profile_alignment",
+      "rationale": "DICOM deployment security is reinforced by ATNA audit and node-authentication controls."
+    },
+    {
+      "mapping_id": "map_pattern_hc_ehr_fhir",
+      "input_type": "architecture_pattern",
+      "input_id": "hc-ehr",
+      "standard_id": "hl7_fhir_r4",
+      "mapping_type": "protocol_dependency",
+      "rationale": "EHR interoperability patterns rely on FHIR resource and API constraints."
+    },
+    {
+      "mapping_id": "map_pattern_hc_hie_xua",
+      "input_type": "architecture_pattern",
+      "input_id": "hc-hie",
+      "standard_id": "ihe_xua",
+      "mapping_type": "identity_federation",
+      "rationale": "Cross-enterprise exchange requires user-assertion trust and validation controls."
+    },
+    {
+      "mapping_id": "map_threat_ai_poisoning_14971",
+      "input_type": "threat",
+      "input_id": "th_clinical_ai_poisoning",
+      "standard_id": "iso_14971",
+      "mapping_type": "clinical_risk",
+      "rationale": "Model poisoning can produce hazards requiring risk control and residual risk evaluation."
+    },
+    {
+      "mapping_id": "map_threat_ai_poisoning_62304",
+      "input_type": "threat",
+      "input_id": "th_clinical_ai_poisoning",
+      "standard_id": "iec_62304",
+      "mapping_type": "lifecycle_control",
+      "rationale": "Software lifecycle controls should govern model update and validation pipelines."
+    },
+    {
+      "mapping_id": "map_control_hipaa_to_nist_800_66",
+      "input_type": "control",
+      "input_id": "HIPAA_SAFEGUARDS",
+      "standard_id": "nist_sp_800_66",
+      "mapping_type": "implementation_guidance",
+      "rationale": "NIST SP 800-66 provides structured implementation guidance for HIPAA safeguards."
+    },
+    {
+      "mapping_id": "map_threat_device_firmware_62304",
+      "input_type": "threat",
+      "input_id": "th_device_firmware_manipulation",
+      "standard_id": "iec_62304",
+      "mapping_type": "lifecycle_control",
+      "rationale": "Firmware update and verification processes require software lifecycle controls and traceable validation."
+    },
+    {
+      "mapping_id": "map_threat_device_firmware_14971",
+      "input_type": "threat",
+      "input_id": "th_device_firmware_manipulation",
+      "standard_id": "iso_14971",
+      "mapping_type": "risk_management",
+      "rationale": "Device firmware compromise can create patient hazards that must be controlled through ISO 14971 risk management."
+    }
+  ]
+}

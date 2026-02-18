@@ -1,0 +1,893 @@
+[
+  {
+    "pattern": {
+      "pattern_id": "ehr_fhir_gateway",
+      "name": "EHR with SMART on FHIR Gateway",
+      "description": "Hospital EHR integrated with internal and third-party SMART on FHIR apps.",
+      "primary_system": "EHR"
+    },
+    "components": [
+      {
+        "component_id": "ehr_core",
+        "name": "EHR Core",
+        "component_type": "application",
+        "description": "Primary clinical record and workflow platform.",
+        "trust_zone": "clinical_core"
+      },
+      {
+        "component_id": "fhir_gateway",
+        "name": "FHIR API Gateway",
+        "component_type": "api",
+        "description": "OAuth2/OIDC and API mediation for SMART clients.",
+        "trust_zone": "integration_zone"
+      },
+      {
+        "component_id": "third_party_apps",
+        "name": "Third-party SMART Apps",
+        "component_type": "external_client",
+        "description": "External applications requesting scoped access tokens.",
+        "trust_zone": "external_partner"
+      }
+    ],
+    "trust_boundaries": [
+      {
+        "boundary_id": "tb_ehr_fhir",
+        "boundary_name": "Clinical Core to Integration",
+        "from_zone": "clinical_core",
+        "to_zone": "integration_zone",
+        "risk_note": "Token scope expansion and API privilege creep."
+      },
+      {
+        "boundary_id": "tb_fhir_external",
+        "boundary_name": "Integration to External Partners",
+        "from_zone": "integration_zone",
+        "to_zone": "external_partner",
+        "risk_note": "Partner compromise can drive data exfiltration and app impersonation."
+      }
+    ],
+    "data_flows": [
+      {
+        "flow_id": "df_smart_launch",
+        "flow_name": "SMART Launch Token Grant",
+        "source_component": "third_party_apps",
+        "target_component": "fhir_gateway",
+        "data_categories": ["ephi", "clinical_operational_metadata"],
+        "protocols": ["OAuth2", "OIDC"]
+      },
+      {
+        "flow_id": "df_fhir_read",
+        "flow_name": "FHIR Resource Query",
+        "source_component": "fhir_gateway",
+        "target_component": "ehr_core",
+        "data_categories": ["ephi"],
+        "protocols": ["FHIR R4 REST"]
+      }
+    ],
+    "weak_points": [
+      {
+        "weak_point_id": "wp_scope_bloat",
+        "weak_point": "Over-broad SMART scopes with long-lived refresh tokens",
+        "severity": "high",
+        "rationale": "Enables bulk extraction from mis-scoped applications."
+      },
+      {
+        "weak_point_id": "wp_audit_gap",
+        "weak_point": "Missing API-level audit granularity for patient-level reads",
+        "severity": "high",
+        "rationale": "Reduces breach detection and legal defensibility."
+      }
+    ]
+  },
+  {
+    "pattern": {
+      "pattern_id": "dicom_pacs_pipeline",
+      "name": "DICOM PACS Imaging Pipeline",
+      "description": "Modalities send imaging studies to PACS/VNA and downstream viewers.",
+      "primary_system": "Imaging"
+    },
+    "components": [
+      {
+        "component_id": "imaging_modalities",
+        "name": "Imaging Modalities",
+        "component_type": "device",
+        "description": "CT/MRI/X-ray devices producing DICOM files.",
+        "trust_zone": "medical_device_network"
+      },
+      {
+        "component_id": "pacs_vna",
+        "name": "PACS/VNA",
+        "component_type": "archive",
+        "description": "Image storage and retrieval backbone.",
+        "trust_zone": "clinical_core"
+      },
+      {
+        "component_id": "diagnostic_viewers",
+        "name": "Diagnostic Viewers",
+        "component_type": "workstation",
+        "description": "Radiology review workstations and web viewers.",
+        "trust_zone": "clinical_user_zone"
+      }
+    ],
+    "trust_boundaries": [
+      {
+        "boundary_id": "tb_modality_archive",
+        "boundary_name": "Device Network to Core Archive",
+        "from_zone": "medical_device_network",
+        "to_zone": "clinical_core",
+        "risk_note": "Legacy device protocols and weak segmentation increase lateral movement risk."
+      }
+    ],
+    "data_flows": [
+      {
+        "flow_id": "df_dicom_ingest",
+        "flow_name": "DICOM Study Ingest",
+        "source_component": "imaging_modalities",
+        "target_component": "pacs_vna",
+        "data_categories": ["ephi", "imaging_data"],
+        "protocols": ["DICOM C-STORE"]
+      }
+    ],
+    "weak_points": [
+      {
+        "weak_point_id": "wp_dicom_header_leak",
+        "weak_point": "Patient identifiers exposed in un-sanitized DICOM headers",
+        "severity": "high",
+        "rationale": "Metadata leakage can breach PHI with no pixel exfiltration."
+      }
+    ]
+  },
+  {
+    "pattern": {
+      "pattern_id": "hc-ehr",
+      "name": "EHR/EMR System",
+      "description": "Canonical EHR pattern with integration engine and patient portal connectivity.",
+      "primary_system": "ehr"
+    },
+    "components": [
+      {
+        "component_id": "hc_ehr_core",
+        "name": "EHR Core",
+        "component_type": "application",
+        "description": "Main record-of-care and documentation system.",
+        "trust_zone": "clinical_core"
+      },
+      {
+        "component_id": "hc_ehr_integration_engine",
+        "name": "Integration Engine",
+        "component_type": "integration",
+        "description": "HL7/FHIR mediation to downstream systems.",
+        "trust_zone": "integration_zone"
+      },
+      {
+        "component_id": "hc_ehr_patient_portal",
+        "name": "Patient Portal",
+        "component_type": "web",
+        "description": "Patient-facing access and messaging application.",
+        "trust_zone": "external_access"
+      }
+    ],
+    "trust_boundaries": [
+      {
+        "boundary_id": "tb_hc_ehr_core_to_integration",
+        "boundary_name": "Core to Integration Boundary",
+        "from_zone": "clinical_core",
+        "to_zone": "integration_zone",
+        "risk_note": "Message trust assumptions can be exploited by malformed payloads."
+      }
+    ],
+    "data_flows": [
+      {
+        "flow_id": "df_hc_ehr_hl7_orders",
+        "flow_name": "Clinical Order/Result Messaging",
+        "source_component": "hc_ehr_core",
+        "target_component": "hc_ehr_integration_engine",
+        "data_categories": ["ephi", "prescription_data"],
+        "protocols": ["HL7v2", "FHIR"]
+      }
+    ],
+    "weak_points": [
+      {
+        "weak_point_id": "wp_hc_ehr_shared_sessions",
+        "weak_point": "Shared workstation sessions and weak session termination",
+        "severity": "high",
+        "rationale": "Enables insider misuse and account hijack in clinical areas."
+      }
+    ]
+  },
+  {
+    "pattern": {
+      "pattern_id": "hc-pacs",
+      "name": "Medical Imaging (PACS/VNA)",
+      "description": "Imaging stack including modalities, archive, and viewer systems.",
+      "primary_system": "imaging"
+    },
+    "components": [
+      {
+        "component_id": "hc_pacs_modalities",
+        "name": "Imaging Modalities",
+        "component_type": "device",
+        "description": "Diagnostic imaging devices generating studies.",
+        "trust_zone": "medical_device_network"
+      },
+      {
+        "component_id": "hc_pacs_archive",
+        "name": "PACS/VNA Archive",
+        "component_type": "archive",
+        "description": "Long-term storage and retrieval system.",
+        "trust_zone": "clinical_core"
+      },
+      {
+        "component_id": "hc_pacs_ai_engine",
+        "name": "Imaging AI Analysis",
+        "component_type": "ai_service",
+        "description": "AI inference service for triage or diagnostic support.",
+        "trust_zone": "analytics_zone"
+      }
+    ],
+    "trust_boundaries": [
+      {
+        "boundary_id": "tb_hc_pacs_device_to_core",
+        "boundary_name": "Device Network to Core Imaging Boundary",
+        "from_zone": "medical_device_network",
+        "to_zone": "clinical_core",
+        "risk_note": "Legacy imaging protocols and vendor credentials can enable lateral movement."
+      }
+    ],
+    "data_flows": [
+      {
+        "flow_id": "df_hc_pacs_dicom",
+        "flow_name": "DICOM Study Transfer",
+        "source_component": "hc_pacs_modalities",
+        "target_component": "hc_pacs_archive",
+        "data_categories": ["imaging_data", "ephi"],
+        "protocols": ["DICOM", "DICOMweb"]
+      }
+    ],
+    "weak_points": [
+      {
+        "weak_point_id": "wp_hc_pacs_metadata_leak",
+        "weak_point": "Uncontrolled DICOM metadata exposure in exports",
+        "severity": "high",
+        "rationale": "Sensitive patient identifiers leak outside intended scope."
+      }
+    ]
+  },
+  {
+    "pattern": {
+      "pattern_id": "hc-iomt",
+      "name": "Internet of Medical Things",
+      "description": "Networked bedside and treatment devices managed through biomedical gateways.",
+      "primary_system": "iomt"
+    },
+    "components": [
+      {
+        "component_id": "hc_iomt_devices",
+        "name": "Bedside/Clinical Devices",
+        "component_type": "device_fleet",
+        "description": "Infusion pumps, monitors, ventilators, and similar connected devices.",
+        "trust_zone": "medical_device_network"
+      },
+      {
+        "component_id": "hc_iomt_gateway",
+        "name": "Device Gateway",
+        "component_type": "gateway",
+        "description": "Fleet management and telemetry aggregation.",
+        "trust_zone": "integration_zone"
+      },
+      {
+        "component_id": "hc_iomt_biomed_console",
+        "name": "Biomedical Management Console",
+        "component_type": "management",
+        "description": "Operational console for provisioning and patch workflows.",
+        "trust_zone": "admin_zone"
+      }
+    ],
+    "trust_boundaries": [
+      {
+        "boundary_id": "tb_hc_iomt_it_to_device",
+        "boundary_name": "IT to Device Segmentation Boundary",
+        "from_zone": "enterprise_it",
+        "to_zone": "medical_device_network",
+        "risk_note": "Weak segmentation enables ransomware propagation into patient-care devices."
+      }
+    ],
+    "data_flows": [
+      {
+        "flow_id": "df_hc_iomt_telemetry",
+        "flow_name": "Device Telemetry and Commands",
+        "source_component": "hc_iomt_devices",
+        "target_component": "hc_iomt_gateway",
+        "data_categories": ["medical_device_data", "ephi"],
+        "protocols": ["Vendor protocol", "HL7", "FHIR"]
+      }
+    ],
+    "weak_points": [
+      {
+        "weak_point_id": "wp_hc_iomt_legacy_firmware",
+        "weak_point": "Legacy device firmware and unsupported patch cycles",
+        "severity": "critical",
+        "rationale": "Raises exploitability with direct patient safety implications."
+      }
+    ]
+  },
+  {
+    "pattern": {
+      "pattern_id": "hc-lab",
+      "name": "Laboratory Information System",
+      "description": "Laboratory analyzers integrated with LIS and EHR results channels.",
+      "primary_system": "lab"
+    },
+    "components": [
+      {
+        "component_id": "hc_lab_analyzers",
+        "name": "Lab Analyzers",
+        "component_type": "device",
+        "description": "Instruments generating lab observations and measurements.",
+        "trust_zone": "lab_device_zone"
+      },
+      {
+        "component_id": "hc_lab_lis",
+        "name": "LIS Core",
+        "component_type": "application",
+        "description": "Laboratory workflow, validation, and result publication.",
+        "trust_zone": "clinical_core"
+      },
+      {
+        "component_id": "hc_lab_ehr_link",
+        "name": "EHR Interface",
+        "component_type": "integration",
+        "description": "Results integration with EHR systems.",
+        "trust_zone": "integration_zone"
+      }
+    ],
+    "trust_boundaries": [
+      {
+        "boundary_id": "tb_hc_lab_device_to_lis",
+        "boundary_name": "Analyzer to LIS Boundary",
+        "from_zone": "lab_device_zone",
+        "to_zone": "clinical_core",
+        "risk_note": "Message integrity failures can alter diagnostic result streams."
+      }
+    ],
+    "data_flows": [
+      {
+        "flow_id": "df_hc_lab_results",
+        "flow_name": "Lab Result Publication",
+        "source_component": "hc_lab_lis",
+        "target_component": "hc_lab_ehr_link",
+        "data_categories": ["health_data", "ephi"],
+        "protocols": ["HL7 ORU", "FHIR Observation"]
+      }
+    ],
+    "weak_points": [
+      {
+        "weak_point_id": "wp_hc_lab_result_tamper",
+        "weak_point": "Weak integrity checks on analyzer-to-LIS data",
+        "severity": "high",
+        "rationale": "Potential false results can produce patient harm."
+      }
+    ]
+  },
+  {
+    "pattern": {
+      "pattern_id": "hc-pharmacy",
+      "name": "Pharmacy System",
+      "description": "E-prescribing and dispensing stack with controlled-substance tracking.",
+      "primary_system": "pharmacy"
+    },
+    "components": [
+      {
+        "component_id": "hc_pharm_eprescribe",
+        "name": "E-prescribing Service",
+        "component_type": "application",
+        "description": "Prescriber order creation and transmission.",
+        "trust_zone": "clinical_core"
+      },
+      {
+        "component_id": "hc_pharm_dispense",
+        "name": "Dispensing System",
+        "component_type": "application",
+        "description": "Medication fill and dispense workflows.",
+        "trust_zone": "pharmacy_zone"
+      },
+      {
+        "component_id": "hc_pharm_pdmp",
+        "name": "Controlled Substance Registry Link",
+        "component_type": "external_integration",
+        "description": "State/regional controlled-substance tracking integration.",
+        "trust_zone": "external_partner"
+      }
+    ],
+    "trust_boundaries": [
+      {
+        "boundary_id": "tb_hc_pharm_internal_to_registry",
+        "boundary_name": "Internal Pharmacy to External Registry",
+        "from_zone": "pharmacy_zone",
+        "to_zone": "external_partner",
+        "risk_note": "Credential misuse can enable diversion and fraud workflows."
+      }
+    ],
+    "data_flows": [
+      {
+        "flow_id": "df_hc_pharm_orders",
+        "flow_name": "Medication Order and Dispense Data",
+        "source_component": "hc_pharm_eprescribe",
+        "target_component": "hc_pharm_dispense",
+        "data_categories": ["prescription_data", "ephi"],
+        "protocols": ["NCPDP", "FHIR MedicationRequest"]
+      }
+    ],
+    "weak_points": [
+      {
+        "weak_point_id": "wp_hc_pharm_diversion",
+        "weak_point": "Insufficient anti-fraud controls for controlled substance workflows",
+        "severity": "high",
+        "rationale": "Medication diversion and unauthorized prescribing risk increases."
+      }
+    ]
+  },
+  {
+    "pattern": {
+      "pattern_id": "hc-telehealth",
+      "name": "Telehealth Platform",
+      "description": "Video consultation and remote monitoring with clinician and patient apps.",
+      "primary_system": "telehealth"
+    },
+    "components": [
+      {
+        "component_id": "hc_tele_video",
+        "name": "Video Consultation Service",
+        "component_type": "communication",
+        "description": "Session media and signaling services.",
+        "trust_zone": "external_access"
+      },
+      {
+        "component_id": "hc_tele_clinician_app",
+        "name": "Clinician Portal",
+        "component_type": "web",
+        "description": "Clinician interaction and documentation interface.",
+        "trust_zone": "clinical_user_zone"
+      },
+      {
+        "component_id": "hc_tele_remote_monitor",
+        "name": "Remote Monitoring Ingestion",
+        "component_type": "ingestion",
+        "description": "Receives patient-generated telemetry and device feeds.",
+        "trust_zone": "integration_zone"
+      }
+    ],
+    "trust_boundaries": [
+      {
+        "boundary_id": "tb_hc_tele_external_to_clinical",
+        "boundary_name": "External Access to Clinical Boundary",
+        "from_zone": "external_access",
+        "to_zone": "clinical_user_zone",
+        "risk_note": "Session hijacking and weak identity proofing can expose sensitive consultations."
+      }
+    ],
+    "data_flows": [
+      {
+        "flow_id": "df_hc_tele_visit",
+        "flow_name": "Telehealth Consultation Data Flow",
+        "source_component": "hc_tele_video",
+        "target_component": "hc_tele_clinician_app",
+        "data_categories": ["ephi", "mental_health", "reproductive_health"],
+        "protocols": ["WebRTC", "FHIR"]
+      }
+    ],
+    "weak_points": [
+      {
+        "weak_point_id": "wp_hc_tele_identity",
+        "weak_point": "Inadequate identity proofing and consent capture for remote sessions",
+        "severity": "high",
+        "rationale": "Can violate telehealth consent and privacy requirements."
+      }
+    ]
+  },
+  {
+    "pattern": {
+      "pattern_id": "hc-hie",
+      "name": "Health Information Exchange",
+      "description": "Cross-organization exchange with consent, registry, and query/retrieve services.",
+      "primary_system": "hie"
+    },
+    "components": [
+      {
+        "component_id": "hc_hie_mpi",
+        "name": "Master Patient Index",
+        "component_type": "index",
+        "description": "Identity correlation across participating organizations.",
+        "trust_zone": "shared_exchange_zone"
+      },
+      {
+        "component_id": "hc_hie_consent",
+        "name": "Consent Management",
+        "component_type": "policy_service",
+        "description": "Consent rules and patient authorization states.",
+        "trust_zone": "shared_exchange_zone"
+      },
+      {
+        "component_id": "hc_hie_edge_gateway",
+        "name": "Edge Gateway",
+        "component_type": "gateway",
+        "description": "Boundary control for organization ingress/egress.",
+        "trust_zone": "external_partner"
+      }
+    ],
+    "trust_boundaries": [
+      {
+        "boundary_id": "tb_hc_hie_org_to_exchange",
+        "boundary_name": "Organization to Exchange Boundary",
+        "from_zone": "external_partner",
+        "to_zone": "shared_exchange_zone",
+        "risk_note": "Cross-organization trust and token validation weaknesses can expose broad patient cohorts."
+      }
+    ],
+    "data_flows": [
+      {
+        "flow_id": "df_hc_hie_query",
+        "flow_name": "Cross-organization Query/Retrieve",
+        "source_component": "hc_hie_edge_gateway",
+        "target_component": "hc_hie_mpi",
+        "data_categories": ["health_data", "ephi"],
+        "protocols": ["IHE XDS", "FHIR"]
+      }
+    ],
+    "weak_points": [
+      {
+        "weak_point_id": "wp_hc_hie_consent_mismatch",
+        "weak_point": "Consent state mismatch across participant systems",
+        "severity": "high",
+        "rationale": "Leads to unauthorized cross-entity disclosures."
+      }
+    ]
+  },
+  {
+    "pattern": {
+      "pattern_id": "hc-clinical-ai",
+      "name": "Clinical AI/ML Pipeline",
+      "description": "Model training, registry, and inference workflows for clinical support systems.",
+      "primary_system": "clinical_ai"
+    },
+    "components": [
+      {
+        "component_id": "hc_ai_training",
+        "name": "Training Data Pipeline",
+        "component_type": "data_pipeline",
+        "description": "Feature extraction and model training workflow.",
+        "trust_zone": "analytics_zone"
+      },
+      {
+        "component_id": "hc_ai_registry",
+        "name": "Model Registry",
+        "component_type": "registry",
+        "description": "Model artifact storage and version management.",
+        "trust_zone": "analytics_zone"
+      },
+      {
+        "component_id": "hc_ai_inference",
+        "name": "Inference API",
+        "component_type": "api",
+        "description": "Runtime clinical inference service.",
+        "trust_zone": "clinical_core"
+      }
+    ],
+    "trust_boundaries": [
+      {
+        "boundary_id": "tb_hc_ai_train_to_infer",
+        "boundary_name": "Training to Inference Boundary",
+        "from_zone": "analytics_zone",
+        "to_zone": "clinical_core",
+        "risk_note": "Unverified model promotion can inject unsafe or biased clinical behavior."
+      }
+    ],
+    "data_flows": [
+      {
+        "flow_id": "df_hc_ai_model_deploy",
+        "flow_name": "Model Deployment Flow",
+        "source_component": "hc_ai_registry",
+        "target_component": "hc_ai_inference",
+        "data_categories": ["health_data", "genomic_biobank_data"],
+        "protocols": ["MLOps API", "FHIR"]
+      }
+    ],
+    "weak_points": [
+      {
+        "weak_point_id": "wp_hc_ai_drift",
+        "weak_point": "Model drift without safety guardrails and override pathways",
+        "severity": "critical",
+        "rationale": "Can produce sustained clinical misclassification and harm."
+      }
+    ]
+  },
+  {
+    "pattern": {
+      "pattern_id": "hc-portal",
+      "name": "Patient Portal / PHR",
+      "description": "Patient-facing record access, messaging, scheduling, and upload services.",
+      "primary_system": "portal"
+    },
+    "components": [
+      {
+        "component_id": "hc_portal_frontend",
+        "name": "Portal Frontend",
+        "component_type": "web",
+        "description": "Patient-facing web and mobile interface.",
+        "trust_zone": "external_access"
+      },
+      {
+        "component_id": "hc_portal_auth",
+        "name": "Authentication Service",
+        "component_type": "identity",
+        "description": "User authentication and proxy access management.",
+        "trust_zone": "identity_zone"
+      },
+      {
+        "component_id": "hc_portal_api",
+        "name": "Portal API",
+        "component_type": "api",
+        "description": "Data access gateway to clinical systems.",
+        "trust_zone": "integration_zone"
+      }
+    ],
+    "trust_boundaries": [
+      {
+        "boundary_id": "tb_hc_portal_external",
+        "boundary_name": "Internet to Portal Boundary",
+        "from_zone": "external_access",
+        "to_zone": "identity_zone",
+        "risk_note": "Credential stuffing and session theft can lead to account compromise."
+      }
+    ],
+    "data_flows": [
+      {
+        "flow_id": "df_hc_portal_record_view",
+        "flow_name": "Patient Record Access",
+        "source_component": "hc_portal_api",
+        "target_component": "hc_portal_frontend",
+        "data_categories": ["ephi", "health_data"],
+        "protocols": ["FHIR", "REST"]
+      }
+    ],
+    "weak_points": [
+      {
+        "weak_point_id": "wp_hc_portal_proxy_misuse",
+        "weak_point": "Weak proxy/delegated-access authorization handling",
+        "severity": "high",
+        "rationale": "Can expose dependent and family records improperly."
+      }
+    ]
+  },
+  {
+    "pattern": {
+      "pattern_id": "hc-ris",
+      "name": "Radiology Information System",
+      "description": "Scheduling, workflow, reporting, and PACS-linked radiology operations.",
+      "primary_system": "ris"
+    },
+    "components": [
+      {
+        "component_id": "hc_ris_scheduling",
+        "name": "RIS Scheduling",
+        "component_type": "application",
+        "description": "Order and appointment management for imaging workflows.",
+        "trust_zone": "clinical_core"
+      },
+      {
+        "component_id": "hc_ris_reporting",
+        "name": "RIS Reporting",
+        "component_type": "application",
+        "description": "Radiology report generation and physician communication.",
+        "trust_zone": "clinical_user_zone"
+      },
+      {
+        "component_id": "hc_ris_pacs_link",
+        "name": "PACS Integration",
+        "component_type": "integration",
+        "description": "Image/report synchronization with PACS.",
+        "trust_zone": "integration_zone"
+      }
+    ],
+    "trust_boundaries": [
+      {
+        "boundary_id": "tb_hc_ris_to_pacs",
+        "boundary_name": "RIS to PACS Boundary",
+        "from_zone": "clinical_user_zone",
+        "to_zone": "integration_zone",
+        "risk_note": "Report/image linkage tampering can create diagnostic integrity failures."
+      }
+    ],
+    "data_flows": [
+      {
+        "flow_id": "df_hc_ris_reports",
+        "flow_name": "Report-to-Image Correlation",
+        "source_component": "hc_ris_reporting",
+        "target_component": "hc_ris_pacs_link",
+        "data_categories": ["imaging_data", "health_data"],
+        "protocols": ["HL7", "DICOM"]
+      }
+    ],
+    "weak_points": [
+      {
+        "weak_point_id": "wp_hc_ris_order_mismatch",
+        "weak_point": "Order/report mismatch due to weak integrity controls",
+        "severity": "high",
+        "rationale": "Can propagate diagnostic mistakes and patient safety events."
+      }
+    ]
+  },
+  {
+    "pattern": {
+      "pattern_id": "hc-samd",
+      "name": "Software as Medical Device",
+      "description": "Regulated software lifecycle with clinical algorithm, updates, and post-market monitoring.",
+      "primary_system": "medical_device"
+    },
+    "components": [
+      {
+        "component_id": "hc_samd_core",
+        "name": "SaMD Core Service",
+        "component_type": "application",
+        "description": "Core decision logic and workflow functions.",
+        "trust_zone": "clinical_core"
+      },
+      {
+        "component_id": "hc_samd_update_service",
+        "name": "Update Mechanism",
+        "component_type": "update_service",
+        "description": "Software update and patch distribution channel.",
+        "trust_zone": "update_zone"
+      },
+      {
+        "component_id": "hc_samd_pms",
+        "name": "Post-market Surveillance",
+        "component_type": "monitoring",
+        "description": "Safety and vulnerability telemetry monitoring pipeline.",
+        "trust_zone": "analytics_zone"
+      }
+    ],
+    "trust_boundaries": [
+      {
+        "boundary_id": "tb_hc_samd_update",
+        "boundary_name": "Update Trust Boundary",
+        "from_zone": "update_zone",
+        "to_zone": "clinical_core",
+        "risk_note": "Compromised update channel can inject malicious or unsafe logic into clinical systems."
+      }
+    ],
+    "data_flows": [
+      {
+        "flow_id": "df_hc_samd_updates",
+        "flow_name": "SaMD Update Distribution",
+        "source_component": "hc_samd_update_service",
+        "target_component": "hc_samd_core",
+        "data_categories": ["medical_device_data"],
+        "protocols": ["Signed updates", "Secure API"]
+      }
+    ],
+    "weak_points": [
+      {
+        "weak_point_id": "wp_hc_samd_update_signing",
+        "weak_point": "Weak software provenance and signature validation",
+        "severity": "critical",
+        "rationale": "Introduces direct patient safety and regulatory risk."
+      }
+    ]
+  },
+  {
+    "pattern": {
+      "pattern_id": "hc-genomics",
+      "name": "Genomics/Precision Medicine",
+      "description": "Sequencing, variant interpretation, consent, and biobank-integrated precision medicine workflows.",
+      "primary_system": "genomics"
+    },
+    "components": [
+      {
+        "component_id": "hc_gen_seq_pipeline",
+        "name": "Sequencing Pipeline",
+        "component_type": "pipeline",
+        "description": "Raw read processing and variant calling pipeline.",
+        "trust_zone": "analytics_zone"
+      },
+      {
+        "component_id": "hc_gen_interpret",
+        "name": "Clinical Interpretation",
+        "component_type": "application",
+        "description": "Clinical interpretation and reporting module.",
+        "trust_zone": "clinical_user_zone"
+      },
+      {
+        "component_id": "hc_gen_consent",
+        "name": "Consent Tracking",
+        "component_type": "policy_service",
+        "description": "Granular patient consent and data permit tracking.",
+        "trust_zone": "governance_zone"
+      }
+    ],
+    "trust_boundaries": [
+      {
+        "boundary_id": "tb_hc_gen_research_to_clinical",
+        "boundary_name": "Research-to-Clinical Boundary",
+        "from_zone": "analytics_zone",
+        "to_zone": "clinical_user_zone",
+        "risk_note": "Research data reuse without robust consent controls risks unlawful processing."
+      }
+    ],
+    "data_flows": [
+      {
+        "flow_id": "df_hc_gen_results",
+        "flow_name": "Variant Interpretation Delivery",
+        "source_component": "hc_gen_interpret",
+        "target_component": "hc_gen_consent",
+        "data_categories": ["genetic_data", "genomic_biobank_data"],
+        "protocols": ["FHIR Genomics", "Secure file transfer"]
+      }
+    ],
+    "weak_points": [
+      {
+        "weak_point_id": "wp_hc_gen_reidentification",
+        "weak_point": "Re-identification risk from genomic datasets",
+        "severity": "critical",
+        "rationale": "Pseudonymization may be insufficient for genomic uniqueness."
+      }
+    ]
+  },
+  {
+    "pattern": {
+      "pattern_id": "hc-erp",
+      "name": "Healthcare ERP/Revenue Cycle",
+      "description": "Registration, billing, claims, and clearinghouse integrations in healthcare operations.",
+      "primary_system": "erp"
+    },
+    "components": [
+      {
+        "component_id": "hc_erp_registration",
+        "name": "Patient Registration",
+        "component_type": "application",
+        "description": "Patient intake and demographic capture.",
+        "trust_zone": "front_office_zone"
+      },
+      {
+        "component_id": "hc_erp_claims",
+        "name": "Claims Engine",
+        "component_type": "application",
+        "description": "Claim generation and payer submission workflows.",
+        "trust_zone": "billing_zone"
+      },
+      {
+        "component_id": "hc_erp_clearinghouse",
+        "name": "Clearinghouse Integration",
+        "component_type": "external_integration",
+        "description": "Electronic claims and remittance exchange.",
+        "trust_zone": "external_partner"
+      }
+    ],
+    "trust_boundaries": [
+      {
+        "boundary_id": "tb_hc_erp_internal_to_clearing",
+        "boundary_name": "Internal Billing to Clearinghouse Boundary",
+        "from_zone": "billing_zone",
+        "to_zone": "external_partner",
+        "risk_note": "Third-party compromise can expose financial and health data at scale."
+      }
+    ],
+    "data_flows": [
+      {
+        "flow_id": "df_hc_erp_claims",
+        "flow_name": "Claims Submission",
+        "source_component": "hc_erp_claims",
+        "target_component": "hc_erp_clearinghouse",
+        "data_categories": ["health_data", "ephi", "clinical_operational_metadata"],
+        "protocols": ["X12", "API"]
+      }
+    ],
+    "weak_points": [
+      {
+        "weak_point_id": "wp_hc_erp_vendor_dependency",
+        "weak_point": "High concentration risk in billing and clearinghouse integrations",
+        "severity": "high",
+        "rationale": "Operational disruption and data exposure can cascade across revenue cycle operations."
+      }
+    ]
+  }
+]

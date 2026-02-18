@@ -1,0 +1,168 @@
+{
+  "regulation_links": [
+    {
+      "threat_id": "th_hl7_fhir_token_theft",
+      "source_mcp": "US_Regulations_MCP",
+      "requirement_ref": "HIPAA_164.312",
+      "obligation_summary": "Access controls, audit controls, and transmission security."
+    },
+    {
+      "threat_id": "th_hl7_fhir_token_theft",
+      "source_mcp": "EU_Regulations_MCP",
+      "requirement_ref": "GDPR_ART_9",
+      "obligation_summary": "Special category data protections and lawful processing constraints."
+    },
+    {
+      "threat_id": "th_fhir_bulk_exfiltration",
+      "source_mcp": "EU_Regulations_MCP",
+      "requirement_ref": "GDPR_ART_9",
+      "obligation_summary": "Large-scale export of special-category health data requires strict lawful basis and safeguards."
+    },
+    {
+      "threat_id": "th_hl7v2_message_injection",
+      "source_mcp": "US_Regulations_MCP",
+      "requirement_ref": "HIPAA_164.312(e)",
+      "obligation_summary": "Transmission security and integrity protections for health data messages."
+    },
+    {
+      "threat_id": "th_ehr_order_manipulation",
+      "source_mcp": "US_Regulations_MCP",
+      "requirement_ref": "HIPAA_164.312(c)",
+      "obligation_summary": "Integrity controls required to protect against improper alteration of ePHI."
+    },
+    {
+      "threat_id": "th_dicom_metadata_leak",
+      "source_mcp": "EU_Regulations_MCP",
+      "requirement_ref": "GDPR_ART_5",
+      "obligation_summary": "Data minimization and confidentiality principles apply to imaging metadata handling."
+    },
+    {
+      "threat_id": "th_iomt_ransomware_clinical_ops",
+      "source_mcp": "EU_Regulations_MCP",
+      "requirement_ref": "NIS2_ART_21",
+      "obligation_summary": "Cyber risk management and incident handling for essential entities."
+    },
+    {
+      "threat_id": "th_device_firmware_manipulation",
+      "source_mcp": "US_Regulations_MCP",
+      "requirement_ref": "FDA_524B",
+      "obligation_summary": "Device cybersecurity lifecycle and vulnerability management obligations."
+    },
+    {
+      "threat_id": "th_ihe_token_forgery",
+      "source_mcp": "EU_Regulations_MCP",
+      "requirement_ref": "GDPR_ART_32",
+      "obligation_summary": "Appropriate technical and organizational measures for secure processing and access control."
+    },
+    {
+      "threat_id": "th_prescription_diversion",
+      "source_mcp": "US-law-mcp",
+      "requirement_ref": "US_CONTROLLED_SUBSTANCE_TRACKING",
+      "obligation_summary": "Controlled-substance prescribing and tracking safeguards."
+    },
+    {
+      "threat_id": "th_clinical_ai_poisoning",
+      "source_mcp": "EU_Regulations_MCP",
+      "requirement_ref": "AI_ACT_ART_9",
+      "obligation_summary": "High-risk AI risk management and data governance controls."
+    },
+    {
+      "threat_id": "th_telehealth_identity_takeover",
+      "source_mcp": "US_Regulations_MCP",
+      "requirement_ref": "HIPAA_164.312(d)",
+      "obligation_summary": "Person or entity authentication requirements for access to ePHI."
+    },
+    {
+      "threat_id": "th_biobank_data_theft",
+      "source_mcp": "EU_Regulations_MCP",
+      "requirement_ref": "EHDS_SECONDARY_USE",
+      "obligation_summary": "Secondary-use health data governance and access constraints."
+    },
+    {
+      "threat_id": "th_vendor_supply_chain_compromise",
+      "source_mcp": "EU_Regulations_MCP",
+      "requirement_ref": "NIS2_SUPPLY_CHAIN",
+      "obligation_summary": "Supply-chain cybersecurity risk management expectations."
+    }
+  ],
+  "control_links": [
+    {
+      "threat_id": "th_hl7_fhir_token_theft",
+      "control_framework": "NIST_800_53",
+      "control_id": "AC-6",
+      "control_summary": "Least privilege for API and app-level access."
+    },
+    {
+      "threat_id": "th_fhir_bulk_exfiltration",
+      "control_framework": "NIST_800_53",
+      "control_id": "AC-4",
+      "control_summary": "Information flow enforcement for API data export boundaries."
+    },
+    {
+      "threat_id": "th_hl7v2_message_injection",
+      "control_framework": "NIST_800_53",
+      "control_id": "SC-8",
+      "control_summary": "Transmission confidentiality and integrity protection."
+    },
+    {
+      "threat_id": "th_ehr_order_manipulation",
+      "control_framework": "NIST_800_53",
+      "control_id": "AU-12",
+      "control_summary": "Comprehensive audit generation for record/order modifications."
+    },
+    {
+      "threat_id": "th_dicom_metadata_leak",
+      "control_framework": "NIST_CSF_2.0",
+      "control_id": "PR.DS-01",
+      "control_summary": "Data-at-rest/in-transit protections and minimization."
+    },
+    {
+      "threat_id": "th_iomt_ransomware_clinical_ops",
+      "control_framework": "NIST_CSF_2.0",
+      "control_id": "PR.PS-02",
+      "control_summary": "Asset and software lifecycle integrity management."
+    },
+    {
+      "threat_id": "th_device_firmware_manipulation",
+      "control_framework": "NIST_800_53",
+      "control_id": "SI-7",
+      "control_summary": "Software and firmware integrity protections."
+    },
+    {
+      "threat_id": "th_ihe_token_forgery",
+      "control_framework": "NIST_800_53",
+      "control_id": "IA-2",
+      "control_summary": "Strong identity and authentication control mechanisms."
+    },
+    {
+      "threat_id": "th_prescription_diversion",
+      "control_framework": "NIST_800_53",
+      "control_id": "AC-5",
+      "control_summary": "Separation of duties in high-risk medication workflows."
+    },
+    {
+      "threat_id": "th_clinical_ai_poisoning",
+      "control_framework": "NIST_800_53",
+      "control_id": "SA-15",
+      "control_summary": "Development process and model/data integrity assurance."
+    },
+    {
+      "threat_id": "th_telehealth_identity_takeover",
+      "control_framework": "NIST_800_53",
+      "control_id": "IA-5",
+      "control_summary": "Authenticator management and anti-replay protections."
+    },
+    {
+      "threat_id": "th_biobank_data_theft",
+      "control_framework": "NIST_CSF_2.0",
+      "control_id": "DE.CM-01",
+      "control_summary": "Continuous monitoring for anomalous access and exfiltration patterns."
+    },
+    {
+      "threat_id": "th_vendor_supply_chain_compromise",
+      "control_framework": "NIST_800_53",
+      "control_id": "SR-5",
+      "control_summary": "Supply-chain risk response and third-party assurance controls."
+    }
+  ]
+}

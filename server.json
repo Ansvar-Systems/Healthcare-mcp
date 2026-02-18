@@ -1,0 +1,14 @@
+{
+  "name": "Healthcare Intelligence MCP",
+  "description": "Domain-intelligence layer for healthcare IT/CS threat modeling across EU and US",
+  "version": "0.1.0",
+  "repository": "https://github.com/Ansvar-Systems/Healthcare-mcp",
+  "homepage": "https://github.com/Ansvar-Systems/Healthcare-mcp#readme",
+  "package": "@ansvar/healthcare-mcp",
+  "runtime": "node",
+  "protocolVersion": "2025-03-26",
+  "transports": ["stdio", "streamable-http"],
+  "capabilities": {
+    "tools": true
+  }
+}

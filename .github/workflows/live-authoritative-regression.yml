@@ -1,0 +1,43 @@
+name: Live Authoritative Regression
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 4 * * 2'
+
+concurrency:
+  group: healthcare-mcp-live-regression-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  live-regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      HEALTHCARE_UPSTREAM_EU_REGS_URL: ${{ secrets.HEALTHCARE_UPSTREAM_EU_REGS_URL }}
+      HEALTHCARE_UPSTREAM_US_REGS_URL: ${{ secrets.HEALTHCARE_UPSTREAM_US_REGS_URL }}
+      HEALTHCARE_UPSTREAM_SECURITY_CONTROLS_URL: ${{ secrets.HEALTHCARE_UPSTREAM_SECURITY_CONTROLS_URL }}
+      HEALTHCARE_UPSTREAM_US_LAW_URL: ${{ secrets.HEALTHCARE_UPSTREAM_US_LAW_URL }}
+      HEALTHCARE_UPSTREAM_EU_LAW_URL: ${{ secrets.HEALTHCARE_UPSTREAM_EU_LAW_URL }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci --ignore-scripts
+
+      - name: Ensure at least one upstream endpoint is configured
+        run: |
+          if [ -z "${HEALTHCARE_UPSTREAM_EU_REGS_URL}${HEALTHCARE_UPSTREAM_US_REGS_URL}${HEALTHCARE_UPSTREAM_SECURITY_CONTROLS_URL}${HEALTHCARE_UPSTREAM_US_LAW_URL}${HEALTHCARE_UPSTREAM_EU_LAW_URL}" ]; then
+            echo "No upstream endpoints configured. Skipping live regression."
+            exit 0
+          fi
+
+      - name: Run live upstream regression suite
+        run: npm run test:live
+        env:
+          LIVE_UPSTREAM_TESTS: "1"
+          LIVE_REQUIRED_MIN_OK_RATIO: "0.8"

@@ -1,0 +1,29 @@
+[
+  {
+    "profile_id": "org_us_hospital_covered_entity",
+    "name": "US Hospital Covered Entity",
+    "jurisdiction": "US",
+    "entity_type": "provider",
+    "conditions": ["Processes ePHI", "Provides treatment services"],
+    "priority": "critical",
+    "source_router": "US_Regulations_MCP"
+  },
+  {
+    "profile_id": "org_eu_hospital_essential_entity",
+    "name": "EU Hospital Essential Entity",
+    "jurisdiction": "EU",
+    "entity_type": "provider",
+    "conditions": ["Operates healthcare critical services", "Subject to NIS2 and GDPR"],
+    "priority": "critical",
+    "source_router": "EU_Regulations_MCP"
+  },
+  {
+    "profile_id": "org_medtech_samd_vendor",
+    "name": "MedTech SaMD Vendor",
+    "jurisdiction": "US_EU",
+    "entity_type": "manufacturer",
+    "conditions": ["Software performs medical function", "Distributes in regulated markets"],
+    "priority": "high",
+    "source_router": "US_Regulations_MCP+EU_Regulations_MCP"
+  }
+]
