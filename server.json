@@ -1,5 +1,6 @@
 {
-  "name": "Healthcare Intelligence MCP",
+  "name": "eu.ansvar/healthcare-intelligence",
+  "displayName": "Healthcare Intelligence MCP",
   "description": "Domain-intelligence layer for healthcare IT/CS threat modeling across EU and US",
   "version": "0.1.0",
   "repository": "https://github.com/Ansvar-Systems/Healthcare-mcp",

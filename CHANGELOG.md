@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+- Added tag-driven npm publish workflow with provenance attestation (`.github/workflows/publish.yml`).
+- Aligned MCP registry identity metadata (`mcpName` and `server.json.name` now both `eu.ansvar/healthcare-intelligence`).
+- Expanded tool input schemas with complete parameter-level descriptions/defaults to improve agent self-selection and argument construction reliability.
+- Updated FDA cybersecurity standard metadata to current guidance versioning and added explicit `FDA_524B` requirement mapping in standards crosswalk output.
+- Added regression coverage to ensure `FDA_524B` continuously resolves to mapped FDA cybersecurity guidance metadata.
 - Expanded `classify_medical_device` with structured FDA/MDR class outputs, IMDRF SaMD category signals, and AI Act high-risk indicators.
 - Expanded breach logic with exact-jurisdiction + family fallback matching, decision-tree output, and per-jurisdiction notification matrix.
 - Added explicit contract-chain applicability output for `BAA`, `DPA`, `SCC_OR_EQUIVALENT_TRANSFER_MECHANISM`, Part 2 redisclosure chain, and EHDS secondary-use permits.

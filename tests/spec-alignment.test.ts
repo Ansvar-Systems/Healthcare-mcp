@@ -7,6 +7,7 @@ import { searchDomainKnowledge } from '../src/tools/search_domain_knowledge.js';
 import { getProtocolSecurity } from '../src/tools/get_protocol_security.js';
 import { assessClinicalRisk } from '../src/tools/assess_clinical_risk.js';
 import { mapHipaaSafeguards } from '../src/tools/map_hipaa_safeguards.js';
+import { mapToHealthcareStandards } from '../src/tools/map_to_healthcare_standards.js';
 import { createRemediationBacklog } from '../src/tools/create_remediation_backlog.js';
 import { getThreatResponsePlaybook } from '../src/tools/get_threat_response_playbook.js';
 
@@ -101,6 +102,19 @@ describe('spec alignment tool additions', () => {
     }) as { technical_safeguards: Array<string> };
 
     expect(output.technical_safeguards.length).toBeGreaterThan(0);
+  });
+
+  it('maps FDA_524B requirement to current FDA device cybersecurity guidance metadata', () => {
+    const output = mapToHealthcareStandards(db, {
+      input_type: 'requirement',
+      input_id: 'FDA_524B',
+    }) as {
+      mappings: Array<{ standard_id: string }>;
+      standards: Array<{ version: string }>;
+    };
+
+    expect(output.mappings.some((item) => item.standard_id === 'fda_premarket_cyber_2023')).toBe(true);
+    expect(output.standards.some((item) => item.version === '2026')).toBe(true);
   });
 
   it('creates remediation backlog from baseline deltas', () => {

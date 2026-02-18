@@ -106,10 +106,10 @@
     },
     {
       "standard_id": "fda_premarket_cyber_2023",
-      "name": "FDA Premarket Cybersecurity Guidance",
+      "name": "FDA Medical Device Cybersecurity Guidance",
       "authority": "FDA",
-      "scope": "Cybersecurity expectations for device submissions",
-      "version": "2023",
+      "scope": "Cybersecurity expectations for device submissions, including section 524B secure-by-design expectations and documentation baselines",
+      "version": "2026",
       "status": "active"
     },
     {
@@ -257,6 +257,14 @@
       "standard_id": "nist_sp_800_66",
       "mapping_type": "implementation_guidance",
       "rationale": "NIST SP 800-66 provides structured implementation guidance for HIPAA safeguards."
+    },
+    {
+      "mapping_id": "map_requirement_fda_524b_to_fda_guidance",
+      "input_type": "requirement",
+      "input_id": "FDA_524B",
+      "standard_id": "fda_premarket_cyber_2023",
+      "mapping_type": "regulatory_alignment",
+      "rationale": "FDA section 524B cybersecurity obligations are operationalized through the latest FDA medical device cybersecurity guidance and submission documentation expectations."
     },
     {
       "mapping_id": "map_threat_device_firmware_62304",

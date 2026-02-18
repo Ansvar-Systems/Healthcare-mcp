@@ -415,6 +415,7 @@ export function createToolDefinitions(context: AboutContext): ToolDefinition[] {
           jurisdictions: {
             type: 'array',
             items: { type: 'string' },
+            description: 'Optional jurisdiction hints such as ["US", "EU", "US-CA"] to prioritize regime inference.',
           },
         },
       },
@@ -506,24 +507,44 @@ export function createToolDefinitions(context: AboutContext): ToolDefinition[] {
       inputSchema: {
         type: 'object',
         properties: {
-          pattern_id: { type: 'string' },
+          pattern_id: {
+            type: 'string',
+            description: 'Optional architecture pattern ID from list_architecture_patterns.',
+          },
           architecture_pattern: {
             type: 'string',
             description: 'Spec-compatible alias for pattern_id.',
           },
-          data_categories: { type: 'array', items: { type: 'string' } },
+          data_categories: {
+            type: 'array',
+            items: { type: 'string' },
+            description: 'Optional healthcare data-category IDs to tighten relevance scoring.',
+          },
           data_types: {
             type: 'array',
             items: { type: 'string' },
             description: 'Spec-compatible alias for data_categories.',
           },
-          deployment_context: { type: 'string' },
-          query: { type: 'string' },
+          deployment_context: {
+            type: 'string',
+            description: 'Optional context like cloud_hospital, hybrid_hie, or on_prem_device_network.',
+          },
+          query: {
+            type: 'string',
+            description: 'Optional keyword filter over threat names and descriptions.',
+          },
           include_playbooks: {
             type: 'boolean',
             description: 'When true, include operational response playbook actions in each threat record.',
+            default: true,
           },
-          limit: { type: 'number', minimum: 1, maximum: 50 },
+          limit: {
+            type: 'number',
+            minimum: 1,
+            maximum: 50,
+            description: 'Maximum results returned. Default: 10.',
+            default: 10,
+          },
         },
       },
       handler: (db, args) => getHealthcareThreats(db, args),
@@ -590,26 +611,72 @@ export function createToolDefinitions(context: AboutContext): ToolDefinition[] {
           organization_profile: {
             type: 'object',
             properties: {
-              jurisdictions: { type: 'array', items: { type: 'string' } },
-              entity_type: { type: 'string' },
-              data_categories: { type: 'array', items: { type: 'string' } },
-              has_medical_devices: { type: 'boolean' },
-              uses_ai_for_clinical_decisions: { type: 'boolean' },
+              jurisdictions: {
+                type: 'array',
+                items: { type: 'string' },
+                description: 'Jurisdictions where processing occurs, e.g., ["US-CA", "DE"].',
+              },
+              entity_type: {
+                type: 'string',
+                description: 'Healthcare role such as provider, payer, medtech_vendor, or processor.',
+              },
+              data_categories: {
+                type: 'array',
+                items: { type: 'string' },
+                description: 'Healthcare data categories such as ephi, genetic_data, part2_substance_use.',
+              },
+              has_medical_devices: {
+                type: 'boolean',
+                description: 'Set true when networked/clinical devices are in scope.',
+              },
+              uses_ai_for_clinical_decisions: {
+                type: 'boolean',
+                description: 'Set true when AI outputs influence diagnosis, triage, or therapy.',
+              },
             },
             required: ['jurisdictions', 'entity_type', 'data_categories'],
             description: 'Operational profile for applicability resolution.',
           },
-          country: { type: 'string' },
-          role: { type: 'string' },
-          system_types: { type: 'array', items: { type: 'string' } },
-          data_types: { type: 'array', items: { type: 'string' } },
+          country: {
+            type: 'string',
+            description: 'Convenience shorthand when providing a single country/state code.',
+          },
+          role: {
+            type: 'string',
+            description: 'Alias for entity type when organization_profile is not supplied.',
+          },
+          system_types: {
+            type: 'array',
+            items: { type: 'string' },
+            description: 'System archetypes such as ehr, telehealth, pacs, medical_device.',
+          },
+          data_types: {
+            type: 'array',
+            items: { type: 'string' },
+            description: 'Alias for data_categories.',
+          },
           additional_context: {
             type: 'object',
+            description: 'Optional feature flags and jurisdiction hints that affect overlay matching.',
             properties: {
-              has_medical_devices: { type: 'boolean' },
-              uses_ai_for_clinical_decisions: { type: 'boolean' },
-              jurisdictions: { type: 'array', items: { type: 'string' } },
-              country_codes: { type: 'array', items: { type: 'string' } },
+              has_medical_devices: {
+                type: 'boolean',
+                description: 'Overrides device scope signal during overlay selection.',
+              },
+              uses_ai_for_clinical_decisions: {
+                type: 'boolean',
+                description: 'Overrides clinical AI signal during overlay selection.',
+              },
+              jurisdictions: {
+                type: 'array',
+                items: { type: 'string' },
+                description: 'Additional jurisdictions to merge into evaluation scope.',
+              },
+              country_codes: {
+                type: 'array',
+                items: { type: 'string' },
+                description: 'Alternative country/state code list for compatibility integrations.',
+              },
             },
           },
         },
@@ -625,26 +692,73 @@ export function createToolDefinitions(context: AboutContext): ToolDefinition[] {
         properties: {
           organization_profile: {
             type: 'object',
+            description: 'Primary profile object for determining healthcare applicability obligations.',
             properties: {
-              jurisdictions: { type: 'array', items: { type: 'string' } },
-              entity_type: { type: 'string' },
-              data_categories: { type: 'array', items: { type: 'string' } },
-              has_medical_devices: { type: 'boolean' },
-              uses_ai_for_clinical_decisions: { type: 'boolean' },
+              jurisdictions: {
+                type: 'array',
+                items: { type: 'string' },
+                description: 'Jurisdictions where processing occurs, e.g., ["US-CA", "DE"].',
+              },
+              entity_type: {
+                type: 'string',
+                description: 'Healthcare role such as provider, payer, medtech_vendor, or processor.',
+              },
+              data_categories: {
+                type: 'array',
+                items: { type: 'string' },
+                description: 'Healthcare data categories such as ephi, genetic_data, part2_substance_use.',
+              },
+              has_medical_devices: {
+                type: 'boolean',
+                description: 'Set true when networked/clinical devices are in scope.',
+              },
+              uses_ai_for_clinical_decisions: {
+                type: 'boolean',
+                description: 'Set true when AI outputs influence diagnosis, triage, or therapy.',
+              },
             },
             required: ['jurisdictions', 'entity_type', 'data_categories'],
           },
-          country: { type: 'string' },
-          role: { type: 'string' },
-          system_types: { type: 'array', items: { type: 'string' } },
-          data_types: { type: 'array', items: { type: 'string' } },
+          country: {
+            type: 'string',
+            description: 'Convenience shorthand when providing a single country/state code.',
+          },
+          role: {
+            type: 'string',
+            description: 'Alias for entity type when organization_profile is not supplied.',
+          },
+          system_types: {
+            type: 'array',
+            items: { type: 'string' },
+            description: 'System archetypes such as ehr, telehealth, pacs, medical_device.',
+          },
+          data_types: {
+            type: 'array',
+            items: { type: 'string' },
+            description: 'Alias for data_categories.',
+          },
           additional_context: {
             type: 'object',
+            description: 'Optional feature flags and jurisdiction hints that affect overlay matching.',
             properties: {
-              has_medical_devices: { type: 'boolean' },
-              uses_ai_for_clinical_decisions: { type: 'boolean' },
-              jurisdictions: { type: 'array', items: { type: 'string' } },
-              country_codes: { type: 'array', items: { type: 'string' } },
+              has_medical_devices: {
+                type: 'boolean',
+                description: 'Overrides device scope signal during overlay selection.',
+              },
+              uses_ai_for_clinical_decisions: {
+                type: 'boolean',
+                description: 'Overrides clinical AI signal during overlay selection.',
+              },
+              jurisdictions: {
+                type: 'array',
+                items: { type: 'string' },
+                description: 'Additional jurisdictions to merge into evaluation scope.',
+              },
+              country_codes: {
+                type: 'array',
+                items: { type: 'string' },
+                description: 'Alternative country/state code list for compatibility integrations.',
+              },
             },
           },
         },
@@ -661,8 +775,13 @@ export function createToolDefinitions(context: AboutContext): ToolDefinition[] {
           input_type: {
             type: 'string',
             enum: ['threat', 'architecture_pattern', 'requirement', 'control'],
+            description: 'Type of object being mapped to healthcare standards.',
           },
-          input_id: { type: 'string', minLength: 1 },
+          input_id: {
+            type: 'string',
+            minLength: 1,
+            description: 'Identifier value for the selected input_type.',
+          },
           requirement_ref: {
             type: 'string',
             description: 'Spec-compatible requirement reference input.',
@@ -685,6 +804,7 @@ export function createToolDefinitions(context: AboutContext): ToolDefinition[] {
           input_type: {
             type: 'string',
             enum: ['threat', 'architecture_pattern', 'requirement', 'control'],
+            description: 'Type of object being mapped to healthcare standards.',
           },
           input_id: {
             type: 'string',
@@ -731,8 +851,16 @@ export function createToolDefinitions(context: AboutContext): ToolDefinition[] {
       inputSchema: {
         type: 'object',
         properties: {
-          jurisdictions: { type: 'array', items: { type: 'string' } },
-          data_categories: { type: 'array', items: { type: 'string' } },
+          jurisdictions: {
+            type: 'array',
+            items: { type: 'string' },
+            description: 'Jurisdictions to evaluate for breach-notification obligations.',
+          },
+          data_categories: {
+            type: 'array',
+            items: { type: 'string' },
+            description: 'Healthcare data categories implicated by the incident.',
+          },
           data_types: {
             type: 'array',
             items: { type: 'string' },
@@ -762,12 +890,31 @@ export function createToolDefinitions(context: AboutContext): ToolDefinition[] {
         properties: {
           organization_profile: {
             type: 'object',
+            description: 'Organization context used to prioritize baseline controls.',
             properties: {
-              jurisdictions: { type: 'array', items: { type: 'string' } },
-              entity_type: { type: 'string' },
-              data_categories: { type: 'array', items: { type: 'string' } },
-              architecture_patterns: { type: 'array', items: { type: 'string' } },
-              has_medical_devices: { type: 'boolean' },
+              jurisdictions: {
+                type: 'array',
+                items: { type: 'string' },
+                description: 'Jurisdictions where systems/processes are operated.',
+              },
+              entity_type: {
+                type: 'string',
+                description: 'Healthcare role such as provider, payer, medtech_vendor, or processor.',
+              },
+              data_categories: {
+                type: 'array',
+                items: { type: 'string' },
+                description: 'Healthcare data categories in scope for baseline design.',
+              },
+              architecture_patterns: {
+                type: 'array',
+                items: { type: 'string' },
+                description: 'Optional architecture pattern IDs from list_architecture_patterns.',
+              },
+              has_medical_devices: {
+                type: 'boolean',
+                description: 'Set true to prioritize device-network and product-security controls.',
+              },
             },
             required: ['jurisdictions', 'entity_type', 'data_categories'],
           },
@@ -788,12 +935,31 @@ export function createToolDefinitions(context: AboutContext): ToolDefinition[] {
         properties: {
           organization_profile: {
             type: 'object',
+            description: 'Organization context used to prioritize baseline controls.',
             properties: {
-              jurisdictions: { type: 'array', items: { type: 'string' } },
-              entity_type: { type: 'string' },
-              data_categories: { type: 'array', items: { type: 'string' } },
-              architecture_patterns: { type: 'array', items: { type: 'string' } },
-              has_medical_devices: { type: 'boolean' },
+              jurisdictions: {
+                type: 'array',
+                items: { type: 'string' },
+                description: 'Jurisdictions where systems/processes are operated.',
+              },
+              entity_type: {
+                type: 'string',
+                description: 'Healthcare role such as provider, payer, medtech_vendor, or processor.',
+              },
+              data_categories: {
+                type: 'array',
+                items: { type: 'string' },
+                description: 'Healthcare data categories in scope for baseline design.',
+              },
+              architecture_patterns: {
+                type: 'array',
+                items: { type: 'string' },
+                description: 'Optional architecture pattern IDs from list_architecture_patterns.',
+              },
+              has_medical_devices: {
+                type: 'boolean',
+                description: 'Set true to prioritize device-network and product-security controls.',
+              },
             },
             required: ['jurisdictions', 'entity_type', 'data_categories'],
           },
@@ -839,16 +1005,34 @@ export function createToolDefinitions(context: AboutContext): ToolDefinition[] {
         properties: {
           current_state: {
             type: 'object',
+            description: 'Known implementation state used for delta-based prioritization.',
             properties: {
-              implemented_controls: { type: 'array', items: { type: 'string' } },
-              known_gaps: { type: 'array', items: { type: 'string' } },
+              implemented_controls: {
+                type: 'array',
+                items: { type: 'string' },
+                description: 'Control IDs currently implemented.',
+              },
+              known_gaps: {
+                type: 'array',
+                items: { type: 'string' },
+                description: 'Known deficiencies or missing control statements.',
+              },
             },
           },
           target_baseline: {
             type: 'object',
+            description: 'Baseline object from build_healthcare_baseline or compatible source.',
             properties: {
-              controls: { type: 'array', items: { type: 'object' } },
-              prioritized_controls: { type: 'array', items: { type: 'object' } },
+              controls: {
+                type: 'array',
+                items: { type: 'object' },
+                description: 'Full control set to achieve.',
+              },
+              prioritized_controls: {
+                type: 'array',
+                items: { type: 'object' },
+                description: 'Priority-ranked subset from the baseline output.',
+              },
             },
           },
         },
@@ -951,9 +1135,19 @@ export function createToolDefinitions(context: AboutContext): ToolDefinition[] {
       inputSchema: {
         type: 'object',
         properties: {
-          threat_scenario: { type: 'string', minLength: 8 },
-          device_context: { type: 'string' },
-          clinical_setting: { type: 'string' },
+          threat_scenario: {
+            type: 'string',
+            minLength: 8,
+            description: 'Threat narrative that could affect patient safety outcomes.',
+          },
+          device_context: {
+            type: 'string',
+            description: 'Optional device/product context when risk pertains to MedTech or IoMT.',
+          },
+          clinical_setting: {
+            type: 'string',
+            description: 'Optional care context such as ICU, OR, outpatient, or telehealth.',
+          },
         },
         required: ['threat_scenario'],
       },
@@ -966,8 +1160,16 @@ export function createToolDefinitions(context: AboutContext): ToolDefinition[] {
       inputSchema: {
         type: 'object',
         properties: {
-          system_description: { type: 'string', minLength: 8 },
-          data_types: { type: 'array', items: { type: 'string' } },
+          system_description: {
+            type: 'string',
+            minLength: 8,
+            description: 'Description of the healthcare system and workflow handling ePHI.',
+          },
+          data_types: {
+            type: 'array',
+            items: { type: 'string' },
+            description: 'Optional data categories for tailoring safeguard recommendations.',
+          },
         },
         required: ['system_description'],
       },

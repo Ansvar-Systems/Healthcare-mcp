@@ -60,20 +60,20 @@
     "node": ">=20.0.0"
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.0.4",
-    "better-sqlite3": "^11.8.1"
+    "@modelcontextprotocol/sdk": "1.0.4",
+    "better-sqlite3": "11.8.1"
   },
   "devDependencies": {
-    "@types/better-sqlite3": "^7.6.13",
-    "@types/node": "^22.13.1",
-    "@vercel/node": "^5.6.3",
-    "tsx": "^4.19.2",
-    "typescript": "^5.7.3",
-    "vitest": "^4.0.18"
+    "@types/better-sqlite3": "7.6.13",
+    "@types/node": "22.13.1",
+    "@vercel/node": "5.6.3",
+    "tsx": "4.19.2",
+    "typescript": "5.7.3",
+    "vitest": "4.0.18"
   },
   "overrides": {
-    "ajv": "^8.18.0",
-    "path-to-regexp": "^8.0.0",
-    "undici": "^7.0.0"
+    "ajv": "8.18.0",
+    "path-to-regexp": "8.0.0",
+    "undici": "7.0.0"
   }
 }

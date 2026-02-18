@@ -1,6 +1,6 @@
 {
   "version": "0.1.0",
-  "generated_at": "2026-02-18T08:14:36.219Z",
+  "generated_at": "2026-02-18T12:21:40.585Z",
   "description": "Deterministic hashes for Healthcare MCP ontology and crosswalk subsets. Use in CI for drift detection.",
   "hashes": [
     {
