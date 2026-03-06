@@ -57,26 +57,6 @@ export function searchDomainKnowledge(db: SqlDatabase, args: unknown) {
   const offset = parseCursor(input.cursor);
   const fetchWindow = offset + limit + 1;
 
-  if (/(automotive|ecu|vehicle|iso\\s*21434|unece\\s*r155)/i.test(input.query)) {
-    return {
-      query: input.query,
-      content_type: contentType,
-      limit,
-      cursor: input.cursor ?? null,
-      scope_status: 'out_of_scope',
-      results: [],
-      pagination: {
-        next_cursor: null,
-        offset,
-        returned: 0,
-      },
-      out_of_scope: [
-        'Query appears to target automotive cybersecurity. Use Automotive MCP for that domain.',
-      ],
-      recommended_mcp: 'Automotive-MCP',
-    };
-  }
-
   const results: SearchRow[] = [];
 
   if (contentType === 'all' || contentType === 'threat') {
