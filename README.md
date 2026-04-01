@@ -2,6 +2,33 @@
 
 Healthcare Intelligence MCP is a domain-intelligence layer for healthcare threat modeling.
 
+
+### Public Endpoint (Streamable HTTP)
+
+Connect from any MCP client (Claude Desktop, ChatGPT, Cursor, VS Code, GitHub Copilot):
+
+```
+https://mcp.ansvar.eu/healthcare/mcp
+```
+
+**Claude Code:**
+```bash
+claude mcp add healthcare --transport http https://mcp.ansvar.eu/healthcare/mcp
+```
+
+**Claude Desktop / Cursor** (`claude_desktop_config.json`):
+```json
+{
+  "mcpServers": {
+    "healthcare": {
+      "type": "url",
+      "url": "https://mcp.ansvar.eu/healthcare/mcp"
+    }
+  }
+}
+```
+
+No authentication required. See [all Ansvar MCP endpoints](https://github.com/Ansvar-Systems/Ansvar-Architecture-Documentation/blob/main/docs/mcp-remote-access.md).
 It is intentionally **not** a duplicate legal text repository. It classifies healthcare context and routes obligations to existing authoritative MCPs:
 - EU Regulations MCP
 - US Regulations MCP
