@@ -175,6 +175,28 @@ type EvidenceTemplate = {
   linked_controls: string[];
 };
 
+type RegulatoryGuidanceSection = {
+  section_id: string;
+  document_id: string;
+  heading: string;
+  content: string;
+  word_count: number;
+};
+
+type RegulatoryGuidanceDocument = {
+  document_id: string;
+  title: string;
+  authority: string;
+  version: string;
+  document_type: string;
+  url?: string;
+};
+
+type RegulatoryGuidanceSeed = {
+  documents: RegulatoryGuidanceDocument[];
+  sections: RegulatoryGuidanceSection[];
+};
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const ROOT = join(__dirname, '..');
@@ -548,6 +570,26 @@ function loadEvidenceTemplates(db: DatabaseSync): void {
   }
 }
 
+function loadRegulatoryGuidance(db: DatabaseSync): void {
+  const seed = readJsonFile<RegulatoryGuidanceSeed>('regulatory_guidance.json');
+
+  const insertDoc = db.prepare(`
+    INSERT INTO regulatory_guidance_documents (document_id, title, authority, version, document_type, url)
+    VALUES (?, ?, ?, ?, ?, ?)
+  `);
+  for (const doc of seed.documents) {
+    insertDoc.run(doc.document_id, doc.title, doc.authority, doc.version, doc.document_type, doc.url ?? null);
+  }
+
+  const insertSection = db.prepare(`
+    INSERT INTO regulatory_guidance (section_id, document_id, heading, content, word_count)
+    VALUES (?, ?, ?, ?, ?)
+  `);
+  for (const section of seed.sections) {
+    insertSection.run(section.section_id, section.document_id, section.heading, section.content, section.word_count);
+  }
+}
+
 function main(): void {
   mkdirSync(DATA_DIR, { recursive: true });
 
@@ -571,6 +613,7 @@ function main(): void {
     loadJurisdictionOverlays(db);
     loadBreachRules(db);
     loadEvidenceTemplates(db);
+    loadRegulatoryGuidance(db);
     db.exec('COMMIT');
   } catch (error) {
     db.exec('ROLLBACK');
@@ -590,6 +633,7 @@ function main(): void {
     threatResponsePlaybooks: db
       .prepare('SELECT COUNT(*) as count FROM threat_response_playbooks')
       .get() as { count: number },
+    guidance: db.prepare('SELECT COUNT(*) as count FROM regulatory_guidance').get() as { count: number },
   };
 
   console.log('✅ healthcare.db built successfully');
@@ -601,6 +645,7 @@ function main(): void {
   console.log(`   overlays:   ${counts.overlays.count}`);
   console.log(`   threat_exp: ${counts.threatExpertProfiles.count}`);
   console.log(`   playbooks:  ${counts.threatResponsePlaybooks.count}`);
+  console.log(`   guidance:  ${counts.guidance.count}`);
 
   db.close();
 }

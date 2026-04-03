@@ -27,6 +27,7 @@ import { assessClinicalRisk } from './assess_clinical_risk.js';
 import { mapHipaaSafeguards } from './map_hipaa_safeguards.js';
 import { createRemediationBacklog } from './create_remediation_backlog.js';
 import { getThreatResponsePlaybook } from './get_threat_response_playbook.js';
+import { getGuidanceSection } from './get_guidance_section.js';
 import type { AboutContext } from '../types.js';
 
 interface ToolDefinition {
@@ -1024,7 +1025,7 @@ export function createToolDefinitions(context: AboutContext): ToolDefinition[] {
           },
           content_type: {
             type: 'string',
-            enum: ['threat', 'architecture', 'standards', 'all'],
+            enum: ['threat', 'architecture', 'standards', 'guidance', 'all'],
             description: 'Optional content filter. Default: all.',
           },
           limit: {
@@ -1383,6 +1384,25 @@ export function createToolDefinitions(context: AboutContext): ToolDefinition[] {
         required: ['system_description'],
       },
       handler: (_db, args) => mapHipaaSafeguards(args),
+    },
+    {
+      name: 'get_guidance_section',
+      description:
+        'Retrieve regulatory guidance document sections (FDA Premarket Cybersecurity, IMDRF SaMD N12/N41). Call without arguments to list available documents. Provide document_id to list sections, or section_id for full text.',
+      inputSchema: {
+        type: 'object' as const,
+        properties: {
+          section_id: {
+            type: 'string',
+            description: 'Section ID to retrieve full text (e.g., "fda_premarket_cyber_2026_s005").',
+          },
+          document_id: {
+            type: 'string',
+            description: 'Document ID to list sections (e.g., "fda_premarket_cyber_2026", "imdrf_n12_samd", "imdrf_n41_samd").',
+          },
+        },
+      },
+      handler: (db, args) => getGuidanceSection(db, args),
     },
   ];
 }

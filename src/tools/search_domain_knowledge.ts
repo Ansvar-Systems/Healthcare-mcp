@@ -32,7 +32,7 @@ function encodeCursor(offset: number): string {
 export function searchDomainKnowledge(db: SqlDatabase, args: unknown) {
   const input = (args ?? {}) as {
     query?: string;
-    content_type?: 'threat' | 'architecture' | 'standards' | 'all';
+    content_type?: 'threat' | 'architecture' | 'standards' | 'guidance' | 'all';
     limit?: number;
     cursor?: string;
   };
@@ -114,6 +114,25 @@ export function searchDomainKnowledge(db: SqlDatabase, args: unknown) {
       .all(clean, fetchWindow) as SearchRow[];
 
     results.push(...standardRows);
+  }
+
+  if (contentType === 'all' || contentType === 'guidance') {
+    const guidanceRows = db
+      .prepare(
+        `SELECT 'guidance' as content_type,
+                g.section_id as source_id,
+                g.heading as title,
+                snippet(regulatory_guidance_fts, 3, '<b>', '</b>', '...', 24) as snippet,
+                bm25(regulatory_guidance_fts) as relevance_score
+         FROM regulatory_guidance_fts
+         JOIN regulatory_guidance g ON g.rowid = regulatory_guidance_fts.rowid
+         WHERE regulatory_guidance_fts MATCH ?
+         ORDER BY relevance_score ASC
+         LIMIT ?`,
+      )
+      .all(clean, fetchWindow) as SearchRow[];
+
+    results.push(...guidanceRows);
   }
 
   const sorted = results.sort((a, b) => a.relevance_score - b.relevance_score);

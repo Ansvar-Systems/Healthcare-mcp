@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS health_data_categories (
 
 CREATE TABLE IF NOT EXISTS medical_device_classification_rules (
   rule_id TEXT PRIMARY KEY,
-  region TEXT NOT NULL CHECK (region IN ('US', 'EU')),
+  region TEXT NOT NULL CHECK (region IN ('US', 'EU', 'International')),
   framework TEXT NOT NULL,
   class_label TEXT NOT NULL,
   trigger_keywords TEXT NOT NULL,
@@ -283,4 +283,47 @@ CREATE TABLE IF NOT EXISTS evidence_templates (
   artifacts TEXT NOT NULL,
   linked_standards TEXT NOT NULL,
   linked_controls TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS regulatory_guidance (
+  section_id TEXT PRIMARY KEY,
+  document_id TEXT NOT NULL,
+  heading TEXT NOT NULL,
+  content TEXT NOT NULL,
+  word_count INTEGER NOT NULL
+);
+
+CREATE VIRTUAL TABLE IF NOT EXISTS regulatory_guidance_fts USING fts5(
+  section_id,
+  document_id,
+  heading,
+  content,
+  content='regulatory_guidance',
+  content_rowid='rowid'
+);
+
+CREATE TRIGGER IF NOT EXISTS regulatory_guidance_ai AFTER INSERT ON regulatory_guidance BEGIN
+  INSERT INTO regulatory_guidance_fts(rowid, section_id, document_id, heading, content)
+  VALUES (new.rowid, new.section_id, new.document_id, new.heading, new.content);
+END;
+
+CREATE TRIGGER IF NOT EXISTS regulatory_guidance_ad AFTER DELETE ON regulatory_guidance BEGIN
+  INSERT INTO regulatory_guidance_fts(regulatory_guidance_fts, rowid, section_id, document_id, heading, content)
+  VALUES('delete', old.rowid, old.section_id, old.document_id, old.heading, old.content);
+END;
+
+CREATE TRIGGER IF NOT EXISTS regulatory_guidance_au AFTER UPDATE ON regulatory_guidance BEGIN
+  INSERT INTO regulatory_guidance_fts(regulatory_guidance_fts, rowid, section_id, document_id, heading, content)
+  VALUES('delete', old.rowid, old.section_id, old.document_id, old.heading, old.content);
+  INSERT INTO regulatory_guidance_fts(rowid, section_id, document_id, heading, content)
+  VALUES (new.rowid, new.section_id, new.document_id, new.heading, new.content);
+END;
+
+CREATE TABLE IF NOT EXISTS regulatory_guidance_documents (
+  document_id TEXT PRIMARY KEY,
+  title TEXT NOT NULL,
+  authority TEXT NOT NULL,
+  version TEXT NOT NULL,
+  document_type TEXT NOT NULL,
+  url TEXT
 );
