@@ -463,6 +463,22 @@
       "scope": "Healthcare-focused control framework and assessment methodology",
       "version": "current",
       "status": "reference_only"
+    },
+    {
+      "standard_id": "imdrf_n12",
+      "name": "IMDRF N12 \u2014 SaMD Risk Categorization",
+      "authority": "IMDRF",
+      "scope": "Framework for risk categorization of Software as a Medical Device (SaMD) based on significance of information provided and healthcare situation severity. Defines 4 risk categories (I-IV) used globally for regulatory classification.",
+      "version": "2014",
+      "status": "active"
+    },
+    {
+      "standard_id": "imdrf_n41",
+      "name": "IMDRF N41 \u2014 SaMD Clinical Evaluation",
+      "authority": "IMDRF",
+      "scope": "Clinical evaluation methodology for Software as a Medical Device including AI/ML. Defines valid clinical association, analytical validation, and clinical validation levels mapped to SaMD risk categories.",
+      "version": "2017",
+      "status": "active"
     }
   ],
   "mappings": [
@@ -1641,6 +1657,46 @@
       "standard_id": "hl7_fhir_r4",
       "mapping_type": "version_specific_alignment",
       "rationale": "FHIR R4-focused interoperability programs should anchor implementation controls to R4 profile and resource semantics."
+    },
+    {
+      "mapping_id": "map_threat_hallucination_imdrf_n12",
+      "input_type": "threat",
+      "input_id": "th_ai_hallucination_clinical",
+      "standard_id": "imdrf_n12",
+      "mapping_type": "risk_classification",
+      "rationale": "AI hallucination in clinical decision support maps to IMDRF SaMD risk categorization \u2014 higher category when information drives treatment decisions in critical/serious situations."
+    },
+    {
+      "mapping_id": "map_threat_drift_imdrf_n41",
+      "input_type": "threat",
+      "input_id": "th_ai_model_drift",
+      "standard_id": "imdrf_n41",
+      "mapping_type": "verification",
+      "rationale": "Model drift invalidates clinical validation evidence. IMDRF N41 requires ongoing clinical validation proportional to SaMD risk category."
+    },
+    {
+      "mapping_id": "map_threat_poisoning_imdrf_n12",
+      "input_type": "threat",
+      "input_id": "th_ai_training_data_poisoning",
+      "standard_id": "imdrf_n12",
+      "mapping_type": "risk_classification",
+      "rationale": "Training data poisoning in clinical AI can shift diagnostic accuracy, impacting SaMD risk category assessment. Category III/IV SaMD requires higher data integrity assurance."
+    },
+    {
+      "mapping_id": "map_device_samd_imdrf_n12",
+      "input_type": "device_class",
+      "input_id": "samd_any",
+      "standard_id": "imdrf_n12",
+      "mapping_type": "classification",
+      "rationale": "All SaMD must be categorized per IMDRF N12 framework: significance of information (treat, diagnose, drive clinical management, inform clinical management) x healthcare situation (critical, serious, non-serious) \u2192 Category I-IV."
+    },
+    {
+      "mapping_id": "map_device_samd_imdrf_n41",
+      "input_type": "device_class",
+      "input_id": "samd_any",
+      "standard_id": "imdrf_n41",
+      "mapping_type": "verification",
+      "rationale": "All SaMD requires clinical evaluation per IMDRF N41. Higher risk categories (III/IV) require more rigorous clinical evidence including independent clinical validation."
     }
   ]
 }

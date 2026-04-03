@@ -128,5 +128,74 @@
       "claims processing"
     ],
     "notes": "No medical intended use detected from description."
+  },
+  {
+    "rule_id": "imdrf_samd_cat_iv",
+    "region": "International",
+    "framework": "IMDRF_N12",
+    "class_label": "SaMD Category IV",
+    "trigger_keywords": [
+      "treat or diagnose",
+      "critical situation",
+      "life threatening",
+      "irreversible condition",
+      "autonomous treatment",
+      "closed-loop therapy",
+      "surgical guidance",
+      "radiation therapy planning"
+    ],
+    "notes": "IMDRF N12 Category IV: Information provided to treat or diagnose in a critical or life-threatening situation. Highest risk. Maps to IEC 62304 Class C, EU MDR Class III, FDA Class III/PMA."
+  },
+  {
+    "rule_id": "imdrf_samd_cat_iii",
+    "region": "International",
+    "framework": "IMDRF_N12",
+    "class_label": "SaMD Category III",
+    "trigger_keywords": [
+      "treat or diagnose",
+      "serious situation",
+      "diagnosis",
+      "drive clinical management",
+      "critical situation",
+      "inform clinical management",
+      "serious condition",
+      "diagnostic imaging AI",
+      "pathology classification"
+    ],
+    "notes": "IMDRF N12 Category III: (a) Treat/diagnose in serious situation, (b) drive clinical management in critical situation, or (c) inform clinical management in critical situation. Maps to IEC 62304 Class B/C, EU MDR Class IIb, FDA Class II/III."
+  },
+  {
+    "rule_id": "imdrf_samd_cat_ii",
+    "region": "International",
+    "framework": "IMDRF_N12",
+    "class_label": "SaMD Category II",
+    "trigger_keywords": [
+      "drive clinical management",
+      "serious situation",
+      "inform clinical management",
+      "non-serious condition",
+      "triage",
+      "clinical decision support",
+      "screening",
+      "risk stratification",
+      "treatment monitoring"
+    ],
+    "notes": "IMDRF N12 Category II: (a) Treat/diagnose in non-serious situation, (b) drive clinical management in non-serious/serious situation, or (c) inform clinical management in serious situation. Maps to IEC 62304 Class B, EU MDR Class IIa, FDA Class II/510(k)."
+  },
+  {
+    "rule_id": "imdrf_samd_cat_i",
+    "region": "International",
+    "framework": "IMDRF_N12",
+    "class_label": "SaMD Category I",
+    "trigger_keywords": [
+      "inform clinical management",
+      "non-serious",
+      "wellness",
+      "general health information",
+      "population-level analytics",
+      "administrative",
+      "clinical workflow support"
+    ],
+    "notes": "IMDRF N12 Category I: Inform clinical management in non-serious situation. Lowest SaMD risk. Maps to IEC 62304 Class A, EU MDR Class I/IIa, FDA Class I/II."
   }
 ]
