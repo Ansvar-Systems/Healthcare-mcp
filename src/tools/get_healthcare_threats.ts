@@ -1,6 +1,7 @@
 import type { SqlDatabase } from '../db.js';
 import { parseJsonArray } from '../db.js';
 import type { GetHealthcareThreatsInput, ToolError } from '../types.js';
+import { buildCitation } from '../utils/citation.js';
 
 type ThreatRow = {
   threat_id: string;
@@ -285,5 +286,14 @@ export function getHealthcareThreats(
     },
     note:
       'Threats include healthcare context, ATT&CK tactics/techniques, detection indicators, and response playbooks with regulation/control routing references.',
+    _citation: buildCitation(
+      patternId ? `Healthcare threats: ${patternId}` : 'Healthcare threats',
+      `Healthcare threat scenarios${patternId ? ` for ${patternId}` : ''}`,
+      'get_healthcare_threats',
+      {
+        ...(patternId ? { pattern_id: patternId } : {}),
+        ...(input.query ? { query: input.query } : {}),
+      },
+    ),
   };
 }

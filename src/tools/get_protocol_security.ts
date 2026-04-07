@@ -1,4 +1,5 @@
 import type { ToolError } from '../types.js';
+import { buildCitation } from '../utils/citation.js';
 
 type ProtocolProfile = {
   security_features: string[];
@@ -541,5 +542,11 @@ export function getProtocolSecurity(args: unknown): Record<string, unknown> | To
   return {
     protocol: input.protocol,
     ...PROFILES[key],
+    _citation: buildCitation(
+      key,
+      `Protocol security profile: ${input.protocol}`,
+      'get_protocol_security',
+      { protocol: input.protocol },
+    ),
   };
 }
