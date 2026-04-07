@@ -1,6 +1,7 @@
 import type { SqlDatabase } from '../db.js';
 import { parseJsonArray } from '../db.js';
 import type { GetArchitecturePatternInput, ToolError } from '../types.js';
+import { buildCitation } from '../utils/citation.js';
 
 type PatternRow = {
   pattern_id: string;
@@ -130,5 +131,11 @@ export function getArchitecturePattern(
       'Map each weak point to threat scenarios and required controls.',
       'Trace data flow elements to specific health data categories before severity scoring.',
     ],
+    _citation: buildCitation(
+      row.pattern_id,
+      `${row.name} (${row.primary_system})`,
+      'get_architecture_pattern',
+      { pattern_id: row.pattern_id },
+    ),
   };
 }

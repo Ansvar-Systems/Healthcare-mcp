@@ -1,6 +1,7 @@
 import type { SqlDatabase } from '../db.js';
 import { parseJsonArray } from '../db.js';
 import type { ToolError } from '../types.js';
+import { buildCitation } from '../utils/citation.js';
 
 type PlaybookRow = {
   threat_id: string;
@@ -55,5 +56,11 @@ export function getThreatResponsePlaybook(
       'Preserve forensic artifacts before disruptive recovery actions where feasible.',
       'Route legal/regulatory obligations through authoritative MCP endpoints using escalation_routes.',
     ],
+    _citation: buildCitation(
+      row.threat_id,
+      `Threat response playbook: ${row.threat_id} (${row.triage_priority})`,
+      'get_threat_response_playbook',
+      { threat_id: input.threat_id! },
+    ),
   };
 }
