@@ -1,6 +1,7 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { responseMeta } from './response-meta.js';
 
 interface SourceEntry {
   id: string;
@@ -96,5 +97,6 @@ export function listSources(_db: unknown, args: unknown) {
       refresh_cadence: source.update_frequency ?? null,
       last_obtained: source.data_obtained ?? null,
     })),
+    ...responseMeta(),
   };
 }

@@ -1,6 +1,7 @@
 import type { SqlDatabase } from '../db.js';
 import { parseJsonArray } from '../db.js';
 import type { GetArchitecturePatternInput, ToolError } from '../types.js';
+import { responseMeta } from './response-meta.js';
 
 type PatternRow = {
   pattern_id: string;
@@ -74,6 +75,8 @@ export function getArchitecturePattern(
       error: 'No architecture pattern matched the request.',
       hint: 'Use pattern_id or system_type from available_patterns.',
       available_patterns: available,
+      _error_type: 'not_found',
+      ...responseMeta(),
     };
   }
 
@@ -130,5 +133,11 @@ export function getArchitecturePattern(
       'Map each weak point to threat scenarios and required controls.',
       'Trace data flow elements to specific health data categories before severity scoring.',
     ],
+    _citation: {
+      canonical_ref: `healthcare-mcp:pattern/${row.pattern_id}`,
+      display_text: row.name,
+      lookup: `get_architecture_pattern?pattern_id=${row.pattern_id}`,
+    },
+    ...responseMeta(),
   };
 }

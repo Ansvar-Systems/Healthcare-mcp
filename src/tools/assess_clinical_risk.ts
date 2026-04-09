@@ -1,4 +1,5 @@
 import type { ToolError } from '../types.js';
+import { responseMeta } from './response-meta.js';
 
 function classifySeverity(text: string): 'low' | 'moderate' | 'high' | 'critical' {
   const lowered = text.toLowerCase();
@@ -36,6 +37,8 @@ export function assessClinicalRisk(args: unknown): Record<string, unknown> | Too
     return {
       error: 'threat_scenario is required',
       hint: 'Describe the threat scenario and expected clinical effect.',
+      _error_type: 'invalid_input',
+      ...responseMeta(),
     };
   }
 
@@ -70,5 +73,6 @@ export function assessClinicalRisk(args: unknown): Record<string, unknown> | Too
       'Document hazard sequence and risk controls in ISO 14971 risk file.',
       'Tie risk controls to verification evidence and post-market monitoring.',
     ],
+    ...responseMeta(),
   };
 }

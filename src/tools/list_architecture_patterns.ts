@@ -1,4 +1,5 @@
 import type { SqlDatabase } from '../db.js';
+import { responseMeta } from './response-meta.js';
 
 export function listArchitecturePatterns(db: SqlDatabase, args: unknown) {
   const input = (args ?? {}) as { category?: string };
@@ -23,5 +24,6 @@ export function listArchitecturePatterns(db: SqlDatabase, args: unknown) {
   return {
     pattern_count: rows.length,
     patterns: rows,
+    ...responseMeta(),
   };
 }

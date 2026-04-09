@@ -9,6 +9,7 @@ import {
 } from '../jurisdictions.js';
 import type { AssessHealthcareApplicabilityInput, ToolError } from '../types.js';
 import { resolveApplicabilityConflicts } from './applicability_conflicts.js';
+import { responseMeta } from './response-meta.js';
 
 type ObligationRow = {
   profile_id: string;
@@ -432,6 +433,8 @@ export function assessHealthcareApplicability(
     return {
       error: 'organization_profile with jurisdictions and data_categories is required',
       hint: 'Provide entity_type and whether medical devices or clinical AI are in scope.',
+      _error_type: 'invalid_input',
+      ...responseMeta(),
     };
   }
 
@@ -675,6 +678,7 @@ export function assessHealthcareApplicability(
       'Validate BAA/DPA/SCC contract chain obligations with law/regulation MCPs before final legal position.',
       'Call build_healthcare_baseline to materialize control priorities.',
     ],
+    ...responseMeta(),
   };
 
   if (detailLevel === 'summary') {
@@ -695,6 +699,7 @@ export function assessHealthcareApplicability(
       overlay_summary: fullResponse.overlay_summary,
       decision_quality: fullResponse.decision_quality,
       next_actions: fullResponse.next_actions,
+      ...responseMeta(),
     };
   }
 
@@ -716,6 +721,7 @@ export function assessHealthcareApplicability(
         overlay: obligation.overlay ?? false,
         synthesized: obligation.synthesized ?? false,
       })),
+      ...responseMeta(),
     };
   }
 

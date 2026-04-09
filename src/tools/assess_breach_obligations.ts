@@ -2,6 +2,7 @@ import type { SqlDatabase } from '../db.js';
 import { parseJsonArray } from '../db.js';
 import { jurisdictionFamily, normalizeJurisdictionCode } from '../jurisdictions.js';
 import type { AssessBreachObligationsInput, ToolError } from '../types.js';
+import { responseMeta } from './response-meta.js';
 
 type BreachRuleRow = {
   rule_id: string;
@@ -102,6 +103,8 @@ export function assessBreachObligations(
     return {
       error: 'jurisdictions, data_categories, and incident_summary are required',
       hint: 'Example jurisdictions: ["US", "EU"]. Include whether health data and clinical impact are present.',
+      _error_type: 'invalid_input',
+      ...responseMeta(),
     };
   }
 
@@ -225,5 +228,6 @@ export function assessBreachObligations(
       'Generate notification package fields from content_requirements.',
       'Start evidence preservation and incident chronology capture in parallel.',
     ],
+    ...responseMeta(),
   };
 }

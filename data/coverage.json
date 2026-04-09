@@ -1,0 +1,61 @@
+{
+  "corpus": {
+    "type": "frozen_sqlite",
+    "data_obtained": "2026-02-18",
+    "coverage_basis": "Threat modeling metadata, crosswalk references, and regulatory routing — not authoritative legal text"
+  },
+  "seed_files": {
+    "count": 11,
+    "files": [
+      "health_data_categories.json",
+      "threat_scenarios.json",
+      "threat_expert_profiles.json",
+      "threat_response_playbooks.json",
+      "threat_links.json",
+      "architecture_patterns.json",
+      "obligation_profiles.json",
+      "jurisdiction_overlays.json",
+      "technical_standards.json",
+      "evidence_templates.json",
+      "breach_rules.json"
+    ]
+  },
+  "jurisdictions": {
+    "eu_member_states": {
+      "count": 27,
+      "codes": ["AT","BE","BG","HR","CY","CZ","DK","EE","FI","FR","DE","GR","HU","IE","IT","LV","LT","LU","MT","NL","PL","PT","RO","SK","SI","ES","SE"],
+      "explicit_overlays": ["DE","NL","SE"]
+    },
+    "us_states_and_dc": {
+      "count": 51,
+      "note": "All 50 US states plus DC; jurisdiction codes use US-XX format",
+      "explicit_overlays": ["US-CA","US-TX"]
+    },
+    "synthesized_fallback": {
+      "enabled": true,
+      "eu_basis": ["GDPR","NIS2","AI_Act"],
+      "us_basis": ["HIPAA","state_law_routing","FDA"],
+      "confidence": "estimated"
+    }
+  },
+  "data_categories": {
+    "count": 9,
+    "categories": [
+      "ephi",
+      "part2_substance_use",
+      "mental_health",
+      "genetic_data",
+      "reproductive_health",
+      "pediatric_health",
+      "imaging_data",
+      "prescription_data",
+      "operational_data"
+    ]
+  },
+  "freshness": {
+    "data_obtained": "2026-02-18",
+    "stale_threshold_days": 45,
+    "freshness_tool": "check_data_freshness",
+    "freshness_workflow": "check-freshness.yml"
+  }
+}

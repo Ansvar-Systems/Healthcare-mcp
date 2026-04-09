@@ -2,6 +2,7 @@ import type { SqlDatabase } from '../db.js';
 import { parseJsonArray } from '../db.js';
 import { isEuJurisdiction, isUsJurisdiction, normalizeJurisdictionCode } from '../jurisdictions.js';
 import type { ClassifyHealthDataInput, ToolError } from '../types.js';
+import { responseMeta } from './response-meta.js';
 
 type CategoryRow = {
   category_id: string;
@@ -45,6 +46,8 @@ export function classifyHealthData(
     return {
       error: 'description must be provided and include enough detail to classify data categories',
       hint: 'Include examples like patient diagnoses, imaging data, genomic records, or care workflow logs.',
+      _error_type: 'invalid_input',
+      ...responseMeta(),
     };
   }
 
@@ -128,5 +131,6 @@ export function classifyHealthData(
     handling_requirements: handlingRequirements,
     confidence: matched.length > 0 ? 'medium' : 'low',
     next_step: 'Use assess_healthcare_applicability and get_healthcare_threats with the resulting categories.',
+    ...responseMeta(),
   };
 }

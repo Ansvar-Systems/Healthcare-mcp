@@ -1,4 +1,5 @@
 import type { ToolError } from '../types.js';
+import { responseMeta } from './response-meta.js';
 
 type ProtocolProfile = {
   security_features: string[];
@@ -459,6 +460,8 @@ export function getProtocolSecurity(args: unknown): Record<string, unknown> | To
       error: 'protocol is required',
       hint:
         'Use HL7v2/FHIR/SMART/UDAP/CDA, DICOM/DICOMWEB, IHE profiles (ATNA/XUA/IUA/SeR/XDS/MHD/XCA/XCPD/PIXm/PDQm/PCD), openEHR, IEEE_11073_SDC/PHD, X12_005010, NCPDP_SCRIPT, SPDX/CYCLONEDX/CSAF/VEX.',
+      _error_type: 'invalid_input',
+      ...responseMeta(),
     };
   }
 
@@ -535,11 +538,19 @@ export function getProtocolSecurity(args: unknown): Record<string, unknown> | To
       error: `Unsupported protocol: ${input.protocol}`,
       hint:
         'Supported protocols: HL7v2, FHIR, FHIR_R4, FHIR_R5, HL7_CDA_CCDA, SMART_ON_FHIR, SMART_BACKEND_SERVICES, FHIR_BULK_DATA, UDAP, DICOM, DICOMWEB, IHE, ATNA, XUA, IUA, SeR, XDS, MHD, XCA, XCPD, PIXm, PDQm, IHE_PCD, openEHR, IEEE_11073_SDC, IEEE_11073_PHD, X12_005010, NCPDP_SCRIPT, DIRECT_PROJECT, SPDX, CYCLONEDX, CSAF_2_0, VEX.',
+      _error_type: 'not_found',
+      ...responseMeta(),
     };
   }
 
   return {
     protocol: input.protocol,
     ...PROFILES[key],
+    _citation: {
+      canonical_ref: `healthcare-mcp:protocol/${key}`,
+      display_text: `Protocol Security: ${input.protocol}`,
+      lookup: `get_protocol_security?protocol=${input.protocol}`,
+    },
+    ...responseMeta(),
   };
 }

@@ -2,6 +2,7 @@ import type { SqlDatabase } from '../db.js';
 import { jurisdictionFamily, normalizeJurisdictionCode } from '../jurisdictions.js';
 import type { CompareJurisdictionsInput, ToolError } from '../types.js';
 import { resolveAuthoritativeContext } from './resolve_authoritative_context.js';
+import { responseMeta } from './response-meta.js';
 
 function containsAny(value: string, terms: string[]): boolean {
   const normalized = value.toLowerCase();
@@ -18,6 +19,8 @@ export async function compareJurisdictions(
     return {
       error: 'topic and jurisdictions are required',
       hint: 'Example: {"topic":"breach notification for ePHI", "jurisdictions":["US","EU"]}',
+      _error_type: 'invalid_input',
+      ...responseMeta(),
     };
   }
 
@@ -152,6 +155,7 @@ export async function compareJurisdictions(
       'Validate local/state/member-state overlays before final recommendation.',
       'Call resolve_authoritative_context for live source retrieval from configured upstream MCP endpoints.',
     ],
+    ...responseMeta(),
   };
 
   if (input.resolve_authoritative) {

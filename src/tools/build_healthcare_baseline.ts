@@ -1,5 +1,6 @@
 import type { SqlDatabase } from '../db.js';
 import type { BuildHealthcareBaselineInput, ToolError } from '../types.js';
+import { responseMeta } from './response-meta.js';
 
 type BaselineControl = {
   control_id: string;
@@ -62,6 +63,8 @@ export function buildHealthcareBaseline(
     return {
       error: 'organization_profile with jurisdictions and data_categories is required',
       hint: 'Include has_medical_devices to get device-specific baseline controls.',
+      _error_type: 'invalid_input',
+      ...responseMeta(),
     };
   }
 
@@ -116,5 +119,6 @@ export function buildHealthcareBaseline(
       'Map each control to authoritative control text through Security Controls MCP.',
       'Generate evidence requirements with build_evidence_plan.',
     ],
+    ...responseMeta(),
   };
 }
