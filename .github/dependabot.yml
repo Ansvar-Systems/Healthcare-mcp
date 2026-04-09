@@ -1,0 +1,29 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 10
+    groups:
+      hono:
+        patterns:
+          - "hono"
+          - "@hono/*"
+      mcp-sdk:
+        patterns:
+          - "@modelcontextprotocol/*"
+      dev-tooling:
+        patterns:
+          - "tsx"
+          - "typescript"
+          - "vitest"
+          - "@types/*"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 10
