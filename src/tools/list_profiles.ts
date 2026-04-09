@@ -1,5 +1,6 @@
 import type { SqlDatabase } from '../db.js';
 import { EU_COUNTRY_CODES, US_STATE_CODES } from '../jurisdictions.js';
+import { responseMeta } from './response-meta.js';
 
 export function listProfiles(db: SqlDatabase, args: unknown) {
   const input = (args ?? {}) as {
@@ -91,5 +92,5 @@ export function listProfiles(db: SqlDatabase, args: unknown) {
     };
   }
 
-  return result;
+  return { ...result, ...responseMeta() };
 }

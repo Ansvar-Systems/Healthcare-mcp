@@ -1,6 +1,7 @@
 import type { SqlDatabase } from '../db.js';
 import { parseJsonArray } from '../db.js';
 import type { ToolError } from '../types.js';
+import { responseMeta } from './response-meta.js';
 
 type PlaybookRow = {
   threat_id: string;
@@ -22,6 +23,8 @@ export function getThreatResponsePlaybook(
     return {
       error: 'threat_id is required',
       hint: 'Use a threat_id from get_healthcare_threats, e.g. th_iomt_ransomware_clinical_ops.',
+      _error_type: 'invalid_input',
+      ...responseMeta(),
     };
   }
 
@@ -38,6 +41,8 @@ export function getThreatResponsePlaybook(
     return {
       error: `No response playbook found for threat_id: ${input.threat_id}`,
       hint: 'Call get_healthcare_threats first and use one of the returned threat IDs.',
+      _error_type: 'not_found',
+      ...responseMeta(),
     };
   }
 
@@ -55,5 +60,11 @@ export function getThreatResponsePlaybook(
       'Preserve forensic artifacts before disruptive recovery actions where feasible.',
       'Route legal/regulatory obligations through authoritative MCP endpoints using escalation_routes.',
     ],
+    _citation: {
+      canonical_ref: `healthcare-mcp:playbook/${row.threat_id}`,
+      display_text: `Response Playbook: ${row.threat_id}`,
+      lookup: `get_threat_response_playbook?threat_id=${row.threat_id}`,
+    },
+    ...responseMeta(),
   };
 }

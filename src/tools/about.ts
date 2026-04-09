@@ -1,6 +1,7 @@
 import type { SqlDatabase } from '../db.js';
 import { EU_COUNTRY_CODES, US_STATE_CODES } from '../jurisdictions.js';
 import type { AboutContext } from '../types.js';
+import { responseMeta } from './response-meta.js';
 
 function safeCount(db: SqlDatabase, sql: string): number {
   try {
@@ -84,5 +85,6 @@ export function getAbout(db: SqlDatabase, context: AboutContext) {
       'Synthesized fallback obligations are inferential and must be confirmed through upstream regulation/law MCP calls.',
       'Country-specific overlays are currently deepened for SE, DE, US-CA, and US-TX; others default to jurisdiction-family baseline.',
     ],
+    ...responseMeta(),
   };
 }

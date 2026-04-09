@@ -1,4 +1,5 @@
 import type { ToolError } from '../types.js';
+import { responseMeta } from './response-meta.js';
 
 type BaselineControl = {
   control_id: string;
@@ -39,6 +40,8 @@ export function createRemediationBacklog(args: unknown): Record<string, unknown>
     return {
       error: 'target_baseline.controls or target_baseline.prioritized_controls is required',
       hint: 'Pass output from build_control_baseline/build_healthcare_baseline.',
+      _error_type: 'invalid_input',
+      ...responseMeta(),
     };
   }
 
@@ -79,5 +82,6 @@ export function createRemediationBacklog(args: unknown): Record<string, unknown>
       missing_control_count: backlogItems.length,
       declared_gap_count: knownGaps.length,
     },
+    ...responseMeta(),
   };
 }

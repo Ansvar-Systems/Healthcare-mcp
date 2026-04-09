@@ -1,4 +1,5 @@
 import type { SqlDatabase } from '../db.js';
+import { responseMeta } from './response-meta.js';
 
 interface SearchRow {
   content_type: string;
@@ -41,6 +42,8 @@ export function searchDomainKnowledge(db: SqlDatabase, args: unknown) {
     return {
       error: 'query is required and must be at least 2 characters',
       hint: 'Use a healthcare term like FHIR, DICOM, ransomware, or telehealth.',
+      _error_type: 'invalid_input',
+      ...responseMeta(),
     };
   }
 
@@ -49,6 +52,8 @@ export function searchDomainKnowledge(db: SqlDatabase, args: unknown) {
     return {
       error: 'query is empty after sanitization',
       hint: 'Avoid only punctuation or special symbols.',
+      _error_type: 'invalid_input',
+      ...responseMeta(),
     };
   }
 
@@ -74,6 +79,7 @@ export function searchDomainKnowledge(db: SqlDatabase, args: unknown) {
         'Query appears to target automotive cybersecurity. Use Automotive MCP for that domain.',
       ],
       recommended_mcp: 'Automotive-MCP',
+      ...responseMeta(),
     };
   }
 
@@ -148,11 +154,19 @@ export function searchDomainKnowledge(db: SqlDatabase, args: unknown) {
     limit,
     cursor: input.cursor ?? null,
     scope_status: pagedResults.length > 0 ? 'in_scope' : 'not_indexed',
-    results: pagedResults,
+    results: pagedResults.map((result) => ({
+      ...result,
+      _citation: {
+        canonical_ref: `healthcare-mcp:${result.content_type}/${result.source_id}`,
+        display_text: result.title,
+        lookup: `search_domain_knowledge?source_id=${result.source_id}`,
+      },
+    })),
     pagination: {
       next_cursor: hasMore ? encodeCursor(nextOffset) : null,
       offset,
       returned: pagedResults.length,
     },
+    ...responseMeta(),
   };
 }

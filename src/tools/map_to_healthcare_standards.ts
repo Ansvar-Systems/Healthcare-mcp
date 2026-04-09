@@ -1,5 +1,6 @@
 import type { SqlDatabase } from '../db.js';
 import type { MapToHealthcareStandardsInput, ToolError } from '../types.js';
+import { responseMeta } from './response-meta.js';
 
 type MappingRow = {
   mapping_id: string;
@@ -39,6 +40,8 @@ export function mapToHealthcareStandards(
     return {
       error: 'input_type and input_id are required',
       hint: 'Example: {"input_type":"threat","input_id":"th_hl7_fhir_token_theft"}',
+      _error_type: 'invalid_input',
+      ...responseMeta(),
     };
   }
 
@@ -429,5 +432,6 @@ export function mapToHealthcareStandards(
     },
     composition_note:
       'Use this output with Security Controls MCP mappings to create control implementation specifications per standard.',
+    ...responseMeta(),
   };
 }

@@ -1,0 +1,27 @@
+name: Check Freshness
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 6 * * 1'
+
+concurrency:
+  group: healthcare-mcp-freshness-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  source-freshness:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - run: npm run check:source-updates
+        env:
+          SOURCE_LIVE_CHECK: "1"
+          SOURCE_LIVE_CHECK_STRICT: "1"
+          SOURCE_STALE_THRESHOLD_DAYS: "45"

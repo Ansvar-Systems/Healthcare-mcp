@@ -1,4 +1,5 @@
 import type { ToolError } from '../types.js';
+import { responseMeta } from './response-meta.js';
 
 const ADMINISTRATIVE = [
   'Security management process (risk analysis and risk management)',
@@ -32,6 +33,8 @@ export function mapHipaaSafeguards(args: unknown): Record<string, unknown> | Too
     return {
       error: 'system_description is required',
       hint: 'Describe system boundaries, user roles, and healthcare data processed.',
+      _error_type: 'invalid_input',
+      ...responseMeta(),
     };
   }
 
@@ -61,5 +64,6 @@ export function mapHipaaSafeguards(args: unknown): Record<string, unknown> | Too
       'HIPAA Security Rule 45 CFR 164.312',
       'NIST SP 800-66',
     ],
+    ...responseMeta(),
   };
 }

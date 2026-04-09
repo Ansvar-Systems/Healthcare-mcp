@@ -1,6 +1,7 @@
 import type { SqlDatabase } from '../db.js';
 import { parseJsonArray } from '../db.js';
 import type { BuildEvidencePlanInput, ToolError } from '../types.js';
+import { responseMeta } from './response-meta.js';
 
 type TemplateRow = {
   template_id: string;
@@ -90,6 +91,8 @@ export function buildEvidencePlan(
     return {
       error: 'No evidence template found for the requested audit_type.',
       hint: `Supported audit types: ${supportedAuditTypes.map((item) => item.audit_type).join(', ')}.`,
+      _error_type: 'not_found',
+      ...responseMeta(),
     };
   }
 
@@ -212,5 +215,6 @@ export function buildEvidencePlan(
     threat_artifact_checklist: includeThreatAppendix ? threatArtifactChecklist : [],
     workflow_note:
       'Use compare_jurisdictions and assess_breach_obligations to append jurisdiction-specific notification/reporting artifacts; provide threat_ids to generate threat-level incident evidence annexes.',
+    ...responseMeta(),
   };
 }

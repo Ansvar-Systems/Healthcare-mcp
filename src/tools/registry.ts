@@ -27,6 +27,7 @@ import { assessClinicalRisk } from './assess_clinical_risk.js';
 import { mapHipaaSafeguards } from './map_hipaa_safeguards.js';
 import { createRemediationBacklog } from './create_remediation_backlog.js';
 import { getThreatResponsePlaybook } from './get_threat_response_playbook.js';
+import { checkDataFreshness } from './check_data_freshness.js';
 import type { AboutContext } from '../types.js';
 
 interface ToolDefinition {
@@ -1383,6 +1384,16 @@ export function createToolDefinitions(context: AboutContext): ToolDefinition[] {
         required: ['system_description'],
       },
       handler: (_db, args) => mapHipaaSafeguards(args),
+    },
+    {
+      name: 'check_data_freshness',
+      description:
+        'Check the freshness of the healthcare domain corpus. Returns built_at, last_source_check, days since each, and whether the dataset has exceeded the 45-day staleness threshold.',
+      inputSchema: {
+        type: 'object',
+        properties: {},
+      },
+      handler: (db, args) => checkDataFreshness(db, args),
     },
   ];
 }

@@ -1,6 +1,7 @@
 import type { SqlDatabase } from '../db.js';
 import { parseJsonArray } from '../db.js';
 import type { ClassifyMedicalDeviceInput, ToolError } from '../types.js';
+import { responseMeta } from './response-meta.js';
 
 type RuleRow = {
   rule_id: string;
@@ -103,6 +104,8 @@ export function classifyMedicalDevice(
     return {
       error: 'description must be provided and include intended clinical function',
       hint: 'Include who uses the product, whether it drives diagnosis/therapy, and whether outputs are patient-specific.',
+      _error_type: 'invalid_input',
+      ...responseMeta(),
     };
   }
 
@@ -343,5 +346,6 @@ export function classifyMedicalDevice(
       US: ['US_Regulations_MCP:FDA_524B', 'US-law-mcp:medical_device_state_overlays'],
       EU: ['EU_Regulations_MCP:MDR_IVDR', 'EU_Regulations_MCP:AI_ACT'],
     },
+    ...responseMeta(),
   };
 }

@@ -6,6 +6,7 @@ import {
   queryUpstream,
   type UpstreamKind,
 } from '../integrations/upstream_router.js';
+import { responseMeta } from './response-meta.js';
 
 function deriveRouteRefs(
   db: SqlDatabase,
@@ -95,5 +96,6 @@ export async function resolveAuthoritativeContext(
       'Treat upstream result payloads as authoritative only if citations and effective dates are present.',
       'Fallback to route-only mode when endpoint configuration is missing.',
     ],
+    ...responseMeta(),
   };
 }

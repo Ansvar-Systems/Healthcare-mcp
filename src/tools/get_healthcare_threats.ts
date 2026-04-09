@@ -1,6 +1,7 @@
 import type { SqlDatabase } from '../db.js';
 import { parseJsonArray } from '../db.js';
 import type { GetHealthcareThreatsInput, ToolError } from '../types.js';
+import { responseMeta } from './response-meta.js';
 
 type ThreatRow = {
   threat_id: string;
@@ -154,6 +155,8 @@ export function getHealthcareThreats(
       return {
         error: 'query must contain searchable text after sanitization',
         hint: 'Use plain words and avoid raw FTS operators.',
+        _error_type: 'invalid_input',
+        ...responseMeta(),
       };
     }
 
@@ -271,7 +274,14 @@ export function getHealthcareThreats(
       detail_level: detailLevel,
     },
     scope_status: filtered.length > 0 ? 'in_scope' : 'not_indexed',
-    threats: fullThreats,
+    threats: fullThreats.map((threat) => ({
+      ...threat,
+      _citation: {
+        canonical_ref: `healthcare-mcp:threat/${threat.threat_id}`,
+        display_text: threat.name,
+        lookup: `get_healthcare_threats?threat_id=${threat.threat_id}`,
+      },
+    })),
     mitre_mapping: filtered.map((threat) => ({
       threat_id: threat.threat_id,
       techniques: threat.mitre_tactics,
@@ -285,5 +295,6 @@ export function getHealthcareThreats(
     },
     note:
       'Threats include healthcare context, ATT&CK tactics/techniques, detection indicators, and response playbooks with regulation/control routing references.',
+    ...responseMeta(),
   };
 }

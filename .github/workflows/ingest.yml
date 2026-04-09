@@ -1,0 +1,35 @@
+name: Ingest
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 5 * * 1'
+
+concurrency:
+  group: healthcare-mcp-ingest-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  ingest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - run: npm ci --ignore-scripts
+
+      - name: Build database from seed data
+        run: npm run build:db
+
+      - name: Verify database integrity (drift check)
+        run: npm run drift:verify
+
+      - name: Report freshness status
+        run: |
+          echo "Healthcare MCP uses a frozen corpus — no new content is ingested automatically."
+          echo "This workflow validates DB integrity and confirms seed data is unchanged."
+          echo "To update the corpus, update seed files in data/seed/ and re-run build:db."
+        shell: bash
